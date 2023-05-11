@@ -20,7 +20,7 @@
 > 
 > 3. 见名知意
 
-数据类型:
+#### 数据类型:
 
 | 类型名       | 类型说明                                                                        | 类型示例                       |
 | --------- | --------------------------------------------------------------------------- | -------------------------- |
@@ -34,7 +34,7 @@
 
 *特别地，`JavaScript`能够动态定义数据类型，且在实践中，能够随意改变变量的数据类型*
 
-声明类型:
+#### 声明类型:
 
 | 声明名   | 声明说明                | 声明示例              |
 | ----- | ------------------- | ----------------- |
@@ -43,8 +43,77 @@
 | var   | ES5的声明方式,遗弃状态，不推荐使用 | `var age = 19;`   |
 | 不声明   | 拒绝如此                | `age = 18;`       |
 
-运算符:
+#### 运算符:
 
 - 算术类型:`+ - * / += -= ** ++ --`
 
 - 比较类型:`> < >= <=`
+
+#### 挑战一.BMI
+
+```js
+// Coding Challenge #1
+
+/*
+Mark and John are trying to compare their BMI (Body Mass Index), which is calculated using the formula: BMI = mass / height ** 2 = mass / (height * height). (mass in kg and height in meter).
+
+1. Store Mark's and John's mass and height in variables
+2. Calculate both their BMIs using the formula (you can even implement both versions)
+3. Create a boolean variable 'markHigherBMI' containing information about whether Mark has a higher BMI than John.
+
+TEST DATA 1: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.95 m tall.
+TEST DATA 2: Marks weights 95 kg and is 1.88 m tall. John weights 85 kg and is 1.76 m tall.
+
+GOOD LUCK 😀
+*/
+// 数据一
+// let MarksWeight = 78;
+// let MarksHeight = 1.69;
+//
+// let JohnWeight = 92;
+// let JohnHeight = 1.95;
+// 数据二
+let MarksWeight = 95;
+let MarksHeight = 1.88;
+
+let JohnWeight = 85;
+let JohnHeight = 1.76;
+
+let MarksBMI = MarksWeight / (MarksHeight ** 2);
+let JohnBMI = JohnWeight / (JohnHeight ** 2);
+
+let markHigherBM = MarksBMI > JohnBMI;
+
+console.log("MarksWeight: "+MarksWeight+"kg, MarksHeight: "+MarksHeight+"m");
+console.log("MarksBMI: "+MarksBMI);
+console.log("JohnWeight: "+JohnWeight+"kg, JohnHeight: "+JohnHeight+"m");
+console.log("JohnBMI: "+JohnBMI);
+console.log("markHigherBMI: "+markHigherBM);
+```
+
+#### 模板符号
+
+内容:来自于ES6,更方便的字符串生成方式
+
+符号:`反引号`
+
+优点:
+
+1. 更方便地接入变量
+
+2. 更友好地接入换行
+
+示例:
+
+```js
+const wholeInfo = "I'm "+firstName+", a "+(nowYear - birthYear)+" years old "+job;
+console.log(wholeInfo);
+const newWholeInfo = `I'm ${firstName}, a ${nowYear - birthYear} years old ${job}`;
+console.log(newWholeInfo);
+```
+
+#### 控制结构(IF,else,else if)
+
+内容:`if(表达式){}`
+
+说明:代码块的内容无法相互访问，同时也不能够提供给外部进行使用
