@@ -117,3 +117,47 @@ console.log(newWholeInfo);
 内容:`if(表达式){}`
 
 说明:代码块的内容无法相互访问，同时也不能够提供给外部进行使用
+
+#### 挑战二 BMI plus
+
+```js
+// Coding Challenge #2
+
+/*
+Use the BMI example from Challenge #1, and the code you already wrote, and improve it:
+
+1. Print a nice output to the console, saying who has the higher BMI. The message can be either "Mark's BMI is higher than John's!" or "John's BMI is higher than Mark's!"
+2. Use a template literal to include the BMI values in the outputs. Example: "Mark's BMI (28.3) is higher than John's (23.9)!"
+
+HINT: Use an if/else statement 😉
+
+GOOD LUCK 😀
+*/
+let MarksWeight = 78;
+let MarksHeight = 1.69;
+
+let JohnWeight = 92;
+let JohnHeight = 1.95;
+// let MarksWeight = 95;
+// let MarksHeight = 1.88;
+//
+// let JohnWeight = 85;
+// let JohnHeight = 1.76;
+
+let MarksBMI = MarksWeight / (MarksHeight ** 2);
+let JohnBMI = JohnWeight / (JohnHeight ** 2);
+
+let markHigherBM = MarksBMI > JohnBMI;
+
+console.log("MarksWeight: "+MarksWeight+"kg, MarksHeight: "+MarksHeight+"m");
+console.log("MarksBMI: "+MarksBMI);
+console.log("JohnWeight: "+JohnWeight+"kg, JohnHeight: "+JohnHeight+"m");
+console.log("JohnBMI: "+JohnBMI);
+console.log("markHigherBMI: "+markHigherBM);
+
+if(markHigherBM){
+    console.log(`Mark's BMI (${MarksBMI}) is higher than John's (${JohnBMI})!`)
+}else{
+    console.log(`John's (${JohnBMI}) is higher than Mark's BMI (${MarksBMI})!`)
+}
+```
