@@ -216,6 +216,7 @@ TEST DATA BONUS 2: Dolphins score 97, 112 and 101. Koalas score 109, 95 and 106
 
 GOOD LUCK 😀
 */
+/*
 const DolphinsAverage = (96+108+89)/3;
 const KoalasAverage = (88+91+110)/3;
 
@@ -254,4 +255,53 @@ if(DolphinsAverage2>KoalasAverage2 && DolphinsAverage2>=100){
     console.log("BONUS 2,The champion is Koalas!🏆");
 }else{
     console.log("BONUS 2,No one can get the champion.😭");
+}
+*/
+
+const day = "Thursday";
+
+switch (day) {
+    case "Monday":
+        console.log("I want to read a book about life.");
+        break;
+    case "Tuesday":
+        console.log("I need to swim with my wife.");
+        break;
+    case "Wednesday":
+        console.log("I should clean my house.");
+        console.log("Take care my heart.");
+        break;
+    case "Thursday":
+        console.log("Great day!");
+        break;
+    case "Friday":
+        console.log("Great day!");
+        break;
+    case "Saturday":
+        console.log("Great day!");
+        break;
+    case "Sunday":
+        console.log("Great day!");
+        break;
+    default:
+        console.log("We can do it!");
+}
+
+if (day === "Monday") {
+    console.log("I want to read a book about life.");
+} else if (day === "Tuesday") {
+    console.log("I need to swim with my wife.");
+} else if (day === "Wednesday") {
+    console.log("I should clean my house.");
+    console.log("Take care my heart.");
+} else if (day === "Thursday") {
+    console.log("Great day!");
+} else if (day === "Friday") {
+    console.log("Great day!");
+} else if (day === "Saturday") {
+    console.log("Great day!");
+} else if (day === "Sunday") {
+    console.log("Great day!");
+} else {
+    console.log("We can do it!");
 }

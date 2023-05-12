@@ -279,3 +279,23 @@ if(DolphinsAverage2>KoalasAverage2 && DolphinsAverage2>=100){
     console.log("BONUS 2,No one can get the champion.😭");
 }
 ```
+
+#### 控制结构(Switch)
+
+语法:
+
+```js
+switch(data){
+    case one:
+        //内容
+        break;
+    case two:
+        //内容
+        break;
+    ...
+    default:
+        //内容
+}
+```
+
+> tips:现在基本上使用if控制结构，特定场景下，switch依然有用武之地
