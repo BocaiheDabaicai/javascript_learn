@@ -183,3 +183,16 @@ if(markHigherBM){
     console.log(`John's (${JohnBMI}) is higher than Mark's BMI (${MarksBMI})!`)
 }
 */
+
+const yearNumber = "1991";
+console.log(yearNumber+18);
+console.log(Number(yearNumber),18);
+console.log(Number("Bob"));
+console.log(typeof NaN);
+
+let money;
+if(money){
+    console.log(`YaY! I have much money.`);
+}else{
+    console.log(`I haven't money. :|`);
+}
