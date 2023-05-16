@@ -258,6 +258,7 @@ if(DolphinsAverage2>KoalasAverage2 && DolphinsAverage2>=100){
 }
 */
 
+/* Switch
 const day = "Thursday";
 
 switch (day) {
@@ -304,4 +305,35 @@ if (day === "Monday") {
     console.log("Great day!");
 } else {
     console.log("We can do it!");
+}*/
+/* 三元运算符
+const age = 19;
+age > 18 ? console.log("The boy can drink wine 🎈") :
+    console.log("The boy can't drink wine , because of his age.🌳");
+*/
+
+// Coding Challenge #4
+
+/*
+Steven wants to build a very simple tip calculator for whenever he goes eating in a resturant. In his country, it's usual to tip 15% if the bill value is between 50 and 300. If the value is different, the tip is 20%.
+
+1. Your task is to caluclate the tip, depending on the bill value. Create a variable called 'tip' for this. It's not allowed to use an if/else statement 😅 (If it's easier for you, you can start with an if/else statement, and then try to convert it to a ternary operator!)
+2. Print a string to the console containing the bill value, the tip, and the final value (bill + tip). Example: 'The bill was 275, the tip was 41.25, and the total value 316.25'
+
+TEST DATA: Test for bill values 275, 40 and 430
+
+GOOD LUCK 😀
+*/
+/* if结构实现
+const bill = 430;
+let tip = 0;
+if( bill>=50 && bill<=300 ){
+    tip = bill*0.15;
+}else{
+    tip = bill*0.2;
 }
+console.log(`The bill is ${bill},and the tips is ${tip},so the total is ${bill+tip}`);*/
+/* 三元运算符实现
+const bill = 430;
+const tips = bill>=50&&bill<=300?bill*0.15:bill*0.2;
+console.log(`The bill is ${bill},and the tip is ${tips},so the total is ${tips+bill}`);*/
