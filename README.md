@@ -416,3 +416,71 @@ console.log(juice);
 > 意义:
 > 
 >     使用函数帮助我们完成重复性的事情
+
+函数定义方式
+
+1. 直接声明
+
+```js
+function calcAge(birthYear){
+    return 2037 - birthYear;
+}
+
+console.log("Function: ",calcAge(1999));
+```
+
+> tips:
+> 
+>     存在变量提升情况,即**声明函数前可以调用**
+
+2.变量声明
+
+```js
+const ageFun = function (birthYear){
+    return 2037 - birthYear;
+}
+
+console.log("const ageFun: ",ageFun(1999))
+```
+
+> tips:
+> 
+>     不存在变量提升情况
+
+3.箭头函数
+
+目前自认为是最舒适的声明方式
+
+```js
+// 简便方式
+const ageFun2 = birthYear => 2037 - birthYear;
+
+console.log("Arrow fun",ageFun2(1999));
+
+
+// 完整形式
+const ageFun3 = (birthYear,useName) => {
+    const retiredAge = 65 - (2037 - birthYear);
+    return `After ${retiredAge} age , ${useName} can enjoy his life.
+`;
+}
+console.log(ageFun3(1999,"Liu"));
+```
+
+4.函数调用函数
+
+```js
+function cutFruit(fruit){
+    return fruit * 4;
+}
+
+function products(apples,oranges){
+    const applesPiece = cutFruit(apples);
+    const orangesPiece = cutFruit(oranges);
+    const juice = `The juice have ${applesPiece} piece of apples and ${orangesPiece} piece of oranges.`;
+    return juice;
+}
+
+let juice = products(3,4);
+console.log(juice);
+```
