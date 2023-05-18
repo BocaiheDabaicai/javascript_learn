@@ -358,10 +358,7 @@ console.log(`The bill is ${bill},and the tips is ${tip},so the total is ${bill+t
 const bill = 430;
 const tips = bill>=50&&bill<=300?bill*0.15:bill*0.2;
 console.log(`The bill is ${bill},and the tip is ${tips},so the total is ${tips+bill}`);*/
-
 ```
-
-
 
 ---
 
@@ -470,6 +467,7 @@ console.log(ageFun3(1999,"Liu"));
 4.函数调用函数
 
 ```js
+// 水果切片
 function cutFruit(fruit){
     return fruit * 4;
 }
@@ -483,4 +481,29 @@ function products(apples,oranges){
 
 let juice = products(3,4);
 console.log(juice);
+
+// 退休判断
+const calcAge = function (birthYear) {
+    return 2037 - birthYear;
+}
+
+const retiredYear = function (birthYear,firstName){
+    const age = calcAge(birthYear);
+    const retirement = 65 -age;
+
+    if (retirement>0){
+        return `${firstName} retires in ${retirement} years.`;
+    } else {
+        return `${firstName} is already retired 🎉`;
+    }
+}
+
+console.log(retiredYear(1999,"Liu"));
+console.log(retiredYear(1955,"Wu"));
+```
+
+#### 挑战一 海豚和考拉
+
+```js
+
 ```
