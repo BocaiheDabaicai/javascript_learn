@@ -207,3 +207,18 @@ const Person = {
 }
 
 console.log(Person);
+console.log(Person.firstName);
+console.log(Person["firstName"]);
+
+const name = "Name";
+console.log(Person["first"+name]);
+console.log(Person["Last"+name]);
+
+// const promptMessage = prompt("You can try to input firstName,lastName,age,job,friends");
+// console.log(Person[promptMessage]);
+
+Person.location = "BeiKing";
+Person['twitter'] = "@wwuy776";
+
+console.log(Person);
+console.log(`${Person.firstName} has ${Person.friends.length} friends, and his best friend is called ${Person.friends[0]}.`);
