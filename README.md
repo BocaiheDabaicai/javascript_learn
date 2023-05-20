@@ -684,3 +684,51 @@ const Person = {
     friends:["Tom","Jerry","Steven"]
 }
 ```
+
+对象的函数声明以及使用
+
+```js
+const Person = {
+    firstName: "Bob",
+    LastName: "Oven",
+    birthYear: 1999,
+    job: "dasher",
+    friends: ["Tom", "Jerry", "Steven"],
+    hasLicense: true,
+
+    calcAge: function (birthYear) {  // 函数的基本声明，传参
+        return 2023 - birthYear;
+    },
+
+    calcAge2: function () {  // 函数调用对象属性
+        console.log(this);
+        return 2023 - this.birthYear;
+    },
+
+    calcAge3: function () {  // 函数调用对象属性，并添加`age`属性
+        this.age = 2023 - this.birthYear;
+        return this.age;
+    },
+
+    getSummary:function (){  // 返回字符串
+        return `${this.firstName} ${this.LastName} is a ${this.age}-year old ${this.job}, and he ${this.hasLicense?"has":"has not"} a driver's license.`;
+    }
+}
+
+// 两种对象函数的调用方式
+console.log(Person.calcAge(1999));
+console.log(Person["calcAge"](1999));
+
+console.log("-----------");
+console.log(Person);
+console.log(Person.calcAge2());
+
+console.log("-----------");
+console.log(Person.calcAge3())
+console.log(Person.age);
+console.log(Person.age);
+console.log(Person.age);
+
+console.log("-----------");
+console.log(Person.getSummary());
+```
