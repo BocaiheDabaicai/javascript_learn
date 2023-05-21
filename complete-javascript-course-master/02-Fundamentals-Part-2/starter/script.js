@@ -309,6 +309,7 @@ if (Marks.calcBMI() > John.calcBMI()){
 }
 */
 
+/* 数组的遍历(迭代)
 const array = [
     "Bob",
     "Tom",
@@ -356,4 +357,24 @@ for(let i = 0;i<array.length;i++){
     // array_types[i] = typeof array[i];
 
     array_types.push(typeof array[i]);
+}*/
+
+const array = [
+    "Bob",
+    "Tom",
+    2037 - 1999,
+    "dasher",
+    ["John", "Bruce", "Jack"],
+    true
+];
+
+for (let i = array.length - 1; i >= 0; i--) {
+    console.log(i, array[i], typeof array[i]);
+}
+
+for (let i = 0; i < 5; i++) {
+    console.log(`----Chapter ${i} 😊`);
+    for (let j = 0; j < 3; j++) {
+        console.log(`Part ${j} 😎`);
+    }
 }
