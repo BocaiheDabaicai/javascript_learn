@@ -776,3 +776,74 @@ if (Marks.calcBMI() > John.calcBMI()){
     console.log(`${John.fullName}'s (${John.BMI}) is higher than ${Marks.fullName}'s BMI (${Marks.BMI})!`)
 }
 ```
+
+#### 数组的遍历方法
+
+遍历方式一`for`
+
+说明:
+
+1. 声明控制变量
+
+2. 声明结束条件
+
+3. 设置控制变量的变化
+
+特别地,
+
+- `break`:直接跳出当前循环
+
+- `continue`:跳出当前代码块，执行下一轮循环
+
+示例如下:
+
+```js
+const array = [
+    "Bob",
+    "Tom",
+    2037-1999,
+    "dasher",
+    ["John","Bruce","Jack"],
+    true
+];
+const array_types = [];
+
+
+for(let i = 0;i<array.length;i++){
+    console.log(array[i],typeof array[i]);
+
+    // array_types[i] = typeof array[i];
+
+    array_types.push(typeof array[i]);
+}
+
+console.log(array_types);
+
+const years = [1991,1993,2000,1998];
+const age = [];
+
+for(let i = 0 ;i<years.length;i++){
+    age.push(2037-years[i]);
+}
+
+console.log("age: ",age);
+
+console.log("----------------continue:");
+for(let i = 0;i<array.length;i++){
+    if (typeof array[i] !== "string") continue;
+    console.log(array[i],typeof array[i]);
+
+    // array_types[i] = typeof array[i];
+
+    array_types.push(typeof array[i]);
+}
+console.log("----------------break:");
+for(let i = 0;i<array.length;i++){
+    if (typeof array[i] !== "string") break;
+    console.log(array[i],typeof array[i]);
+
+    // array_types[i] = typeof array[i];
+
+    array_types.push(typeof array[i]);
+}
+```

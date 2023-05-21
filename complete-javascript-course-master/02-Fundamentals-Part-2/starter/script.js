@@ -281,7 +281,7 @@ TEST DATA: Marks weights 78 kg and is 1.69 m tall. John weights 92 kg and is 1.9
 
 GOOD LUCK 😀
 */
-
+/*
 const Marks = {
     fullName:"Mark Miller",
     mass:78,
@@ -306,4 +306,54 @@ if (Marks.calcBMI() > John.calcBMI()){
     console.log(`Both of them are equal in BMI.😑`);
 }else{
     console.log(`${John.fullName}'s (${John.BMI}) is higher than ${Marks.fullName}'s BMI (${Marks.BMI})!`)
+}
+*/
+
+const array = [
+    "Bob",
+    "Tom",
+    2037-1999,
+    "dasher",
+    ["John","Bruce","Jack"],
+    true
+];
+const array_types = [];
+
+
+for(let i = 0;i<array.length;i++){
+    console.log(array[i],typeof array[i]);
+
+    // array_types[i] = typeof array[i];
+
+    array_types.push(typeof array[i]);
+}
+
+console.log(array_types);
+
+const years = [1991,1993,2000,1998];
+const age = [];
+
+for(let i = 0 ;i<years.length;i++){
+    age.push(2037-years[i]);
+}
+
+console.log("age: ",age);
+
+console.log("----------------continue:");
+for(let i = 0;i<array.length;i++){
+    if (typeof array[i] !== "string") continue;
+    console.log(array[i],typeof array[i]);
+
+    // array_types[i] = typeof array[i];
+
+    array_types.push(typeof array[i]);
+}
+console.log("----------------break:");
+for(let i = 0;i<array.length;i++){
+    if (typeof array[i] !== "string") break;
+    console.log(array[i],typeof array[i]);
+
+    // array_types[i] = typeof array[i];
+
+    array_types.push(typeof array[i]);
 }
