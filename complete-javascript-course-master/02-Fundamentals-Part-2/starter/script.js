@@ -418,6 +418,7 @@ HINT: Call calcTip in the loop and use the push method to add values to the tips
 GOOD LUCK 😀
 */
 
+/*
 const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
 const tips = [];
 const totals = [];
@@ -444,4 +445,4 @@ console.log(tips);
 console.log(totals);
 
 console.log(`----Average:`)
-console.log(calcAverage(totals));
+console.log(calcAverage(totals));*/
