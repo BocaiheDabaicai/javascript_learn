@@ -8,3 +8,5 @@ if (x === 12) {
 }
 
 const calcAge = birthday => 2037 - birthday;
+
+console.log(`I'm here!`);
