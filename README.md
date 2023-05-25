@@ -61,3 +61,31 @@
 > 3. 亲信`MDN`,`Edge`,`Google`,`StackOverFlow`
 > 
 > 4. 从原型对象上了解方法和属性也是一个不错的方向
+
+调式
+
+使用`shift+ctrl+i`调出开发者模式，在`source`找到执行的`javascript`脚本
+
+1. 点击行设置断点
+
+2. 右侧栏进行调试，调试内容有执行函数、下一步、暂停、停止
+
+> tips:
+> 
+> - Edge的开发者工具进行调试
+
+代码内容:
+
+```js
+// 控制台打印方式
+console.log();    // 字段打印
+console.warn();    // 警告打印
+console.error();    // 错误打印
+console.table();    // 表格打印
+```
+
+### 代码挑战一 天气打印
+
+```js
+
+```
