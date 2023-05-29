@@ -4,7 +4,9 @@
 
 ---
 
-## 第3章 项目：猜猜我的数字
+## 第3章
+
+### 项目一：猜猜我的数字
 
 #### 前置内容
 
@@ -117,3 +119,63 @@ document.querySelector(".again").addEventListener("click",function(){
 > 1. 可以继续实现得分为0时的失败信息
 > 
 > 2. 实现代码重构，将冗余的代码通过函数方法进行调用
+
+---
+
+### 项目二：模态框
+
+内容：实现一个模态框
+
+具体实现:
+
+1. 按钮触发遮盖层、模态框的显现
+
+2. 模态框的按钮触发隐藏遮盖层、模态框的显现
+
+3. 监听事件（遮盖层、模态框按钮、`ESC`）触发显现事件
+
+#### 页面截图
+
+1. 开始页面
+
+![开始页面](./complete-javascript-course-master/06-Modal/starter/pictures/1_start.png "开始页面")
+
+2. 模态框
+
+![模态框](./complete-javascript-course-master/06-Modal/starter/pictures/2_modal.png "模态框")
+
+代码如下:
+
+```js
+const modal = document.querySelector('.modal');    // 获取模态框
+const overlay = document.querySelector('.overlay'); // 获取遮盖层
+const btnCloseModal = document.querySelector('.close-modal');    // 关闭模态框
+const btnsOpenModal = document.querySelectorAll('.show-modal');    // 开启模态框
+
+const clickOpenListener = function () {
+    // modal.classList.remove("hidden","...")  删除多个类选择器语法
+    // 打开模态框、遮盖层
+    modal.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+}
+
+const clickCloseListener = function () {
+    // 关闭模态框、遮盖层
+    modal.classList.add("hidden");
+    overlay.classList.add("hidden");
+}
+
+for (let i = 0; i < btnsOpenModal.length; i++) {
+    // 按钮数组添加监听事件，打开模态框
+    btnsOpenModal[i].addEventListener("click", clickOpenListener);
+}
+
+// 模态框按钮添加监听事件，关闭模态框
+btnCloseModal.addEventListener("click", clickCloseListener);
+// 遮盖层按钮添加监听事件，关闭模态框
+overlay.addEventListener("click", clickCloseListener);
+// 键盘添加监听事件，关闭模态框
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && !modal.classList.contains("hidden")) clickCloseListener();
+});
+```
