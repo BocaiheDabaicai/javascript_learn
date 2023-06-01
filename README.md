@@ -139,3 +139,78 @@
 **作用域访问原则：内部作用域可以访问外部作用域**
 
 `var`变量声明不适用于块作用域，`let,const`适用
+
+注意点：
+
+1. 避免在不同作用域下声明同名变量
+
+2. 避免在块作用域下声明函数
+
+3. 编码逻辑规划有序，避免杂乱不堪
+
+4. 开启严格模式
+
+避免出现下列示例：
+
+![错误示例](./complete-javascript-course-master/08-Behind-the-Scenes/pictures/4_terribleSituation.png)
+
+#### 3.变量提升
+
+说明：使变量在未声明之前进行引用，并得到正确的效果
+
+| Name       | 变量提升 | 未声明值      | 范围                 |
+| ---------- | ---- | --------- | ------------------ |
+| 函数声明       | 可实现  | 整个函数      | 块作用域(strice mode)  |
+| var        | 可实现  | undefined | 函数作用域              |
+| let，const  | 不可实现 | 产生错误      | 块作用域               |
+| 函数表达式，箭头函数 | -    | -         | 由var 或 let,const决定 |
+
+补充：
+
+1. 函数形式
+
+```js
+// 函数声明
+function add1(){
+    
+}
+// 函数表达式
+const add2 = function(){
+    
+}
+// 箭头函数
+const add3 = () => {
+    
+}
+```
+
+2. var变量
+
+在被定义之后，在浏览器中，会被保存在`window`对象中
+
+#### 4.this关键字
+
+内容：在当前作用域下，对自己的引用。
+
+示例：
+
+```js
+// 函数
+function calcAge(birthYear){
+    console.log(this);    // undefined
+}
+const calcAge1 = function(birthYear){
+    console.log(this);    // undefined
+}
+const calcAge2 = (birthYear) => {
+    console.log(this);    // window对象
+}
+
+// 对象
+const Bobby = {
+    year:1991,
+    calcAge:function(){
+        console.log(this);    // Bobby对象
+    }
+}
+```
