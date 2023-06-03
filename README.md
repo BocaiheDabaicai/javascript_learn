@@ -249,3 +249,35 @@ object3.getChar1();
 - `arguments`关键字，获取到传入函数的所有参数
 
 常规函数可以使用，而箭头函数无法使用
+
+#### 6.原始类型与引用类型
+
+回顾：
+
+原始类型有`string`,`number`,`boolean`,`undefined`,`null`,`symbol`,`bigint`
+
+引用类型有`function`,`array`,`object`等等
+
+- 原始类型
+
+数据会存放在栈中
+
+变量名指向物理地址
+
+物理地址保存数值
+
+**多个变量名同时指向一个地址时，若当前变量名修改值，会生成一个新的存储地址**
+
+- 引用类型
+
+数据会存放在堆中，数据引用存放在栈中
+
+变量名指向栈中的物理地址
+
+栈中的物理地址保存堆引用
+
+**多个变量名共享同一个堆栈**
+
+说明图如下：
+
+![原始类型与引用类型](./complete-javascript-course-master/08-Behind-the-Scenes/pictures/5_primitiveAndReference.png)
