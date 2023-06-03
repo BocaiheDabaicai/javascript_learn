@@ -172,15 +172,15 @@
 ```js
 // 函数声明
 function add1(){
-    
+
 }
 // 函数表达式
 const add2 = function(){
-    
+
 }
 // 箭头函数
 const add3 = () => {
-    
+
 }
 ```
 
@@ -214,3 +214,38 @@ const Bobby = {
     }
 }
 ```
+
+#### 5.常规函数与箭头函数
+
+- 箭头函数的`this`指向`window`对象
+- 在对象中，嵌套的常规函数，只有**第一层的函数**能够拿到对象的引用
+
+示例代码:
+
+```js
+const object3 = {
+    name: "Bob",
+    getChar1:function(){
+        console.log(`getChar1: `,this);
+
+        function getChar2(){
+            console.log(`getChar2: `,this);
+
+            function getChar3(){
+                console.log(`getChar3: `,this);
+            }
+            getChar3();
+        }
+        getChar2();
+    }
+}
+object3.getChar1();
+
+// getChar1:  {name: 'Bob', getName: ƒ, getChar1: ƒ}
+// getChar2:  undefined
+// getChar3:  undefined
+```
+
+- `arguments`关键字，获取到传入函数的所有参数
+
+常规函数可以使用，而箭头函数无法使用
