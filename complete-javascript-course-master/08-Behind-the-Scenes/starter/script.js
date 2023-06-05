@@ -70,17 +70,19 @@ const object3 = {
     getName: () => {
         console.log(`Hello ${this.name}`);
     },
-    getChar1:function(){
-        console.log(`getChar1: `,this);
+    getChar1: function () {
+        console.log(`getChar1: `, this);
 
-        function getChar2(){
-            console.log(`getChar2: `,this);
+        function getChar2() {
+            console.log(`getChar2: `, this);
 
-            function getChar3(){
-                console.log(`getChar3: `,this);
+            function getChar3() {
+                console.log(`getChar3: `, this);
             }
+
             getChar3();
         }
+
         getChar2();
     }
 }
@@ -89,9 +91,32 @@ object3.getChar1();
 
 object3.getName();
 
-const object4 = function(a,b){
+const object4 = function (a, b) {
     console.log(arguments);
-    return a+b;
+    return a + b;
 }
-console.log(object4(1,2));
-console.log(object4(1,2,3,4));
+console.log(object4(1, 2));
+console.log(object4(1, 2, 3, 4));
+
+// practice
+let lastName = `Williams`;
+let oldLastName = lastName;
+oldLastName = `Davis`;
+
+console.log(lastName, oldLastName);
+
+const personList = {
+    firstName:`Bob`,
+    lastName:`Tom`,
+    age:23
+}
+
+const personList2 = personList;
+personList2.firstName = `Jerry`;
+console.log(`personList`,personList);
+console.log(`personList2`,personList2);
+
+const personList3 = Object.assign({},personList2);  // Object.assign 方法仅适用于第一层深拷贝
+personList3.firstName = `mayor`;
+console.log(`personList2`,personList2);
+console.log(`personList3`,personList3);
