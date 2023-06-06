@@ -29,10 +29,18 @@ const restaurant = {
 
     order: function (startMenuIndex, mainMenuIndex) {
         return [this.starterMenu[startMenuIndex], this.mainMenu[mainMenuIndex]];
+    },
+
+    orderDelivery:function(obj) {
+        console.log(obj);
+    },
+
+    orderDelivery2:function({time, address, mainIndex, starterIndex}) {
+        console.log(`Order receive! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}. `);
     }
 };
 
-
+/* 数组解构
 const arr = [1, 2, 3];
 const a1 = arr[0];
 const a2 = arr[1];
@@ -59,4 +67,49 @@ const [i ,, [j,k]] = nested;
 console.log(i,j,k);
 
 const [q,w,e,r=1] = [1,2,3];
-console.log(q,w,e,r);// 默认值为 undefined
+console.log(q,w,e,r);// 默认值为 undefined*/
+/* 对象解构
+const {name,openingHours,categories} = restaurant;
+console.log(name,openingHours,categories);
+
+const {
+    name:hotelName,
+    openingHours:hotelOpeningHouse,
+    categories:hotelCategories
+} = restaurant
+console.log(hotelName,hotelOpeningHouse,hotelCategories);
+
+const {
+    menu = [],
+    starterMenu = []
+} = restaurant
+console.log(menu,starterMenu);
+
+let a = 12;
+let b = 13;
+const obj = {a:111,b:222};
+({a,b}=obj);
+console.log(a,b);
+
+const {
+    fri:{
+        open:o,
+        close:cl
+    }
+} = openingHours;
+
+console.log(o,cl);
+
+restaurant.orderDelivery({
+    time:`10:22`,
+    address:`China`,
+    mainIndex:2,
+    starterIndex:1
+})
+
+restaurant.orderDelivery2({
+    time:`10:22`,
+    address:`China`,
+    mainIndex:2,
+    starterIndex:1
+})*/
