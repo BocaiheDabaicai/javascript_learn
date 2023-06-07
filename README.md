@@ -104,3 +104,67 @@ restaurant.orderDelivery2({
     starterIndex:1
 })
 ```
+
+#### 3.扩展运算符
+
+内容如下:
+
+```js
+// 一般的数组赋值方式
+const array = [2, 5, 7];
+const arr = [1, 3, array[0], array[1], array[2]];
+
+console.log(arr);
+
+// 使用扩展运算符
+const arr2 = [1, 3, ...array];
+
+console.log(arr2);
+console.log(...arr2);
+
+const newMenu = [...restaurant.mainMenu,`Gnni c`];
+
+console.log(newMenu);
+
+// 使用扩展运算符，实现深拷贝
+const newMenuCopy = [...newMenu];
+newMenuCopy[0] = `waterMelon`;
+
+console.log(newMenuCopy);
+
+// 数组合并
+const joinArray = [...restaurant.starterMenu,...restaurant.mainMenu];
+
+console.log(joinArray);
+
+// 字符串使用扩展运算符
+const name = `JoJoby`;
+const strArray = [...name,` `,`S.`];
+
+console.log(strArray);
+
+// 浏览器输入数据，使用扩展运算符
+const details = [
+    prompt(`Let's make a pizza,Ingredients 1?`),
+    prompt(`Ingredients 2?`),
+    prompt(`Ingredients 3?`),
+]
+
+console.log(details);
+console.log(...details);
+
+restaurant.orderPasta(details[0],details[1],details[2]);
+restaurant.orderPasta(...details);
+
+// 对象使用扩展运算符
+const objectRest = {founded:1999,base:`ChongQing`,...restaurant};
+
+console.log(objectRest);
+
+// 扩展运算符实现对象的深拷贝
+const objectRestCopy = {...objectRest};
+objectRestCopy.base = `YaLaSuo`;
+
+console.log(objectRestCopy.base);
+console.log(objectRest.base);
+```

@@ -31,13 +31,19 @@ const restaurant = {
         return [this.starterMenu[startMenuIndex], this.mainMenu[mainMenuIndex]];
     },
 
-    orderDelivery:function(obj) {
+    orderDelivery: function (obj) {
         console.log(obj);
     },
 
-    orderDelivery2:function({time, address, mainIndex, starterIndex}) {
+    orderDelivery2: function ({time, address, mainIndex, starterIndex}) {
         console.log(`Order receive! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}. `);
-    }
+    },
+
+    orderPasta(ing1, ing2, ing3) {
+        console.log(
+            `Here is your declicious pasta with ${ing1}, ${ing2} and ${ing3}`
+        );
+    },
 };
 
 /* 数组解构
@@ -113,3 +119,53 @@ restaurant.orderDelivery2({
     mainIndex:2,
     starterIndex:1
 })*/
+/* 扩展运算符
+const array = [2, 5, 7];
+const arr = [1, 3, array[0], array[1], array[2]];
+
+console.log(arr);
+
+const arr2 = [1, 3, ...array];
+
+console.log(arr2);
+console.log(...arr2);
+
+const newMenu = [...restaurant.mainMenu,`Gnni c`];
+
+console.log(newMenu);
+
+const newMenuCopy = [...newMenu];
+newMenuCopy[0] = `waterMelon`;
+
+console.log(newMenuCopy);
+
+const joinArray = [...restaurant.starterMenu,...restaurant.mainMenu];
+
+console.log(joinArray);
+
+const name = `JoJoby`;
+const strArray = [...name,` `,`S.`];
+
+console.log(strArray);
+
+const details = [
+    prompt(`Let's make a pizza,Ingredients 1?`),
+    prompt(`Ingredients 2?`),
+    prompt(`Ingredients 3?`),
+]
+
+console.log(details);
+console.log(...details);
+
+restaurant.orderPasta(details[0],details[1],details[2]);
+restaurant.orderPasta(...details);
+
+const objectRest = {founded:1999,base:`ChongQing`,...restaurant};
+
+console.log(objectRest);
+
+const objectRestCopy = {...objectRest};
+objectRestCopy.base = `YaLaSuo`;
+
+console.log(objectRestCopy.base);
+console.log(objectRest.base);*/
