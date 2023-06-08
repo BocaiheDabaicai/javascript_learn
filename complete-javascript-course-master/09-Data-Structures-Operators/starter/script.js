@@ -11,6 +11,7 @@ const restaurant = {
     categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
     starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
     mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+    numGuests:23,
 
     openingHours: {
         thu: {
@@ -44,6 +45,11 @@ const restaurant = {
             `Here is your declicious pasta with ${ing1}, ${ing2} and ${ing3}`
         );
     },
+
+    orderPizza: function (mainIngradient, ...otherIngradient) {
+        console.log(mainIngradient);
+        console.log(otherIngradient);
+    }
 };
 
 /* 数组解构
@@ -169,3 +175,82 @@ objectRestCopy.base = `YaLaSuo`;
 
 console.log(objectRestCopy.base);
 console.log(objectRest.base);*/
+/* 扩展运算符打包
+const arr = [1,2,...[4,5,6]];
+
+const [a,b,...other] = arr;
+
+console.log(a,b,other);
+
+const [pizza,risotto,...otherFood] = [...restaurant.mainMenu,...restaurant.starterMenu];
+
+console.log(pizza,risotto,otherFood);
+
+const {sat,...weekdays} = restaurant.openingHours;
+
+console.log(sat,weekdays);
+
+function printWeather(...weather){
+    console.log(weather);
+}
+printWeather(1,2,3,4,5);
+
+restaurant.orderPizza(`apple`,`banana`,`cripple`,`drinking`,`ease`,`flower`,`group`);
+*/
+/* and,or运算符
+console.log(3 || `Bob`);
+console.log('' || 'Bob');
+console.log(true || 0);
+console.log(undefined || null);
+console.log(undefined || 0 || '' || 'Hello' || 23 || null);
+
+const guests1 = restaurant.numGuests ? restaurant.numGuests : 10;
+console.log(guests1);
+
+const guests2 = restaurant.numGuests ||  10;
+console.log(guests2);
+
+console.log(`---AND---`);
+
+console.log(0 && 'Bob');
+console.log(7 && 'Bob');
+console.log('Hello' && 23 && null && 'Bob');
+
+if(restaurant.orderPizza){
+    restaurant.orderPizza('mushrooms','spinach');
+}
+restaurant.orderPizza && restaurant.orderPizza('mushrooms','spinach');*/
+/* ?? 空值合并运算符
+let a = 5;
+console.log(a || 10);
+console.log(a ?? 10);
+
+console.log(`a=0`);
+
+a = 0;
+console.log(a || 10);
+console.log(a ?? 10);*/
+
+const rest1 = {
+    name:'Bob',
+    numGuests:12
+}
+
+const rest2 = {
+    name:'FireFox',
+    owner:'Grooyy'
+}
+
+// rest1.numGuests = rest1.numGuests || 10;
+// rest2.numGuests = rest2.numGuests || 10;
+// rest1.numGuests ||= 10;
+// rest2.numGuests ||= 10;
+
+// rest1.numGuests ??= 10;
+// rest2.numGuests ??= 10;
+
+rest1.owner &&= '<Apple>';
+rest2.owner &&= '<Apple>';
+
+console.log(rest1);
+console.log(rest2);
