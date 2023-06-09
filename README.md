@@ -415,5 +415,76 @@ for( const [index,item] of menu.entries()){
 示例如下:
 
 ```js
+const name = {
+    man: ['Bob', 'Jack'],
+    woman: ['Jassiy', 'Mooly']
+}
 
+const time = [10, 12, 18];
+
+const object = {
+    name,
+    getName() {
+        console.log(...this.name.man);
+        console.log(...this.name.woman);
+    },
+    thing: {
+        [time[0]]: {
+            job: 'writter',
+            money: 12
+        },
+        [time[1]]: {
+            job: 'painter',
+            money: 5
+        },
+        [time[2]]: {
+            job: 'guard',
+            money: 24
+        },
+        [`job-${time[2]}`]: {
+            job: 'sleep',
+            money: 500
+        },
+    }
+}
+
+console.log(object);
+object.getName();
+```
+
+#### 10.可选链运算符(?.)
+
+作用: 用于判断符号后的内容是否存在，若存在则返回，若不存在则返回`undefined`
+
+内容如下:
+
+```js
+// 对象的链式判断
+console.log(restaurant.openingHours.mon?.open);
+console.log(restaurant.openingHours?.fri?.open);
+
+// 搭配循环进行链式判断
+const days = ['mon','wen','thu','tur','fri','sat','sun'];
+for (const day of days){
+    const open = restaurant.openingHours[day]?.open ?? 'closed';
+    console.log(`at ${day},we open at ${open}`);
+}
+
+// 函数的链式判断，结合空值合并运算符
+console.log(restaurant.order?.(0,1) ?? 'Method is not found.');
+console.log(restaurant.ordered?.(0,1) ?? 'Method is not found.');
+
+// 数组对象进行链式判断
+const person = [{
+    name:'Bob',
+    email:'email@qq.com'
+}]
+
+console.log(person[0]?.name ?? 'have not the name.');
+
+if (person.length !== 0){
+    console.log(person[0].name);
+}else{
+    console.log('not the name.')
+}
 ```

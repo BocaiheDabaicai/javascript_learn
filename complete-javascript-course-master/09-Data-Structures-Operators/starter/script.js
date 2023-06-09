@@ -391,3 +391,34 @@ const object = {
 
 console.log(object);
 object.getName();*/
+/* 可选链运算符
+console.log(restaurant.openingHours.mon?.open);
+console.log(restaurant.openingHours?.fri?.open);
+
+const days = ['mon','wen','thu','tur','fri','sat','sun'];
+for (const day of days){
+    const open = restaurant.openingHours[day]?.open ?? 'closed';
+    console.log(`at ${day},we open at ${open}`);
+}
+
+console.log(restaurant.order?.(0,1) ?? 'Method is not found.');
+console.log(restaurant.ordered?.(0,1) ?? 'Method is not found.');
+
+const person = [{
+    name:'Bob',
+    email:'email@qq.com'
+}]
+
+console.log(person[0]?.name ?? 'have not the name.');
+
+if (person.length !== 0){
+    console.log(person[0].name);
+}else{
+    console.log('not the name.')
+}*/
+
+const properties = Object.keys(restaurant.openingHours);
+console.log(properties);
+
+const values = Object.values(restaurant.openingHours);
+console.log(values);
