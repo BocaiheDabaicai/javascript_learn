@@ -488,3 +488,231 @@ if (person.length !== 0){
     console.log('not the name.')
 }
 ```
+
+#### 11.获取键名、键值，生成键值对数组，以及应用
+
+```js
+// 生成键名
+const properties = Object.keys(restaurant.openingHours);
+console.log(properties);
+
+let openStr = `We can open on ${properties.length} days:`;
+for(const day of properties){
+    openStr += `${day}, `;
+}
+console.log(openStr);
+
+// 生成键值
+const values = Object.values(restaurant.openingHours);
+console.log(values);
+
+// 生成键值对数组
+const entries = Object.entries(restaurant.openingHours);
+console.log(entries);
+
+// 键值对应用
+for (const [key,{open,close}] of entries){
+    console.log(`On ${key}, we can open at ${open},and close at ${close}`);
+```
+
+#### 挑战二 足球比赛2
+
+```js
+///////////////////////////////////////
+// Coding Challenge #2
+
+/*
+Let's continue with our football betting app!
+
+1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+      Odd of victory Bayern Munich: 1.33
+      Odd of draw: 3.25
+      Odd of victory Borrussia Dortmund: 6.5
+Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+
+BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+      {
+        Gnarby: 1,
+        Hummels: 1,
+        Lewandowski: 2
+      }
+
+GOOD LUCK 😀
+*/
+
+const loopScored = Object.entries(game.scored);
+// console.log(loopScored);
+for(const [key,value] of loopScored){
+    console.log(`Goal ${key}: ${value}`);
+}
+
+const valueOdds = Object.values(game.odds);
+// console.log(valueOdds);
+let sum = 0;
+for(const value of valueOdds){
+    sum += value;
+}
+console.log(`average is : `,sum/valueOdds.length);
+
+const loopOdds = Object.entries(game.odds);
+console.log(loopOdds);
+for(const [name,value] of loopOdds){
+    console.log(`Odd of ${name !== 'x'?`Victory ${game[name]}`:`draw`}: ${value}`);
+} //数组计数，并生成计数数组
+
+const valueScored = Object.values(game.scored);
+console.log(valueScored);
+
+const scorers = {};
+for(const value of valueScored){
+    scorers[value] = scorers[value] ? scorers[value]+1 : 1;
+} // 实现对象生成与赋值
+console.log(scorers);
+```
+
+#### 12. Set集合
+
+ES6之后诞生的一种数据结构，用于存放独一无二的数据。
+
+内容:
+
+1. 接收`string`数据、`array`数据
+
+2. 在`set`集合中，会去掉相同的值，使数据以独一无二的形式呈现
+
+3. 支持循环迭代、解构
+
+4. `set`集合集成`has,add,delete,size`等等方法
+
+示例如下:
+
+```js
+// 生成set集合
+const set = new Set(['Bob','Jimmy','Jack','Jimmy','Jack']);
+
+console.log(set);
+console.log(new Set('LeBea'));
+
+console.log(set.size);
+// 判断值是否存在
+console.log(set.has('Jimmy'));
+console.log(set.has('Quiede'));
+
+// 添加与删除
+set.add('Quiede');
+set.add('James');
+set.delete('James');
+
+console.log(set);
+
+// 循环迭代
+for(const name of set) console.log(name);
+
+// 解构为新数组
+const staff = ['Waiter','Chef','Manager','Waiter','Chef','Waiter','Chef'];
+const staffUnique = [...new Set(staff)];
+console.log(staffUnique);
+console.log(new Set(staff).size);
+console.log(new Set('ashyuajhgzykqw').size);
+```
+
+#### 13.Map集合
+
+ES6之后诞生的一种数据结构，用于存储键值对。
+
+内容:
+
+1. 接受任何数据类型，包括`document,array`
+
+2. 通过键名获取键值
+
+示例如下:
+
+```js
+// 生成map结构
+const rest = new Map();
+rest.set('name', 'Lex Sium');
+rest.set(1, 'China,Xi\'an');
+rest.set(2, 'GuiAn,Province');
+console.log(rest);
+
+// 添加键值对
+rest.set('categories', ['American', 'France', 'Japan', 'Korean']).set('open', 11).set('close', 23).
+set(true, 'open at :D').set(false, 'closed at :(');
+
+// 获取键值
+console.log(rest.get('name'));
+console.log(rest.get(true));
+console.log(rest.get(1));
+
+const time = 8;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+console.log(rest.has('categories'));
+// rest.delete(2);
+// rest.clear();
+
+// 特别说明，直接设置数组会导致set,get方法里的请求键名数组不相同，
+// 主要原因是 set,get方法申请的数组空间不相同，尽管数据相同
+// 所以 切记使用变量名引用对应的数据空间
+let arr = [1,2]
+rest.set(arr,'Array[]:1,2');
+console.log(rest.get(arr));
+
+// 设置document对象键名
+rest.set(document.querySelector('h1'),'Title');
+console.log(rest.get(document.querySelector('h1')));
+
+console.log(rest);
+console.log(rest.size);
+```
+
+#### 14. Map集合应用
+
+代码如下:
+
+```js
+// 定义Map集合
+const question = new Map([
+    ['question','who is the best player in NBA?'],
+    [1,'LBJ'],
+    [2,'MJ'],
+    [3,'JB'],
+    [4,'Tom Duncan'],
+    ['correct',3],
+    [true,'Correct!❤'],
+    [false,'Try Again!'],
+]);
+console.log(question);
+
+// 对象生成键值对，再转为Map集合
+console.log(Object.entries(restaurant.openingHours));
+const hoursMap = new Map(Object.entries(restaurant.openingHours));
+
+console.log(hoursMap);
+
+// 应用
+console.log(question.get('question'));
+for(const [key,value] of question){
+    if(typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+const answer = 3;
+
+// 判断答案一
+if(answer === question.get('correct')){
+    console.log(question.get(true));
+}else{
+    console.log(question.get(false))
+}
+// 判断答案二 巧妙
+console.log(question.get(answer === question.get('correct')));
+
+// 将Map集合转换为数组
+console.log([...question]);
+// 获取键名、键值
+console.log(question.keys());
+console.log(question.values());
+```

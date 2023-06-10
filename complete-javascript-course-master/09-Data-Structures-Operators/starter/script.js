@@ -51,6 +51,47 @@ const restaurant = {
         console.log(otherIngradient);
     }
 };
+// 挑战使用的对象
+const game = {
+    team1: 'Bayern Munich',
+    team2: 'Borrussia Dortmund',
+    players: [
+        [
+            'Neuer',
+            'Pavard',
+            'Martinez',
+            'Alaba',
+            'Davies',
+            'Kimmich',
+            'Goretzka',
+            'Coman',
+            'Muller',
+            'Gnarby',
+            'Lewandowski',
+        ],
+        [
+            'Burki',
+            'Schulz',
+            'Hummels',
+            'Akanji',
+            'Hakimi',
+            'Weigl',
+            'Witsel',
+            'Hazard',
+            'Brandt',
+            'Sancho',
+            'Gotze',
+        ],
+    ],
+    score: '4:0',
+    scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+    date: 'Nov 9th, 2037',
+    odds: {
+        team1: 1.33,
+        x: 3.25,
+        team2: 6.5,
+    },
+};
 
 /* 数组解构
 const arr = [1, 2, 3];
@@ -275,48 +316,6 @@ TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Th
 
 GOOD LUCK 😀
 *!/
-const game = {
-    team1: 'Bayern Munich',
-    team2: 'Borrussia Dortmund',
-    players: [
-        [
-            'Neuer',
-            'Pavard',
-            'Martinez',
-            'Alaba',
-            'Davies',
-            'Kimmich',
-            'Goretzka',
-            'Coman',
-            'Muller',
-            'Gnarby',
-            'Lewandowski',
-        ],
-        [
-            'Burki',
-            'Schulz',
-            'Hummels',
-            'Akanji',
-            'Hakimi',
-            'Weigl',
-            'Witsel',
-            'Hazard',
-            'Brandt',
-            'Sancho',
-            'Gotze',
-        ],
-    ],
-    score: '4:0',
-    scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
-    date: 'Nov 9th, 2037',
-    odds: {
-        team1: 1.33,
-        x: 3.25,
-        team2: 6.5,
-    },
-};
-
-
 
 const [player1,player2] = game.players;
 console.log(player1,player2);
@@ -416,9 +415,167 @@ if (person.length !== 0){
 }else{
     console.log('not the name.')
 }*/
-
+/* 获取键名、键值，生成键值对数组，以及应用
 const properties = Object.keys(restaurant.openingHours);
 console.log(properties);
 
+let openStr = `We can open on ${properties.length} days:`;
+for(const day of properties){
+    openStr += `${day}, `;
+}
+console.log(openStr);
+
 const values = Object.values(restaurant.openingHours);
 console.log(values);
+
+const entries = Object.entries(restaurant.openingHours);
+console.log(entries);
+
+for (const [key,{open,close}] of entries){
+    console.log(`On ${key}, we can open at ${open},and close at ${close}`);
+}*/
+/*
+///////////////////////////////////////
+// Coding Challenge #2
+
+/!*
+Let's continue with our football betting app!
+
+1. Loop over the game.scored array and print each player name to the console, along with the goal number (Example: "Goal 1: Lewandowski")
+2. Use a loop to calculate the average odd and log it to the console (We already studied how to calculate averages, you can go check if you don't remember)
+3. Print the 3 odds to the console, but in a nice formatted way, exaclty like this:
+      Odd of victory Bayern Munich: 1.33
+      Odd of draw: 3.25
+      Odd of victory Borrussia Dortmund: 6.5
+Get the team names directly from the game object, don't hardcode them (except for "draw"). HINT: Note how the odds and the game objects have the same property names 😉
+
+BONUS: Create an object called 'scorers' which contains the names of the players who scored as properties, and the number of goals as the value. In this game, it will look like this:
+      {
+        Gnarby: 1,
+        Hummels: 1,
+        Lewandowski: 2
+      }
+
+GOOD LUCK 😀
+*!/
+
+const loopScored = Object.entries(game.scored);
+// console.log(loopScored);
+for(const [key,value] of loopScored){
+    console.log(`Goal ${key}: ${value}`);
+}
+
+const valueOdds = Object.values(game.odds);
+// console.log(valueOdds);
+let sum = 0;
+for(const value of valueOdds){
+    sum += value;
+}
+console.log(`average is : `,sum/valueOdds.length);
+
+const loopOdds = Object.entries(game.odds);
+console.log(loopOdds);
+for(const [name,value] of loopOdds){
+    console.log(`Odd of ${name !== 'x'?`Victory ${game[name]}`:`draw`}: ${value}`);
+}
+
+const valueScored = Object.values(game.scored);
+console.log(valueScored);
+
+const scorers = {};
+for(const value of valueScored){
+    scorers[value] = scorers[value] ? scorers[value]+1 : 1;
+}
+console.log(scorers);*/
+/* Set集合
+const set = new Set(['Bob','Jimmy','Jack','Jimmy','Jack']);
+
+console.log(set);
+console.log(new Set('LeBea'));
+
+console.log(set.size);
+console.log(set.has('Jimmy'));
+console.log(set.has('Quiede'));
+
+set.add('Quiede');
+set.add('James');
+set.delete('James');
+
+console.log(set);
+
+for(const name of set) console.log(name);
+
+const staff = ['Waiter','Chef','Manager','Waiter','Chef','Waiter','Chef'];
+const staffUnique = [...new Set(staff)];
+console.log(staffUnique);
+console.log(new Set(staff).size);
+console.log(new Set('ashyuajhgzykqw').size);*/
+/* Map集合
+const rest = new Map();
+rest.set('name', 'Lex Sium');
+rest.set(1, 'China,Xi\'an');
+rest.set(2, 'GuiAn,Province');
+console.log(rest);
+
+rest.set('categories', ['American', 'France', 'Japan', 'Korean']).set('open', 11).set('close', 23).
+set(true, 'open at :D').set(false, 'closed at :(');
+
+console.log(rest.get('name'));
+console.log(rest.get(true));
+console.log(rest.get(1));
+
+const time = 8;
+console.log(rest.get(time > rest.get('open') && time < rest.get('close')));
+
+console.log(rest.has('categories'));
+// rest.delete(2);
+// rest.clear();
+
+let arr = [1,2]
+
+rest.set(arr,'Array[]:1,2');
+
+console.log(rest.get(arr));
+
+rest.set(document.querySelector('h1'),'Title');
+
+console.log(rest.get(document.querySelector('h1')));
+
+console.log(rest);
+console.log(rest.size);*/
+/* Map集合应用
+const question = new Map([
+    ['question','who is the best player in NBA?'],
+    [1,'LBJ'],
+    [2,'MJ'],
+    [3,'JB'],
+    [4,'Tom Duncan'],
+    ['correct',3],
+    [true,'Correct!❤'],
+    [false,'Try Again!'],
+]);
+console.log(question);
+
+console.log(Object.entries(restaurant.openingHours));
+const hoursMap = new Map(Object.entries(restaurant.openingHours));
+
+console.log(hoursMap);
+
+console.log(question.get('question'));
+for(const [key,value] of question){
+    if(typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+}
+
+const answer = 3;
+
+if(answer === question.get('correct')){
+    console.log(question.get(true));
+}else{
+    console.log(question.get(false))
+}
+
+console.log(question.get(answer === question.get('correct')));
+
+console.log([...question]);
+console.log(question.keys());
+console.log(question.values());*/
