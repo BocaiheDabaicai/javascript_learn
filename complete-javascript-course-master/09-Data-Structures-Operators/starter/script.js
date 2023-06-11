@@ -579,3 +579,204 @@ console.log(question.get(answer === question.get('correct')));
 console.log([...question]);
 console.log(question.keys());
 console.log(question.values());*/
+/*
+///////////////////////////////////////
+// Coding Challenge #3
+
+/!*
+Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
+
+1. Create an array 'events' of the different game events that happened (no duplicates)
+2. After the game has finished, is was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+3. Print the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+4. Loop over the events and log them to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:
+      [FIRST HALF] 17: ⚽️ GOAL
+
+GOOD LUCK 😀
+*!/
+
+const gameEvents = new Map([
+    [17, '⚽️ GOAL'],
+    [36, '🔁 Substitution'],
+    [47, '⚽️ GOAL'],
+    [61, '🔁 Substitution'],
+    [64, '🔶 Yellow card'],
+    [69, '🔴 Red card'],
+    [70, '🔁 Substitution'],
+    [72, '🔁 Substitution'],
+    [76, '⚽️ GOAL'],
+    [80, '⚽️ GOAL'],
+    [92, '🔶 Yellow card'],
+]);
+
+
+const event = [...new Set(gameEvents.values())];
+console.log(event);
+
+gameEvents.delete(64);
+console.log(gameEvents);
+
+const time = [...gameEvents.keys()].pop();
+console.log(`An event happened, on average, every ${time / gameEvents.size} minutes`);
+
+for(const[key,value] of gameEvents){
+    console.log(`${key<45?'[FIRST HALF]':'[SECOND HAFL]'} ${key}: ${value}`);
+}*/
+/* String 类型的方法
+const ariLine = 'TAP Air Portugal';
+const plane = 'A320';
+
+console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
+console.log('B737'[0]);
+
+console.log(ariLine.length);
+console.log('B737'.length);
+
+console.log(ariLine.indexOf('r'));
+console.log(ariLine.lastIndexOf('r'));
+console.log(ariLine.indexOf('Portugal'));
+
+console.log(ariLine.slice(4));
+console.log(ariLine.slice(4,7));
+
+console.log(ariLine.slice(ariLine.indexOf('T'),ariLine.lastIndexOf('P')));
+console.log(plane.slice(plane.indexOf('A'),plane.lastIndexOf('2')));
+
+console.log(ariLine.slice(0,-2));
+console.log(ariLine.slice(-5,-1));
+
+const logName = function (name){
+    const result = name.slice(name.indexOf('n')+1);
+    console.log(`Hello my dear : ${result}`);
+}
+
+logName('nJimmy');
+logName('asdanBob');
+logName('qweenTom');
+
+console.log(new String('oppo'));
+console.log(new String('oppo').slice(0));
+
+const name = 'SUIjksduJSJAjsali';
+const resultName = name[0].toUpperCase() + name.slice(1).toLowerCase();
+console.log(resultName);
+
+const email = '  54572905@QQ.COM  ';
+console.log(email.toLowerCase().trim());
+
+const bigName = 'Jimmy Butler And Toms Butler';
+console.log(bigName.replace('Butler','Bruce'));
+console.log(bigName.replaceAll('Butler','Bruce'));
+
+const airName = 'Bruce Air224';
+console.log(airName.includes('22'));
+console.log(airName.includes('Jimmy'));
+console.log(airName.startsWith('Bruce'));
+console.log(airName.endsWith('224'));
+
+const inspectFruit = function(fruit){
+    if(fruit.includes('apple') || fruit.includes('pear')){
+        console.log(`Your fruits are great!😘`);
+    }else{
+        console.log(`Try again 🤔, to get more types.`);
+    }
+}
+
+inspectFruit(`banana apple`);
+inspectFruit(`banana`);
+
+const names = 'Bob James Browse';
+const resultNames = names.split(' ');
+console.log(resultNames);
+console.log(resultNames.join('--'));
+
+const getName = function(names){
+    const resultNames = names.toLowerCase().split(' ');
+    const resultArray = [];
+
+    for(let name of resultNames){
+        resultArray.push(name[0].toUpperCase() + name.slice(1));
+    }
+
+    console.log(resultArray.join('--'));
+}
+
+getName('names jooal fuuwe jHJKA qWWq');
+
+const books = 'HongLou Meng';
+const tales = 'ShanHai Jing';
+
+console.log(books.padStart(20,'💕').padEnd(28,'💕'));
+console.log(tales.padStart(20,'💕').padEnd(28,'💕'));
+
+const secretNumber = function(number){
+    const phone = number + '';
+
+    console.log(phone.slice(-4).padStart(13,'*'));
+}
+
+secretNumber(15951733081);
+secretNumber('1763478509');
+
+const repeatNumber = function(number){
+    console.log(`these are ${number} books, look ${'🎁'.repeat(number)}`);
+}
+repeatNumber(2);
+repeatNumber(4);
+repeatNumber(16);*/
+/*
+///////////////////////////////////////
+// Coding Challenge #4
+
+/!*
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
+
+THIS TEST DATA (pasted to textarea)
+underscore_case
+ first_name
+Some_Variable
+  calculate_AGE
+delayed_departure
+
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
+
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
+
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*!/
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+const changeButton = document.querySelector('button');
+
+const camelCase = function(stringWords){
+    const stringWordArray = stringWords.split("\n");
+    const resultArray = [];
+
+    for(const [index,item] of stringWordArray.entries()){
+        let [first,second] = item.trim().toLowerCase().split('_');
+        let result = first + second[0].toUpperCase() + second.slice(1);
+        // resultArray.push(result.padEnd(20,' ')+'✔'.repeat(index+1));
+        resultArray.push(`${result.padEnd(20,' ')}${'✔'.repeat(index+1)}`);
+    }
+
+    return resultArray.join('\n')
+}
+
+changeButton.addEventListener('click',function(){
+    const text = document.querySelector('textarea').value;
+    document.querySelector('textarea').value = camelCase(text);
+})*/

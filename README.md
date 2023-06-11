@@ -716,3 +716,156 @@ console.log([...question]);
 console.log(question.keys());
 console.log(question.values());
 ```
+
+#### 14.array,object,set,map总结
+
+(1) `array,object`:普通的数据结构，用于存放数据，可以完成增删改查、排序等等操作
+
+(2) `set`: 存放独一无二的值，**解析数组**有大用处
+
+(2) `map`:存放键值对的数据结构，**需要通过键值对来描述行为**的时候使用
+
+#### 挑战三 足球比赛3
+
+```js
+///////////////////////////////////////
+// Coding Challenge #3
+
+/*
+Let's continue with our football betting app! This time, we have a map with a log of the events that happened during the game. The values are the events themselves, and the keys are the minutes in which each event happened (a football game has 90 minutes plus some extra time).
+
+1. Create an array 'events' of the different game events that happened (no duplicates)
+2. After the game has finished, is was found that the yellow card from minute 64 was unfair. So remove this event from the game events log.
+3. Print the following string to the console: "An event happened, on average, every 9 minutes" (keep in mind that a game has 90 minutes)
+4. Loop over the events and log them to the console, marking whether it's in the first half or second half (after 45 min) of the game, like this:
+      [FIRST HALF] 17: ⚽️ GOAL
+
+GOOD LUCK 😀
+*/
+
+const gameEvents = new Map([
+    [17, '⚽️ GOAL'],
+    [36, '🔁 Substitution'],
+    [47, '⚽️ GOAL'],
+    [61, '🔁 Substitution'],
+    [64, '🔶 Yellow card'],
+    [69, '🔴 Red card'],
+    [70, '🔁 Substitution'],
+    [72, '🔁 Substitution'],
+    [76, '⚽️ GOAL'],
+    [80, '⚽️ GOAL'],
+    [92, '🔶 Yellow card'],
+]);
+
+
+const event = [...new Set(gameEvents.values())];
+console.log(event);
+
+gameEvents.delete(64);
+console.log(gameEvents);
+
+const time = [...gameEvents.keys()].pop();
+console.log(`An event happened, on average, every ${time / gameEvents.size} minutes`);
+
+for(const[key,value] of gameEvents){
+    console.log(`${key<45?'[FIRST HALF]':'[SECOND HAFL]'} ${key}: ${value}`);
+}
+```
+
+#### 15. String 类型的方法
+
+方法如下:
+
+1. `length`:获取长度
+
+2. `String[0]`:获取对应位置的字符
+
+3. `indexOf()`:查询字符串第一次出现的位置，找不到返回-1
+
+4. `lastIndexOf()`:查询该字符串出现的最后一次位置，找不到返回-1
+
+5. `slice(a,[b])`:截取字符串，起始位置a，截至位置b，数字为负则从末尾开始查找
+
+> 实例: `console.log(ariLine.slice(0,-2));` // plane = 'A320'; 得到A3
+
+6. `toUpperCase()`:将字符串改为大写
+
+7. `toLowerCase()`:将字符串改为小写
+
+8. `trim()`:去除字符串前后的空格
+
+9. `replace('Butler','Bruce')`:找到第一个`Butler`，并将其替换为`Bruce`
+
+10. `replaceAll('Butler','Bruce')`:将找到的所有`Butler`，并将其替换为`Bruce`
+
+11. `includes('abc')`:判断字符串是否包括`abc`
+
+12. `startsWith('abc')`:判断字符串是否以`abc`开头
+
+13. `endsWith('abc')`:判断字符串是否以`abc`结尾
+
+14. `split('-')`:将字符串以`-`号分割为数组
+
+15. `join('+')`:将数组以`+`号合成为字符串
+
+16. `padStart(20,'💕')`:将字符串长度改为20，剩余的前置空间添加💕
+
+17. `padEnd(20,'💕')`:将字符串长度改为20，剩余的后置空间添加💕
+
+#### 挑战四 字符串规范
+
+```js
+///////////////////////////////////////
+// Coding Challenge #4
+
+/*
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
+
+THIS TEST DATA (pasted to textarea)
+underscore_case
+ first_name
+Some_Variable
+  calculate_AGE
+delayed_departure
+
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
+
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
+
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*/
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+const changeButton = document.querySelector('button');
+
+const camelCase = function(stringWords){
+    const stringWordArray = stringWords.split("\n");
+    const resultArray = [];
+
+    for(const [index,item] of stringWordArray.entries()){
+        let [first,second] = item.trim().toLowerCase().split('_');
+        let result = first + second[0].toUpperCase() + second.slice(1);
+        // resultArray.push(result.padEnd(20,' ')+'✔'.repeat(index+1));
+        resultArray.push(`${result.padEnd(20,' ')}${'✔'.repeat(index+1)}`);
+    }
+
+    return resultArray.join('\n')
+}
+
+changeButton.addEventListener('click',function(){
+    const text = document.querySelector('textarea').value;
+    document.querySelector('textarea').value = camelCase(text);
+})
+```
