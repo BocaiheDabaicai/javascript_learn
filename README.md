@@ -179,3 +179,143 @@ console.log(swiss);
 book.call(swiss,...flightData);  // apply，可以被call方法替代
 console.log(swiss);
 ```
+
+#### 7.bind方法
+
+```js
+const lufthansa = {
+    airline: 'Lufthansa',
+    iataCode: 'LH',
+    bookings: [],
+    book(flightNum, name) {
+        console.log(`${name} booked a seat on ${this.airline} flight ${this.iataCode}${flightNum}`);
+        this.bookings.push({flight: `${this.iataCode}${flightNum}`, name})
+    }
+}
+const eurowings = {
+    name: 'Eurowings',
+    iataCode: 'EW',
+    bookings: []
+}
+const swiss = {
+    airline: 'Swiss Air Lines',
+    iataCode: 'LX',
+    bookings: [],
+}
+
+const book = lufthansa.book;
+
+// bind方法，将函数绑定到指定对象上
+const bookEW = book.bind(eurowings);
+const bookLH = book.bind(lufthansa);
+const bookLX = book.bind(swiss);
+
+bookEW(23, 'Bob Tom');
+
+// bind方法，将函数绑定到指定对象上，并传入部分参数
+const bookEW23 = book.bind(eurowings, 224);
+bookEW23('Bob Tom');
+bookEW23('Bob Jerry');
+
+lufthansa.planes = 300;
+lufthansa.buyPlane = function () {
+    console.log(this);
+
+    this.planes++;
+    console.log(this.planes);
+}
+
+// 将buyPlane方法绑定到lufthansad对象上
+document.querySelector('.buy').
+addEventListener('click', lufthansa.
+buyPlane.bind(lufthansa));
+
+const addTax = (rate, value) => value + value * rate;
+console.log(addTax(0.1, 200));
+
+// bind方法，不传递对象，传递rate参数
+const addVAT = addTax.bind(null, 0.148);
+
+console.log(addVAT(100));
+console.log(addVAT(25));
+
+
+const addRate = function (rate) {
+    return function (value) {
+        return rate * value + value
+    }
+}
+
+// 获取内部函数，实现bind方法的效果
+const addVAT2 = addRate(0.361);
+
+console.log(addVAT2(100));
+console.log(addVAT2(25));
+```
+
+#### 挑战一 函数调用
+
+```js
+// Coding Challenge #1
+
+/*
+Let's build a simple poll app!
+
+A poll has a question, an array of options from which people can choose, and an array with the number of replies for each option. This data is stored in the starter object below.
+
+Here are your tasks:
+
+1. Create a method called 'registerNewAnswer' on the 'poll' object. The method does 2 things:
+  1.1. Display a prompt window for the user to input the number of the selected option. The prompt should look like this:
+        What is your favourite programming language?
+        0: JavaScript
+        1: Python
+        2: Rust
+        3: C++
+        (Write option number)
+
+  1.2. Based on the input number, update the answers array. For example, if the option is 3, increase the value AT POSITION 3 of the array by 1. Make sure to check if the input is a number and if the number makes sense (e.g answer 52 wouldn't make sense, right?)
+2. Call this method whenever the user clicks the "Answer poll" button.
+3. Create a method 'displayResults' which displays the poll results. The method takes a string as an input (called 'type'), which can be either 'string' or 'array'. If type is 'array', simply display the results array as it is, using console.log(). This should be the default option. If type is 'string', display a string like "Poll results are 13, 2, 4, 1".
+4. Run the 'displayResults' method at the end of each 'registerNewAnswer' method call.
+
+HINT: Use many of the tools you learned about in this and the last section 😉
+
+BONUS: Use the 'displayResults' method to display the 2 arrays in the test data. Use both the 'array' and the 'string' option. Do NOT put the arrays in the poll object! So what shoud the this keyword look like in this situation?
+
+BONUS TEST DATA 1: [5, 2, 3]
+BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
+
+GOOD LUCK 😀
+*/
+
+const poll = {
+    question: 'What is your favourite programming language?',
+    options:['0: JavaScript','1: Python','2: Rust','3: C++'],
+    answers:new Array(4).fill(0),
+    registerNewAnswer(){
+        let questions = `${this.question}\n${this.options.join('\n')}\n(Write option number)`;
+        let anwser = Number(prompt(questions));
+
+        typeof anwser && anwser <= this.answers.length && this.answers[anwser]++;
+
+        this.displayResults();
+        this.displayResults('array');
+    },
+
+    displayResults(type = 'string'){
+        if(type === `string`){
+            console.log(`Poll results are ${this.answers}`)
+        }else if(type === `array`){
+            console.log(this.answers);
+        }
+    }
+}
+
+document.querySelector('.poll').addEventListener('click',poll.registerNewAnswer.bind(poll));
+
+poll.displayResults.call({answers:[5, 2, 3]},`string`);
+poll.displayResults.call({answers:[1, 5, 3, 9, 6, 1]},`array`);
+```
+
+#### 8.IIFE(立即调用函数表达式)

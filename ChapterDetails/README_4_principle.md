@@ -38,6 +38,8 @@
 
 执行过程：
 
+![img](../complete-javascript-course-master/08-Behind-the-Scenes/pictures/1_jsEngine.png)
+
     前置内容
 
 - 编译型执行过程：源代码编译为可执行文件，再执行该文件
@@ -57,6 +59,8 @@
 - 优化`Optimization`，优化机器语言，使js能够更快执行
 
     执行图:
+
+![img](../complete-javascript-course-master/08-Behind-the-Scenes/pictures/2_js_runtime.png)
 
 > ## 总结
 > 
@@ -88,6 +92,8 @@
 
     实例图如下:
 
+![img](../complete-javascript-course-master/08-Behind-the-Scenes/pictures/3_functionRun.png)
+
 > Node.js 与 浏览器运行时js的区别
 > 
 >     Node.js不存在Web APIs，它拥有c++ bindings 与 线程池
@@ -118,6 +124,8 @@
 
 示例图：
 
+![img](../complete-javascript-course-master/08-Behind-the-Scenes/pictures/4_terribleSituation.png)
+
 #### 2.作用域与作用域链
 
 作用域分为：全局作用域、函数作用域、块作用域(ES6)
@@ -139,6 +147,8 @@
 4. 开启严格模式
 
 避免出现下列示例：
+
+![img](../complete-javascript-course-master/08-Behind-the-Scenes/pictures/5_primitiveAndReference.png)
 
 #### 3.变量提升
 
