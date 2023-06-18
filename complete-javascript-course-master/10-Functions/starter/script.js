@@ -260,6 +260,43 @@ document.querySelector('.poll').addEventListener('click',poll.registerNewAnswer.
 poll.displayResults.call({answers:[5, 2, 3]},`string`);
 poll.displayResults.call({answers:[1, 5, 3, 9, 6, 1]},`array`);
 */
+/* IIFE(立即调用函数表达式)
+const runOnce = function(){
+    console.log(`the function is never run again`);
+}
+runOnce();
+
+(function(){
+    console.log(`the function is never run again`);
+})();
+
+(() => console.log(`the function is also never run again`))();
+
+{
+    let a = 1;
+    var b = 2;
+}
+
+// console.log(a);
+console.log(b);
+*/
+
+const guest = function(){
+    let people = 0;
+    return function(){
+        people++;
+        console.log(`Now ${people} are here.`);
+    }
+}
+
+const addGuest = guest();
+
+addGuest();
+addGuest();
+addGuest();
+
+console.dir(addGuest);
+
 
 
 

@@ -319,3 +319,64 @@ poll.displayResults.call({answers:[1, 5, 3, 9, 6, 1]},`array`);
 ```
 
 #### 8.IIFE(立即调用函数表达式)
+
+内容：创建一个隐蔽的函数，执行期间不影响全局作用域
+
+```js
+const runOnce = function(){
+    console.log(`the function is never run again`);
+}
+runOnce();
+
+(function(){  // 立即执行函数
+    console.log(`the function is never run again`);
+})();
+
+(() => console.log(`the function is also never run again`))();  // 箭头函数示例
+
+{  // 函数作用域
+    let a = 1;
+    var b = 2;
+}
+
+// console.log(a);
+console.log(b);
+```
+
+#### 9.闭包
+
+概念：
+
+封闭变量执行上下文的环境，在其中创建了函数，可以使用环境中的变量。
+
+特点：
+
+1. 隐蔽函数变量
+
+2. 开放内部函数
+
+3. 内部函数使用函数作用域里的变量
+
+示例代码:
+
+```js
+const guest = function(){
+    let people = 0;
+    return function(){
+        people++;
+        console.log(`Now ${people} are here.`);
+    }
+}
+
+const addGuest = guest();
+
+addGuest();
+addGuest();
+addGuest();
+
+console.dir(addGuest);
+```
+
+示例图:
+
+![img](./complete-javascript-course-master/10-Functions/pictures/1.png)
