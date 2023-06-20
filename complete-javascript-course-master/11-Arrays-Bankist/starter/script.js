@@ -70,8 +70,6 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 
-
-
 /* 数组方法
 let arr = ['a','b','c','d','e','f','g'];
 
@@ -148,7 +146,7 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   }
 // })
 */
-
+/* map,set集合使用forEach
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
@@ -158,6 +156,7 @@ const currencies = new Map([
 currencies.forEach(function (value, key, map) {
   console.log(`${value} --- ${key}`);
 })
+*/
 
 
 
