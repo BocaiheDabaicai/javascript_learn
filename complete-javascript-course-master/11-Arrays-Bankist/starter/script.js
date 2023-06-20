@@ -65,12 +65,115 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
+
+
+
+/////////////////////////////////////////////////
+
+
+
+/* 数组方法
+let arr = ['a','b','c','d','e','f','g'];
+
+console.log(arr.slice(2));
+console.log(arr.slice(2,4));
+console.log(arr.slice(-2));
+console.log(arr.slice(2,-2));
+console.log(arr.slice());
+console.log([...arr]);
+
+// console.log(arr.splice(1,3));
+// console.log(arr);
+
+// console.log(arr.splice(-2));
+// console.log(arr);
+
+// console.log(arr.splice(3,-2));
+// console.log(arr);
+
+// console.log(arr.reverse());
+// console.log(arr);
+
+let arr2 = ['z','x','c','v'];
+
+console.log(arr.concat(arr2));
+console.log([...arr,...arr2]);
+console.log(arr);
+
+let arrCon = [...arr,...arr2];
+console.log(arrCon.join('-'));
+
+console.log(arrCon[1]);
+console.log(arrCon.at(1));
+console.log(arrCon[arrCon.length - 1]);
+console.log(arrCon.at(-1));
+console.log('abdcc'.at(2));
+console.log('abdcc'.at(-2));
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// for(const item of movements){
+//   if(item>0){
+//     console.log(`存入 ${item}`);
+//   }else{
+//     console.log(`取出 ${item}`);
+//   }
+// }
+//
+// console.log(`-----forEach实现----`);
+//
+// movements.forEach(function(item){
+//   if(item>0){
+//     console.log(`存入 ${item}`);
+//   }else{
+//     console.log(`取出 ${item}`);
+//   }
+// })
+
+// for(const [index,item] of movements.entries()){
+//   if(item>0){
+//     console.log(`存入 ${item} 指数:${index + 1}`);
+//   }else{
+//     console.log(`取出 ${item} 指数:${index + 1}`);
+//   }
+// }
+//
+// console.log(`-----forEach实现-----`);
+//
+// movements.forEach(function(item,index){
+//   if(item>0){
+//     console.log(`存入 ${item} 指数:${index + 1}`);
+//   }else{
+//     console.log(`取出 ${item} 指数:${index + 1}`);
+//   }
+// })
+*/
+
 const currencies = new Map([
   ['USD', 'United States dollar'],
   ['EUR', 'Euro'],
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+currencies.forEach(function (value, key, map) {
+  console.log(`${value} --- ${key}`);
+})
 
-/////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
