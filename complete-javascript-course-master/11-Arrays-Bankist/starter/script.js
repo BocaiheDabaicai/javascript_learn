@@ -6,31 +6,31 @@
 
 // Data
 const account1 = {
-  owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  interestRate: 1.2, // %
-  pin: 1111,
+    owner: 'Jonas Schmedtmann',
+    movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+    interestRate: 1.2, // %
+    pin: 1111,
 };
 
 const account2 = {
-  owner: 'Jessica Davis',
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-  interestRate: 1.5,
-  pin: 2222,
+    owner: 'Jessica Davis',
+    movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+    interestRate: 1.5,
+    pin: 2222,
 };
 
 const account3 = {
-  owner: 'Steven Thomas Williams',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  interestRate: 0.7,
-  pin: 3333,
+    owner: 'Steven Thomas Williams',
+    movements: [200, -200, 340, -300, -20, 50, 400, -460],
+    interestRate: 0.7,
+    pin: 3333,
 };
 
 const account4 = {
-  owner: 'Sarah Smith',
-  movements: [430, 1000, 700, 50, 90],
-  interestRate: 1,
-  pin: 4444,
+    owner: 'Sarah Smith',
+    movements: [430, 1000, 700, 50, 90],
+    interestRate: 1,
+    pin: 4444,
 };
 
 const accounts = [account1, account2, account3, account4];
@@ -62,22 +62,22 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 // 显示数组
-const displayMovements = function(movements){
-  containerMovements.innerHTML = '';
+const displayMovements = function (movements) {
+    containerMovements.innerHTML = '';
 
-  movements.forEach(function(mov,i){
-    const type = mov > 0 ? 'deposit':'withdrawal'
+    movements.forEach(function (mov, i) {
+        const type = mov > 0 ? 'deposit' : 'withdrawal'
 
-    let template = `
+        let template = `
       <div class="movements__row">
-        <div class="movements__type movements__type--${type}">${i+1} ${type}</div>
+        <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
         <div class="movements__value">${mov} €</div>
       </div>
     `;
 
-    containerMovements.insertAdjacentHTML('afterbegin',template);
+        containerMovements.insertAdjacentHTML('afterbegin', template);
 
-  })
+    })
 }
 
 displayMovements(account1.movements);
@@ -85,8 +85,6 @@ displayMovements(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
-
-
 
 
 /////////////////////////////////////////////////
@@ -178,11 +176,11 @@ currencies.forEach(function (value, key, map) {
   console.log(`${value} --- ${key}`);
 })
 */
-
+/* 挑战一
 ///////////////////////////////////////
 // Coding Challenge #1
 
-/*
+/!*
 Julia and Kate are doing a study on dogs. So each of them asked 5 dog owners about their dog's age, and stored the data into an array (one array for each). For now, they are just interested in knowing whether a dog is an adult or a puppy. A dog is an adult if it is at least 3 years old, and it's a puppy if it's less than 3 years old.
 
 Create a function 'checkDogs', which accepts 2 arrays of dog's ages ('dogsJulia' and 'dogsKate'), and does the following things:
@@ -198,26 +196,27 @@ TEST DATA 1: Julia's data [3, 5, 2, 12, 7], Kate's data [4, 1, 15, 8, 3]
 TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 
 GOOD LUCK 😀
+*!/
+
+const checkDogs = function (dogsJulia, dogsKate) {
+    const copyDogsJulia = dogsJulia.slice(1, -2);
+    console.log(copyDogsJulia);
+
+    const DogsArray = [...copyDogsJulia, ...dogsKate];
+    DogsArray.forEach(function (item, index) {
+        if (item > 1) {
+            console.log(`Dog number ${index} is an adult, and is ${item} years old`);
+        } else {
+            console.log(`Dog number ${index} is still a puppy 🐶`);
+        }
+    })
+}
+
+checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 */
-const dogsJulia = [3, 5, 2, 12, 7];
-const dogsKate = [4, 1, 15, 8, 3];
 
-// const dogsJulia = [9, 16, 6, 8, 3];
-// const dogsKate = [10, 5, 6, 1, 4];
 
-const checkDogs = [...dogsJulia,...dogsKate];
-
-const copyDogsJulia = dogsJulia.slice(1,-2);
-console.log(copyDogsJulia);
-
-const DogsArray = [...copyDogsJulia,...dogsKate];
-DogsArray.forEach(function(item,index){
-    if(item>1){
-      console.log(`Dog number ${index} is an adult, and is ${item} years old`);
-    }else{
-      console.log(`Dog number ${index} is still a puppy 🐶`);
-    }
-})
 
 
 
