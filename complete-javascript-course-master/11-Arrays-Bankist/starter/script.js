@@ -215,9 +215,32 @@ const checkDogs = function (dogsJulia, dogsKate) {
 checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
 checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 */
+/* map
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const euroToUsa = 1.2 ;
 
+const movementUsa = movements.map(function(item){
+    return item*euroToUsa;
+})
 
+const movementUsa2 = movements.map((item)=>item*euroToUsa)
 
+console.log(movements);
+console.log(movementUsa);
+console.log(movementUsa2);
+
+const movementsUSD = [];
+for(const item of movements) movementsUSD.push(item*euroToUsa);
+console.log(movementsUSD);
+
+const movementsDescriptions = movements.map((item,index)=>{
+    if (item>0){
+        console.log(`Movement ${index+1}: You deposited ${item}`);
+    }else{
+        console.log(`Movement ${index+1}: You withdrew ${item}`);
+    }
+})
+*/
 
 
 
