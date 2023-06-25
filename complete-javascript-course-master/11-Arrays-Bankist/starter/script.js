@@ -61,6 +61,13 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+
+const calcDisplayBalance = function(movement){
+    const balance = movement.reduce((accumulate,current) => accumulate+current,0)
+    labelBalance.textContent = `${balance}€`;
+}
+
+calcDisplayBalance(account1.movements);
 // 显示数组
 const displayMovements = function (movements) {
     containerMovements.innerHTML = '';
@@ -81,6 +88,8 @@ const displayMovements = function (movements) {
 }
 
 displayMovements(account1.movements);
+
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -241,12 +250,61 @@ const movementsDescriptions = movements.map((item,index)=>{
     }
 })
 */
+/* 计算用户名简称
+const creatUserName = function(arrs){
+    arrs.forEach(function(user){
+        user.username = user.owner
+            .toLowerCase()
+            .split(" ")
+            .map( item => item[0])
+            .join('');
+    })
+}
 
+creatUserName(accounts);
+console.log(accounts);
+*/
+/* filter 方法
+const deposits = account1.movements.filter(function(item){
+    return item>0;
+})
 
+console.log(deposits);
 
+const depositsFor = [];
+for(let i = 0;i<account1.movements.length;i++){
+    if(account1.movements[i]>0) depositsFor.push(account1.movements[i]);
+}
 
+console.log(depositsFor);
 
+const withdrawals = account1.movements.filter(item => item<0)
 
+console.log(withdrawals);
+*/
+/* reduce 方法
+const result = account1.movements.reduce(function(accResult, current, index, array){
+    console.log(`index ${index}: ${accResult} , current: ${current}`);
+    return accResult+current;
+},0)
+
+console.log(result);
+
+let resultFor = 0;
+for (let i=0;i<account1.movements.length;i++){
+    resultFor += account1.movements[i];
+}
+console.log(resultFor);
+
+const maxResult = account1.movements.reduce((acc,cur)=>{
+    if (acc>cur)
+        return acc
+    else
+        return cur
+},account1.movements[0])
+
+console.log(maxResult);
+*/
 
 
 

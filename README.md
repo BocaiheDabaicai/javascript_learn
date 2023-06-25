@@ -112,8 +112,28 @@ checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 
 #### 2. map,filter,reduce
 
-| 方法名 | 方法描述                                 | 补充  |
-| --- | ------------------------------------ | --- |
-| map | 使用回调函数，获取`item,index,array`内容，并返回新数组 |     |
-|     |                                      |     |
-|     |                                      |     |
+| 方法名    | 方法描述                                                | 补充                                    |
+| ------ | --------------------------------------------------- | ------------------------------------- |
+| map    | 使用回调函数，获取`item,index,array`内容，并返回新数组                |                                       |
+| filter | 使用回调函数，获取`item,index,array`内容，并返回新数组                | 筛选符合条件的数据                             |
+| reduce | 使用回调函数，获取`accumulate,current,index,array`内容，并返回最终结果 | `accumulate`记录累计值<br>`current`记录数组当前值 |
+
+举例:
+
+```js
+const deposits = account1.movements.filter(function(item){
+    return item>0;
+})  
+// 结果
+// account1.movements [200, 450, -400, 3000, -650, -130, 70, 1300]
+// deposits [200, 450, 3000, 70, 1300]
+
+
+const result = account1.movements.reduce(function(accResult, current, index, array){
+    console.log(`index ${index}: ${accResult} , current: ${current}`);
+    return accResult+current;
+},0)  
+// 结果，显示其中一次执行及运行结果
+// index 4: 3250 , current: -650
+// 3840
+```
