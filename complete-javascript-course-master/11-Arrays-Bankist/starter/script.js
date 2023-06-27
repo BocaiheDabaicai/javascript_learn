@@ -62,38 +62,36 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 // 账户总额
-const calcDisplayBalance = function (movement) {
-    const balance = movement.reduce((accumulate, current) => accumulate + current, 0)
+const calcDisplayBalance = function (acc) {
+    const balance = acc.movements.reduce((accumulate, current) => accumulate + current, 0)
     labelBalance.textContent = `${balance}€`;
 }
 
-calcDisplayBalance(account1.movements);
 // 账户收入
-const calcDisplaySummary = function (movements) {
-    const incomes = movements
-        .filter(item=>item>0)
-        .reduce((acc,cur)=>acc+cur,0)
+const calcDisplaySummary = function (acc) {
+    const incomes = acc.movements
+        .filter(item => item > 0)
+        .reduce((acc, cur) => acc + cur, 0)
     labelSumIn.textContent = `${incomes}€`;
 
-    const outcomes = movements
-        .filter(item=>item<0)
-        .reduce((acc,cur)=>acc+cur)
+    const outcomes = acc.movements
+        .filter(item => item < 0)
+        .reduce((acc, cur) => acc + cur)
     labelSumOut.textContent = `${outcomes}€`;
 
-    const interest = movements
-        .filter(item=>item>0)
-        .map(item=>(item*1.2)/100)
-        .reduce((acc,cur)=>acc+cur)
+    const interest = acc.movements
+        .filter(item => item > 0)
+        .map(item => (item * acc.interestRate) / 100)
+        .reduce((acc, cur) => acc + cur)
     labelSumInterest.textContent = `${interest}€`;
 }
 
-calcDisplaySummary(account1.movements);
 
 // 显示数组
-const displayMovements = function (movements) {
+const displayMovements = function (acc) {
     containerMovements.innerHTML = '';
 
-    movements.forEach(function (mov, i) {
+    acc.movements.forEach(function (mov, i) {
         const type = mov > 0 ? 'deposit' : 'withdrawal'
 
         let template = `
@@ -107,8 +105,44 @@ const displayMovements = function (movements) {
     })
 }
 
-displayMovements(account1.movements);
 
+// 创建用户简称
+const createUsernames = function(accs){
+    accs.forEach(function(acc){
+        acc.username = acc.owner
+            .toLowerCase()
+            .split(' ')
+            .map(name => name[0])
+            .join('')
+    })
+}
+// 登录
+let currentAccount;
+btnLogin.addEventListener('click',function(e){
+    // 阻止页面提交
+    e.preventDefault()
+
+    currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
+
+    console.log(currentAccount);
+
+    if(currentAccount.pin === Number(inputLoginPin.value)){
+        console.log(`Login`);
+
+        labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`
+
+        containerApp.style.opacity = 100;
+
+        displayMovements(currentAccount);
+
+        calcDisplayBalance(currentAccount);
+
+        calcDisplaySummary(currentAccount);
+
+        inputLoginUsername.value = inputLoginPin.value = '';
+    }
+
+})
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -413,11 +447,17 @@ let aver2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 
 console.log(aver1,aver2);
 */
+/* find 方法
+const firstWithdrawal = account1.movements.find(item => item < 0);
 
+console.log(account1.movements);
+console.log(firstWithdrawal);
 
+console.log(accounts);
 
-
-
+const account = accounts.find(object=>object.owner === 'Jessica Davis');
+console.log(account);
+*/
 
 
 
