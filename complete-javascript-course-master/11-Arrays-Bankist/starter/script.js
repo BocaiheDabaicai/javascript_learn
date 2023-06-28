@@ -63,7 +63,9 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 // 账户总额
 const calcDisplayBalance = function (acc) {
-    const balance = acc.movements.reduce((accumulate, current) => accumulate + current, 0)
+    const balance = acc.movements.reduce((accumulate, current) => accumulate + current, 0);
+    acc.balance = balance;
+
     labelBalance.textContent = `${balance}€`;
 }
 
@@ -107,8 +109,8 @@ const displayMovements = function (acc) {
 
 
 // 创建用户简称
-const createUsernames = function(accs){
-    accs.forEach(function(acc){
+const createUsernames = function (accs) {
+    accs.forEach(function (acc) {
         acc.username = acc.owner
             .toLowerCase()
             .split(' ')
@@ -116,32 +118,102 @@ const createUsernames = function(accs){
             .join('')
     })
 }
+
+createUsernames(accounts);
+
+// 更新当前用户
+const updateUI = function (acc) {
+
+    displayMovements(acc);
+
+    calcDisplayBalance(acc);
+
+    calcDisplaySummary(acc);
+}
 // 登录
 let currentAccount;
-btnLogin.addEventListener('click',function(e){
+btnLogin.addEventListener('click', function (e) {
     // 阻止页面提交
     e.preventDefault()
 
     currentAccount = accounts.find(acc => acc.username === inputLoginUsername.value);
 
-    console.log(currentAccount);
+    // console.log(currentAccount);
 
-    if(currentAccount.pin === Number(inputLoginPin.value)){
+    if (currentAccount.pin === Number(inputLoginPin.value)) {
         console.log(`Login`);
 
         labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(' ')[0]}`
 
         containerApp.style.opacity = 100;
 
-        displayMovements(currentAccount);
-
-        calcDisplayBalance(currentAccount);
-
-        calcDisplaySummary(currentAccount);
+        updateUI(currentAccount)
 
         inputLoginUsername.value = inputLoginPin.value = '';
+        inputLoginPin.blur();
     }
 
+})
+
+// 转账
+btnTransfer.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const amount = Number(inputTransferAmount.value);
+    const receiveAcc = accounts.find(item => item.username === inputTransferTo.value);
+
+    // console.log(receiveAcc,amount);
+    // console.log(currentAccount);
+
+    if (amount > 0 && currentAccount.balance >= amount && currentAccount.username !== receiveAcc.username) {
+        console.log(`transfer vaild.`)
+        currentAccount.movements.push(-amount);
+        receiveAcc.movements.push(amount);
+
+        updateUI(currentAccount);
+
+    }
+
+    inputTransferAmount.value = inputTransferTo.value = '';
+    inputTransferAmount.blur();
+})
+
+// 支出
+btnLoan.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const amount = Number(inputLoanAmount.value);
+
+    if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+        currentAccount.movements.push(amount);
+
+        updateUI(currentAccount);
+    }
+
+    inputLoanAmount.value = '';
+    inputLoanAmount.blur();
+})
+
+
+// 账号删除
+btnClose.addEventListener('click', function (e) {
+    e.preventDefault()
+
+    console.log('close')
+
+    if (inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin) {
+        console.log(`delete success!`);
+
+        const index = accounts.findIndex(acc => acc.username === currentAccount.username);
+
+        accounts.splice(index, 1);
+
+        containerApp.style.opacity = 0;
+
+    }
+
+    inputCloseUsername.value = inputClosePin.value = '';
+    inputClosePin.blur();
 })
 
 /////////////////////////////////////////////////
@@ -458,12 +530,46 @@ console.log(accounts);
 const account = accounts.find(object=>object.owner === 'Jessica Davis');
 console.log(account);
 */
+/* some,every 方法
+console.log(account1.movements.includes(-130));
 
+console.log(account1.movements.some(mov => mov === -130));
 
+const anyDeposits = account1.movements.some(mov => mov > 0);
+console.log(anyDeposits);
 
+console.log(account1.movements.every(mov => mov > 0));
+console.log(account4.movements.every(mov => mov > 0));
 
+// 分离回调函数
+const deposit = mov => mov > 0;
+console.log(account1.movements.some(deposit));
+console.log(account1.movements.every(deposit));
+console.log(account1.movements.filter(deposit));
+*/
+/* flap 方法
+const arr = [1, 2, 3, [4, 5], 6];
+console.log(arr.flat())
 
+const arr2 = [1, [2, 3], [4, 5], 6, [7, [8, 9]]];
+console.log(arr2.flat(2))
 
+/!* 法一
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
+
+const allMovements = accountMovements.flat();
+console.log(allMovements);
+
+const overalBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance);
+*!/
+const overBalance = accounts
+    .map(item => item.movements)
+    .flat()
+    .reduce((acc,cur)=>acc+cur,0)
+console.log(overBalance);
+*/
 
 
 
