@@ -634,20 +634,47 @@ labelBalance.addEventListener('click', function () {
     // console.log(movementsUI.map(el => el.textContent.replace('€','')));
 });
 */
+/* practice 数组方法
+const allCountsDepositMovements = accounts
+    .flatMap(item => item.movements)
+    .filter(item => item > 0)
+    .reduce((acc, cur) => acc + cur, 0);
+
+console.log(allCountsDepositMovements);
+
+const allCountsDeposit1000Movements = accounts
+    .flatMap(item => item.movements)
+    .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0)
+
+console.log(allCountsDeposit1000Movements);
+
+const {Deposits, withdrawal} = accounts
+    .flatMap(item => item.movements)
+    .reduce((sum, cur) => {
+        // cur >= 0 ? sum.Deposits += cur : sum.withdrawal += cur;
+        sum[cur >= 0 ? 'Deposits' : 'withdrawal'] += cur;
+        return sum
+    }, {Deposits: 0, withdrawal: 0})
+
+console.log(Deposits, withdrawal);
+
+const convertTitleCase = function(title){
+    const expections = ['a','an','and','the','but','or','on','in','with'];
+
+    const titleCase = title
+        .toLowerCase()
+        .split(' ')
+        .map(word => expections.includes(word) ? word : word[0].toUpperCase() + word.slice(1))
+        .join(' ');
+
+    return titleCase;
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+console.log(convertTitleCase('this is a nice title'));
+console.log(convertTitleCase('this is a LONG title but not too long'));
+console.log(convertTitleCase('and here is another title with an EXAMPLE'));
+*/
 
 
 

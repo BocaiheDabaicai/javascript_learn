@@ -265,3 +265,31 @@ labelBalance.addEventListener('click', function () {
     // ['1300', '70', '-130', '-650', '3000', '-400', '450', '200']
 });
 ```
+
+#### 4. 总结数组方法
+
+| 方法        | 方法内容  | 备注            |
+| --------- | ----- | ------------- |
+| push      | 插入元素  |               |
+| unshift   |       |               |
+| pop       | 删除元素  |               |
+| shift     |       |               |
+| splice    | 截取子数组 |               |
+| reverse   | 翻转    |               |
+| sort      | 排序    |               |
+| fill      | 填充    | ----改变原元素     |
+| map       | 遍历    |               |
+| filter    | 过滤    |               |
+| slice     | 截取子元素 |               |
+| concat    | 拼接数组  |               |
+| flat      | 平整化数组 |               |
+| flatMap   |       | ----生成新数组     |
+| indexOf   |       |               |
+| findIndex |       |               |
+| find      |       | ----返回元素下标    |
+| includes  |       |               |
+| some      |       |               |
+| every     |       |               |
+| join      |       | ----判断数组、拼接数组 |
+| reduce    |       |               |
+| forEach   |       | ----遍历数组元素    |
