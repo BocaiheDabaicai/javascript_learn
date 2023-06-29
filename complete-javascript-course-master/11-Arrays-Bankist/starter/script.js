@@ -90,10 +90,13 @@ const calcDisplaySummary = function (acc) {
 
 
 // 显示数组
-const displayMovements = function (acc) {
+const displayMovements = function (acc, sort = false) {
     containerMovements.innerHTML = '';
 
-    acc.movements.forEach(function (mov, i) {
+    const movs = sort ? acc.movements.slice().sort((min, max) => min - max) : acc.movements;
+
+
+    movs.forEach(function (mov, i) {
         const type = mov > 0 ? 'deposit' : 'withdrawal'
 
         let template = `
@@ -215,6 +218,17 @@ btnClose.addEventListener('click', function (e) {
     inputCloseUsername.value = inputClosePin.value = '';
     inputClosePin.blur();
 })
+
+
+// 排序
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    displayMovements(currentAccount, !sorted);
+    sorted = !sorted;
+})
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -570,6 +584,61 @@ const overBalance = accounts
     .reduce((acc,cur)=>acc+cur,0)
 console.log(overBalance);
 */
+/* sort 方法
+let owner = ['Bob', 'Jimmy', 'Crisp', 'Willers'];
+
+console.log(owner.sort());
+
+console.log(account1.movements);
+console.log(account1.movements.sort());
+
+// account1.movements.sort((a, b) => {
+//     if (a < b) return -1;
+//     if (a > b) return 1;
+// })
+//
+console.log(account1.movements)
+
+account1.movements.sort((min,max) => min - max);
+console.log(account1.movements);
+
+account1.movements.sort((min,max) => max - min);
+console.log(account1.movements);
+*/
+/* fill Array.from 方法
+console.log([1, 2, 3, 4, 5, 6]);
+console.log(new Array(1, 2, 3, 4, 5, 6));
+
+console.log(new Array(7))
+
+const x = new Array(7);
+x.fill(1, 3, 5);
+console.log(x);
+
+x.fill(2, 2, 6);
+console.log(x);
+
+const y = Array.from({length: 7}, () => 2);
+console.log(y);
+
+const z = Array.from({length: 7}, (_, i) => i + 1);
+console.log(z);
+
+labelBalance.addEventListener('click', function () {
+    const movementsUI = Array.from(document.querySelectorAll('.movements__value'),el => el.textContent.replace('€','').trim());
+    console.log(movementsUI);
+
+    const movementsUI2 = [...document.querySelectorAll('.movements__value')].map(item => item.textContent.replace('€','').trim());
+    console.log(movementsUI2);
+
+    // console.log(movementsUI.map(el => el.textContent.replace('€','')));
+});
+*/
+
+
+
+
+
 
 
 

@@ -225,22 +225,43 @@ console.log(aver1,aver2);
 
 #### 3.find,findIndex,some,every,flap
 
-| 方法名       | 方法描述                                                            | 补充     |
-| --------- | --------------------------------------------------------------- | ------ |
-| find      | 使用回调函数，获取`item,index,array`内容，并返回**符合条件的第一个数据**                 |        |
-| findIndex | 使用回调函数，获取`item,index,array`内容，并返回**符合条件的第一个数据的索引下标**            |        |
-| some      | 使用回调函数，获取`item,index,array`内容，并返回**布尔值结果**，至少有一个元素满足条件，返回`true` |        |
-| every     | 使用回调函数，获取`item,index,array`内容，并返回**布尔值结果**，每一个元素满足条件，返回`true`   |        |
-| flap()    | 将数组中的子数组解构，使得数据完全存在于一个数组中，接收**数字**，表示解构子数组得深度，默认为1              | ES2021 |
+| 方法名         | 方法描述                                                                     | 补充     |
+| ----------- | ------------------------------------------------------------------------ | ------ |
+| find        | 使用回调函数，获取`item,index,array`内容，并返回**符合条件的第一个数据**                          |        |
+| findIndex   | 使用回调函数，获取`item,index,array`内容，并返回**符合条件的第一个数据的索引下标**                     |        |
+| some        | 使用回调函数，获取`item,index,array`内容，并返回**布尔值结果**，至少有一个元素满足条件，返回`true`          |        |
+| every       | 使用回调函数，获取`item,index,array`内容，并返回**布尔值结果**，每一个元素满足条件，返回`true`            |        |
+| flap()      | 将数组中的子数组解构，使得数据完全存在于一个数组中，接收**数字**，表示解构子数组得深度，默认为1                       | ES2021 |
+| new Array() | 生成数组，接收数组、单个数字，获取数组生成数组对象；获取数字生成**数字长度、内容为空**的数组                         |        |
+| fill()      | 接收三个参数，`value,start,end`三个数值，其中`end`可选，表示空数组填充`value`，从`start`开始，`end`结束 |        |
+| Array.from  | 生成数组，并**可**执行回调函数，操纵数值                                                   |        |
 
 示例:
 
 ```js
+// flat
 const arr = [1, 2, 3, [4, 5], 6];
 console.log(arr.flat()) 
 // result: [1, 2, 3, 4, 5, 6]
 
 const arr2 = [1, [2, 3], [4, 5], 6, [7, [8, 9]]];
 console.log(arr2.flat(2))
-// result: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+// result: [1, 2, 3, 4, 5, 6, 7, 8, 9]  
+
+
+// Array.from  
+const y = Array.from({length: 7}, () => 2);
+console.log(y);  // [2, 2, 2, 2, 2, 2, 2]
+
+const z = Array.from({length: 7}, (_, i) => i + 1);
+console.log(z);  // [1, 2, 3, 4, 5, 6, 7]
+
+labelBalance.addEventListener('click', function () {
+    const movementsUI = Array.from(document.querySelectorAll('.movements__value'),el => el.textContent.replace('€','').trim());
+    console.log(movementsUI);
+
+    const movementsUI2 = [...document.querySelectorAll('.movements__value')].map(item => item.textContent.replace('€','').trim());
+    console.log(movementsUI2);
+    // ['1300', '70', '-130', '-650', '3000', '-400', '450', '200']
+});
 ```
