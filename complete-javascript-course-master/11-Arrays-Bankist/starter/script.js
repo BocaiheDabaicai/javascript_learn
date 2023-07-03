@@ -675,12 +675,11 @@ console.log(convertTitleCase('this is a nice title'));
 console.log(convertTitleCase('this is a LONG title but not too long'));
 console.log(convertTitleCase('and here is another title with an EXAMPLE'));
 */
-
-
+/* 挑战三 狗狗的食量
 ///////////////////////////////////////
 // Coding Challenge #4
 
-/*
+/!*
 Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
 Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
 Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
@@ -706,7 +705,7 @@ const dogs = [
 ];
 
 GOOD LUCK 😀
-*/
+*!/
 const dogs = [
     { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
     { weight: 8, curFood: 200, owners: ['Matilda'] },
@@ -714,10 +713,14 @@ const dogs = [
     { weight: 32, curFood: 340, owners: ['Michael'] }
 ];
 
-dogs.forEach(item => item.recFood = item.weight**0.75*28)
+dogs.forEach(item => item.recFood = Math.trunc(item.weight**0.75*28))
 console.log(dogs)
 
-dogs.forEach(item => item.owners.includes('Sarah') && console.log(`it's eating too ${item.curFood > item.recFood ? 'much':'little'}.`))
+// const dogsSarah = dogs.find(item => item.owners.includes('Sarah'))
+// console.log(dogsSarah);
+// console.log(`it's eating too ${dogsSarah.curFood > dogsSarah.recFood ? 'much':'little'}`);
+
+dogs.find(item => item.owners.includes('Sarah') && console.log(`it's eating too ${item.curFood > item.recFood ? 'much':'little'}.`))
 
 const ownersEatTooMuch = dogs
     .filter(item => item.curFood > item.recFood)
@@ -734,9 +737,9 @@ console.log(ownersEatTooLittle);
 console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`)
 console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too much!`)
 
-dogs.forEach(item => console.log(item.recFood === item.curFood))
+console.log(dogs.some(item => item.recFood === item.curFood))
 
-dogs.forEach(item => console.log(Math.abs(item.recFood-item.curFood)<=item.recFood*0.1))
+console.log(dogs.some(item => (item.recFood-item.curFood)<=item.recFood*0.1))
 
 const ownersEatCommand = dogs.filter(item => Math.abs(item.recFood-item.curFood)<=item.recFood*0.1)
 console.log(ownersEatCommand)
@@ -744,6 +747,7 @@ console.log(ownersEatCommand)
 const dogsCopy = dogs
     .sort((min,max)=>min.recFood-max.recFood);
 console.log(dogsCopy)
+*/
 
 
 
