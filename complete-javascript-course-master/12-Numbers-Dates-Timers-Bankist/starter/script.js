@@ -260,3 +260,52 @@ console.log(+'23');
 console.log(Number.parseInt('46px',10));
 console.log(Number.parseInt('e22',10));
 console.log(Number.parseInt('1011',2));
+
+
+labelBalance.addEventListener('click',function(){
+    [...document.querySelectorAll('.movements__row')].forEach((item,index)=>{
+      if (index % 2 === 0){
+        item.style.backgroundColor = '#a23b33'
+      }
+      if ((index % 2 - 1) === 0){
+        item.style.backgroundColor = '#b89a11'
+      }
+    })
+});
+
+console.log(26347863284763278462387);
+console.log(26347863284763278462387n,typeof 26347863284763278462387n);
+console.log(BigInt(26347863284763278462387),typeof 26347863284763278462387n);
+
+
+const a = new Date();
+console.log(a);
+
+console.log(new Date(2023,11,5,18,22,34));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
