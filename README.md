@@ -64,3 +64,33 @@
 10. now()，获取当前时间的时间戳表达
 
 11. setFullYear()，设置当前日期对象的年份
+
+#### 5. 国际化
+
+国际化日期（Intl.DateTimeFormat）
+
+内容：通过确定地区，将日期对象格式化为当地日期的表达形式
+
+代码如下
+
+```js
+const now = new Date();
+let dDate = new Intl.DateTimeFormat('en-US').format(now); 
+```
+
+国际化数字（Intl.NumberFormat）
+
+示例如下
+
+```js
+const num = 2736672.773;
+console.log('US:     ',new Intl.NumberFormat('en-US').format(num));
+console.log('Germany:',new Intl.NumberFormat('de-DE').format(num));
+```
+
+#### 6. 延时函数
+
+| 方法名  | 方法表达式                            | 内容                  |
+| ---- | -------------------------------- | ------------------- |
+| 延时触发 | setTimeOut(function,time,[...])  | 到指定时间后，触发函数，并结束延时函数 |
+| 连续触发 | setInterval(function,time,[...]) | 到指定时间后，触发函数         |
