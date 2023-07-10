@@ -155,6 +155,7 @@ const createUsernames = function (accs) {
 };
 createUsernames(accounts);
 
+
 const updateUI = function (acc) {
     // Display movements
     displayMovements(acc);
@@ -167,12 +168,37 @@ const updateUI = function (acc) {
 };
 
 ///////////////////////////////////////
+
+const startLogOutTimer = function () {
+    let time = 10;
+
+    const timer = setInterval(function () {
+        const hour = String(Math.trunc(time/60)).padStart(2,0);
+        const minute = String(Math.trunc(time%60)).padStart(2,0);
+
+
+        labelTimer.textContent = `${hour}:${minute}`;
+
+        time--;
+
+        if(time === -1){
+            clearInterval(timer);
+            labelWelcome.textContent = `Log in to get started`;
+            containerApp.style.opacity = 0;
+        }
+    },1000)
+
+    return timer;
+}
+
+
 // Event handlers
 let currentAccount;
 
 // currentAccount = account1;
 // updateUI(currentAccount);
 // containerApp.style.opacity = 100;
+// startLogOutTimer();
 
 
 const now = new Date();
@@ -221,6 +247,11 @@ btnLogin.addEventListener('click', function (e) {
         // Clear input fields
         inputLoginUsername.value = inputLoginPin.value = '';
         inputLoginPin.blur();
+
+        // setLogOutTimer
+        if(timer) clearInterval(timer);
+        timer = startLogOutTimer();
+
 
         // Update UI
         updateUI(currentAccount);
