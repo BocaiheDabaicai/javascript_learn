@@ -36,3 +36,27 @@ DOM对象是一棵结点树，管理着所有的标签对象
 | .after                 | 在当前结点之后插入新元素            | 创建，添加 |
 | .remove                | 删除当前结点                  |       |
 | .removeChild           | 删除当前结点的子节点              |       |
+
+#### 9.3 style,attributes,classes
+
+style是文档对象上的样式对象
+
+attributes是文档对象里的标签对象，标签对象上还有自定义的数据集**dataset**，提供只读数据
+
+classes是文档对象里的类列表对象
+
+| 方法名字             | 方法内容                                                                                                                                                  | 补充         |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| .backgroundColor | 背景颜色                                                                                                                                                  |            |
+| .width           | 宽度                                                                                                                                                    |            |
+| .height          | 高度                                                                                                                                                    |            |
+| .setProperty     | 设置属性，格式如：（属性名称，属性值），用于获取CSS上的属性，并将属性进行设置，JS：`document.documentElement.style.setProperty('--color-primary','#c04c4c')`，CSS：`--color-primary: #5ec576;` | style      |
+| .alt             | img图片的说明标签                                                                                                                                            |            |
+| .src             | img的链接地址                                                                                                                                              |            |
+| .className       | 类名称                                                                                                                                                   |            |
+| .getAttribute    | 获得标签对象上定义的属性值                                                                                                                                         |            |
+| .setAttribute    | 为标签对象，设置属性，格式：（属性名，属性值）                                                                                                                               | attributes |
+| .add             | 添加                                                                                                                                                    |            |
+| .remove          | 删除                                                                                                                                                    |            |
+| .toggle          | 删除标记值，并返回false，不存在则添加标记值，并返回true                                                                                                                      |            |
+| .contains        | 判断列表中是否包含该值                                                                                                                                           | classes    |

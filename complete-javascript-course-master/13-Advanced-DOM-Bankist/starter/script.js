@@ -36,3 +36,29 @@ console.log(document.body);
 
 console.log(document.querySelector('.header'));
 console.log(document.querySelectorAll('.section'));
+
+
+// console.log()
+document.documentElement.style.setProperty('--color-primary','#c04c4c')
+
+const imgA = document.querySelector('.nav__logo')
+console.log(imgA.alt)
+console.log(imgA.src)
+console.log(imgA.designer)
+console.log(imgA.getAttribute('designer'))
+imgA.setAttribute('bank','huahuaBank')
+console.log(imgA.getAttribute('bank'))
+imgA.alt = 'hahahahah';
+console.log(imgA.alt)
+
+
+
+
+
+
+
+
+
+
+
+
