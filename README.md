@@ -60,3 +60,72 @@ classes是文档对象里的类列表对象
 | .remove          | 删除                                                                                                                                                    |            |
 | .toggle          | 删除标记值，并返回false，不存在则添加标记值，并返回true                                                                                                                      |            |
 | .contains        | 判断列表中是否包含该值                                                                                                                                           | classes    |
+
+#### 9.3 效果实现
+
+1. **平滑滚动**
+
+前置内容
+
+| 方法名字                         | 方法内容                | 补充  |
+| ---------------------------- | ------------------- | --- |
+| getBoundingClientRect        | 返回当前对象的大小以及相对于视口的位置 |     |
+| documentElement.clientHeight | 返回当前的视口高度           |     |
+| documentElement.clientWidth  | 返回当前的视口宽度           |     |
+| windw.pageXOffset            | 返回滚动条离X轴初始位置的距离     |     |
+| windw.pageYOffset            | 返回滚动条离Y轴初始位置的距离     |     |
+
+```js
+const s1coords = section1.getBoundingClientRect();
+
+// 滚动的实现，该元素离顶部的距离+滚动条离顶部的距离 = 指定元素的位置
+window.scrollTo(
+s1coords.left+window.pageXOffset,s1coords.top+window.pageYOffset
+)
+
+
+// 平滑滚动
+window.scrollTo({
+    left:s1coords.left + window.pageXOffset,
+    top:s1coords.top + window.pageYOffset,
+    behavior:'smooth'
+  }) 
+
+// 现代方法
+section1.scrollIntoView({behavior:'smooth'})
+```
+
+2. **鼠标事件**
+
+方法：
+
+| 方法名字       | 方法内容      | 补充  |
+| ---------- | --------- | --- |
+| mouseenter | 鼠标移入元素时触发 |     |
+
+添加监听事件
+
+```js
+const h1 = document.querySelector('h1');
+
+// 监听事件触发后，删除监听事件
+const alertH1 = function (e) {
+  alert(`监听事件 mouseenter 触发`);
+
+  h1.removeEventListener('mouseenter',alertH1);
+}
+
+h1.addEventListener('mouseenter',alertH1);
+```
+
+#### 9.4 冒泡、捕获、委托
+
+监听事件的触发过程如下：
+
+先捕获、再冒泡
+
+- **捕获**：触发事件时，首先从根结点层层寻找，直到找到触发结点为止
+
+- **冒泡**：找到触发结点之后，从当前结点开始，层层向上传递，直到根节点为止
+
+- **委托**：监听事件绑定到父元素上，当子元素触发冒泡事件时，通过父元素实现监听事件触发
