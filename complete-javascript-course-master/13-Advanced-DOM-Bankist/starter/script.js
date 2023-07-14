@@ -29,6 +29,24 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+// tabbed  component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+
+tabsContainer.addEventListener('click',function(e){
+  const clicked = e.target.closest('.operations__tab');
+  // console.log(clicked);
+
+  tabs.forEach(t=>t.classList.remove('operations__tab--active'))
+  tabsContent.forEach(c=>c.classList.remove('operations__content--active'))
+
+  clicked.classList.add('operations__tab--active')
+  // console.log(clicked.dataset.tab)
+  document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active')
+})
+
 
 /* 样式、属性、类对象
 console.log(document.documentElement);
@@ -77,6 +95,7 @@ btnScrollTo.addEventListener('click',function(event){
   section1.scrollIntoView({behavior:'smooth'})
 })
 
+/* 冒泡、捕获、监听
 const h1 = document.querySelector('h1');
 
 const alertH1 = function (e) {
@@ -86,9 +105,28 @@ const alertH1 = function (e) {
 }
 
 h1.addEventListener('mouseenter',alertH1);
+*/
+/* 事件委托：实现平滑跳转
+document.querySelectorAll('.nav__link').forEach(function(el){
+  el.addEventListener('click',function(e){
+    e.preventDefault();
+    const id = this.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({
+      behavior:'smooth'
+    })
+  })
+})
 
+document.querySelector('.nav__links').addEventListener('click',function(e){
+  e.preventDefault(); //阻止当前元素的默认事件触发
 
-
+  if (e.target.classList.contains('nav__link')){
+    const id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({behavior:'smooth'})
+  }
+})
+*/
 
 
 
