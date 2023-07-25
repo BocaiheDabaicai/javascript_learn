@@ -165,3 +165,37 @@ function(e){
   }
 })
 ```
+
+#### 9.5 监听者对象
+
+使用过程：
+
+1. 创建`IntersectionObserver`对象
+
+2. 配置回调函数、选项
+
+3. 使用observe方法进行DOM元素监听
+
+示例：
+
+```js
+// 获取DOM元素
+const header = document.querySelector('.header');
+// 获取当前视口下，Nav元素的高度
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight);
+// 配置观察者对象的回调函数，参数还有一个 observer
+const stickyNav = function(entries){
+  const [entry] = entries;
+  console.log(entry);
+  if(!entry.isIntersecting) nav.classList.add('sticky')
+  else nav.classList.remove('sticky')
+}
+// 创建监听者对象，并配置参数
+const headerObserver = new IntersectionObserver(stickyNav,{
+  root:null,
+  threshold:0,// 交叉值
+  rootMargin:`-${navHeight}px`// 监听者对象设置margin值，提前位置触发
+})
+headerObserver.observe(header) // 监听header对象
+```

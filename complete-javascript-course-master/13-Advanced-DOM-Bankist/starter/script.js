@@ -80,6 +80,7 @@ nav.addEventListener('mouseout',handlerHover.bind(1))
 //   else nav.classList.remove('sticky')
 // })
 
+/* IntersectionObserver观察者实例对象
 const obsCallback = function(entries,observer){
   entries.forEach(entry=>{
     console.log(entry)
@@ -88,11 +89,30 @@ const obsCallback = function(entries,observer){
 
 const obsOptions = {
   root:null,
-  threshold:0.1
+  // threshold:0.1
+  threshold:[0,0.2]
 }
-
+// 当前视口的顶端与观察元素的顶端、底端的位置差额和threshold值进行比较
 const observer = new IntersectionObserver(obsCallback,obsOptions);
 observer.observe(section1)
+*/
+
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+console.log(navHeight);
+const stickyNav = function(entries){
+  const [entry] = entries;
+  console.log(entry);
+  if(!entry.isIntersecting) nav.classList.add('sticky')
+  else nav.classList.remove('sticky')
+}
+
+const headerObserver = new IntersectionObserver(stickyNav,{
+  root:null,
+  threshold:0,
+  rootMargin:`-${navHeight}px`
+})
+headerObserver.observe(header)
 
 /* 样式、属性、类对象
 console.log(document.documentElement);
