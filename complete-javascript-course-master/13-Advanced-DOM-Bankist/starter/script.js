@@ -102,7 +102,7 @@ const navHeight = nav.getBoundingClientRect().height;
 console.log(navHeight);
 const stickyNav = function(entries){
   const [entry] = entries;
-  console.log(entry);
+  // console.log(entry);
   if(!entry.isIntersecting) nav.classList.add('sticky')
   else nav.classList.remove('sticky')
 }
@@ -113,6 +113,52 @@ const headerObserver = new IntersectionObserver(stickyNav,{
   rootMargin:`-${navHeight}px`
 })
 headerObserver.observe(header)
+
+
+// 界面模块监测
+const allSections = document.querySelectorAll('.section');
+
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry)
+  if(!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden')
+  observer.unobserve(entry.target)
+}
+
+const sectionObeserver = new IntersectionObserver(revealSection,{
+  root:null,
+  threshold:0.15
+});
+
+allSections.forEach((section)=>{
+  sectionObeserver.observe(section);
+  section.classList.add('section--hidden');
+})
+
+// 图片懒加载
+const imgTargets = document.querySelectorAll('img[data-src]');
+
+const loadImg = function (entries, observer) {
+  const [entry] = entries;
+  console.log(entry);
+
+  if(!entry.isIntersecting) return;
+
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener('load',function () {
+    entry.target.classList.remove('lazy-img')
+  })
+
+  observer.unobserve(entry.target)
+}
+
+const imgObserver = new IntersectionObserver(loadImg,{
+  root:null,
+  threshold:0
+})
+imgTargets.forEach((img)=> imgObserver.observe(img))
+
 
 /* 样式、属性、类对象
 console.log(document.documentElement);
@@ -192,9 +238,6 @@ document.querySelector('.nav__links').addEventListener('click',function(e){
   }
 })
 */
-
-
-
 
 
 
