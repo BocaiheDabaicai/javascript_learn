@@ -36,7 +36,7 @@ opp，是面向对象编程，是一种进行大型软件编程时使用的编�
 
 #### 10.2 实践
 
-创建类实例对象
+**创建类实例对象**
 
 过程：
 
@@ -57,4 +57,40 @@ const Jack = new Person('Jack',2001);
 
 console.log(Bob)
 console.log(Jack)
+```
+
+**原型对象及原型链**
+
+说明：
+
+1. 原型对象：表示类实例对象上的抽象类对象，通过`xx.prototype`可以访问抽象对象身上的原型属性，可以增加新的原型属性，可以是数据、方法，并使所有的类实例对象共享原型对象上的原型属性。
+
+2. 原型链：表示形式`xx.__proto__`，它是一个指针，指向当前对象的原型对象
+
+示例：
+
+```js
+Person.prototype.calcAge = function(){
+    console.log(2037 - this.birthYear);
+}
+
+Bob.calcAge();
+Jack.calcAge();
+
+console.log(`-------------`)
+
+console.log(Person.prototype);
+console.log(Bob.__proto__);
+console.log(Bob.__proto__ === Person.prototype);
+
+console.log(`-------------`)
+
+console.log(Person.prototype.isPrototypeOf(Bob))
+console.log(Person.prototype.isPrototypeOf(Jack))
+
+Person.prototype.species = `Sane Soul`;
+console.log(Bob.species,Jack.species)
+
+console.log(Bob.hasOwnProperty('firstName'))
+console.log(Bob.hasOwnProperty('species'))
 ```
