@@ -34,7 +34,7 @@ opp，是面向对象编程，是一种进行大型软件编程时使用的编�
 
 3. Object.create()
 
-#### 10.2 实践
+#### 10.2 构造函数
 
 **创建类实例对象**
 
@@ -93,4 +93,103 @@ console.log(Bob.species,Jack.species)
 
 console.log(Bob.hasOwnProperty('firstName'))
 console.log(Bob.hasOwnProperty('species'))
+```
+
+**new xxx()执行原理**
+
+1. new 方法创建一个空对象
+
+2. 通过函数回调，获得属性及原型对象
+
+3. 返回该实例对象
+
+**原型链执行原理**
+
+当前对象执行不在自身上的方法时，原型链会找到当前对象的原型对象，并查找是否存在该方法，若不存在，继续找原型对象的原型对象，继续执行检查，直到找到，或原型链表示为`null`为止。
+
+**原型链结论**
+
+1. 当前对象会继承它的原型链上所有对象的方法和属性
+
+#### 挑战一
+
+挑战如下：
+
+```js
+///////////////////////////////////////
+// Coding Challenge #1
+
+/!*
+1. Use a constructor function to implement a Car. A car has a make and a speed property. The speed property is the current speed of the car in km/h;
+2. Implement an 'accelerate' method that will increase the car's speed by 10, and log the new speed to the console;
+3. Implement a 'brake' method that will decrease the car's speed by 5, and log the new speed to the console;
+4. Create 2 car objects and experiment with calling 'accelerate' and 'brake' multiple times on each of them.
+
+DATA CAR 1: 'BMW' going at 120 km/h
+DATA CAR 2: 'Mercedes' going at 95 km/h
+
+GOOD LUCK 😀
+*!/
+
+const Car = function(make,speed){
+    this.make = make
+    this.speed = speed
+}
+
+Car.prototype.accelerate = function(){
+    this.speed += 10;
+    console.log('accelerate ',this.speed,' Km/h')
+}
+
+Car.prototype.brake = function(){
+    this.speed -= 5;
+    console.log('brake ',this.speed,' Km/h')
+}
+
+const bmw = new Car('BMW',120);
+const mercedes = new Car('Mercedes',95);
+
+bmw.accelerate()
+bmw.accelerate()
+bmw.brake()
+bmw.brake()
+bmw.brake()
+console.log(`-------------`)
+mercedes.accelerate()
+mercedes.accelerate()
+mercedes.brake()
+mercedes.brake()
+mercedes.brake()
+```
+
+#### 10.3 Class类(ES6)
+
+声明方式:`class xx{}`
+
+说明：工作原理同构造函数一致，添加的属性需要写在`constructor`中，方法写在类中，可以在class作用域外，以`xx.prototype.yy`的方式添加函数。
+
+实践过程：
+
+```js
+class PersonCl{
+    constructor(firstName,birthYear) {
+        this.firstName = firstName
+        this.birthYear = birthYear
+    }
+
+    calcAge(){
+        console.log(2037 - this.birthYear)
+    }
+    greet(){
+        console.log(`Hey ${this.firstName}`)
+    }
+}
+
+const jessica = new PersonCl('Jessica',1996)
+console.log(jessica)
+jessica.calcAge()
+console.log(jessica.__proto__ === PersonCl.prototype)
+
+jessica.greet()
+
 ```
