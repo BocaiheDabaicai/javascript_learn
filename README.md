@@ -193,3 +193,36 @@ console.log(jessica.__proto__ === PersonCl.prototype)
 jessica.greet()
 
 ```
+
+#### 10.4 get和set方法
+
+get：用于从对象身上进行计算属性，需要返回值
+
+set：用于从对象身上进行设置属性，约定设置的数据以**下划线**开头
+
+示例：
+
+```js
+// class xx 作用域中
+    constructor(firstName,birthYear) {
+        this.firstName = firstName
+        this.birthYear = birthYear
+    }
+        
+    set birthYear(age){
+        this._age = 2037 - age
+    }
+
+    get birthYear(){
+        return this._age
+    } 
+// 构造对象
+const jessica = new PersonCl('Jessica',1996) 
+console.log(jessica.birthYear);
+```
+
+总结：
+
+构造器函数接收`birthYear`参数，并传给`birthYear`set函数，获取参数，并设置计算后的属性。
+
+`set`函数侧重于对内使用，`get`函数侧重于对外使用，边界由`class`作用域划分

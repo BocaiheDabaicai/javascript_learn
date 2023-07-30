@@ -107,6 +107,18 @@ class PersonCl{
     greet(){
         console.log(`Hey ${this.firstName}`)
     }
+
+    get age(){
+        return 10
+    }
+
+    set birthYear(age){
+        this._age = 2037 - age
+    }
+
+    get birthYear(){
+        return this._age
+    }
 }
 
 const jessica = new PersonCl('Jessica',1996)
@@ -116,7 +128,8 @@ console.log(jessica.__proto__ === PersonCl.prototype)
 
 jessica.greet()
 
-
+console.log(jessica.age);
+console.log(jessica.birthYear);
 
 
 
