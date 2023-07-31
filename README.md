@@ -191,7 +191,6 @@ jessica.calcAge()
 console.log(jessica.__proto__ === PersonCl.prototype)
 
 jessica.greet()
-
 ```
 
 #### 10.4 get和set方法
@@ -208,7 +207,7 @@ set：用于从对象身上进行设置属性，约定设置的数据以**下划
         this.firstName = firstName
         this.birthYear = birthYear
     }
-        
+
     set birthYear(age){
         this._age = 2037 - age
     }
@@ -225,4 +224,58 @@ console.log(jessica.birthYear);
 
 构造器函数接收`birthYear`参数，并传给`birthYear`set函数，获取参数，并设置计算后的属性。
 
-`set`函数侧重于对内使用，`get`函数侧重于对外使用，边界由`class`作用域划分
+`set`函数、`get`函数内外都可以根据情况进行使用
+
+#### 10.5 类静态方法
+
+名称：`static`
+
+说明：仅能在类对象中使用，无法在实例对象上使用。
+
+类内使用的方法：
+
+1. `xx.get`
+
+2. `this.get`
+
+示例：
+
+```js
+class xx{
+    ...
+    static get(){
+        ...
+    }
+}
+// 使用方式
+xx.get();
+```
+
+#### 10.6 Object.create
+
+`Object.create`：创建一个空对象，参数为原型对象
+
+使用示例如下：
+
+```js
+// 创建一个对象
+const PersonProto = {
+    calcAge(){
+        console.log(2037 - this.birthYear)
+    },
+    init(firstName,birthYear){
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+} 
+// 创建空对象，并将原型对象赋予当前对象
+const sarah = Object.create(PersonProto);
+sarah.init('Sarah',1979);
+sarah.calcAge();
+```
+
+#### 挑战二 类实现
+
+```js
+
+```
