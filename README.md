@@ -277,5 +277,88 @@ sarah.calcAge();
 #### 挑战二 类实现
 
 ```js
+///////////////////////////////////////
+// Coding Challenge #2
 
+/*
+1. Re-create challenge 1, but this time using an ES6 class;
+2. Add a getter called 'speedUS' which returns the current speed in mi/h (divide by 1.6);
+3. Add a setter called 'speedUS' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the input by 1.6);
+4. Create a new car and experiment with the accelerate and brake methods, and with the getter and setter.
+
+DATA CAR 1: 'Ford' going at 120 km/h
+
+GOOD LUCK 😀
+*/
+
+class Car {
+    constructor(name, speed) {
+        this.name = name;
+        this.speedUs = speed;
+    }
+
+    accelerate() {
+        this._speed += 10
+        console.log(`accelerate `, this._speed, ' mi/h')
+    }
+    brake() {
+        this._speed -= 5
+        console.log(`brake `, this._speed, ' mi/h')
+    }
+
+    set speedUs(speed) {
+        this._speed = speed * 1.6
+    }
+    get speedUs() {
+        return this._speed / 1.6
+    }
+}
+
+const ford = new Car('Ford', 160)
+console.log(ford.speedUs);
+ford.accelerate()
+ford.accelerate()
+ford.brake()
+ford.brake()
+ford.brake()
+ford.speedUs = 90
+console.log(ford.speedUs);
+```
+
+#### 10.7 构造函数继承
+
+主要内容：原型对象如何与实例对象关联，原型对象如何与原型对象的原型对象关联。
+
+区分为：向下联系、向上联系
+
+向下联系的方法：在函数体内，`Person.call(this,xx,yy)`执行生成
+
+向上联系的方法：在函数体外，设置`Student.prototyoe = Object.create(Person.prototype)`
+
+完整代码如下：
+
+```js
+const Person = function(firstName,birthYear){
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+}
+
+Person.prototype.calcAge = function () {
+    console.log(2037 - this.birthYear)
+}
+
+const Student = function(firstName,birthYear,course){
+    Person.call(this,firstName,birthYear); // 生成Person对象
+    this.course = course;
+}
+
+Student.prototype = Object.create(Person.prototype); // 连接原型对象
+
+Student.prototype.introduce = function(){
+    console.log(`My name is ${this.firstName} and I study ${this.course}`);
+}
+
+const mike = new Student('Milk',2020,'History');
+mike.introduce();
+mike.calcAge();
 ```
