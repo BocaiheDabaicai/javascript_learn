@@ -537,3 +537,30 @@ bob.withdraw(100)
 bob.loan(1000)
 console.log(bob)
 ```
+
+**链式方法**
+
+实例对象完成多次方法操作
+
+要求：使用的方法要返回该对象
+
+示例:
+
+```js
+bob.deposit(200).deposit(300).deposit(500)
+    .withdraw(150).withdraw(100)
+    .loan(800)
+```
+
+> 静态属性只能够被类本身使用
+> 
+> 例如：
+> 
+> ```js
+> class x{
+>     //...
+>     static a
+> }
+> const obj = new x();
+> obj.a //这不被允许
+> ```

@@ -406,7 +406,8 @@ console.log(jay)
 jay.introduce()
 */
 
-/* 私有领域、方法，公有领域、方法
+/*
+ //私有领域、方法，公有领域、方法、方法链
 class Account{
     // public
     locale = navigator.language;
@@ -429,9 +430,11 @@ class Account{
 
     deposit(val){
         this.#movements.push(val)
+        return this
     }
     withdraw(val){
         this.#movements.push(-val)
+        return this
     }
 
     #verify(val){
@@ -440,6 +443,7 @@ class Account{
 
     loan(val){
         if(this.#verify(val)) this.deposit(val)
+        return this
     }
 
 }
@@ -450,10 +454,12 @@ bob.deposit(200)
 bob.withdraw(100)
 bob.loan(1000)
 console.log(bob)
+
+bob.deposit(200).deposit(300).deposit(500)
+    .withdraw(150).withdraw(100)
+    .loan(800)
+console.log(bob)
 */
-
-
-
 
 
 
