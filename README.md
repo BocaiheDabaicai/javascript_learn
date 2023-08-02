@@ -362,3 +362,178 @@ const mike = new Student('Milk',2020,'History');
 mike.introduce();
 mike.calcAge();
 ```
+
+#### 挑战三 构造函数继承
+
+```js
+///////////////////////////////////////
+// Coding Challenge #3
+
+/*
+1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
+2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo';
+3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
+4. Create an electric car object and experiment with calling 'accelerate', 'brake' and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'! HINT: Review the definiton of polymorphism 😉
+
+DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK 😀
+*/
+const Car = function(make,speed){
+    this.make = make
+    this.speed = speed
+}
+
+Car.prototype.accelerate = function(){
+    this.speed += 10;
+    console.log('accelerate ',this.speed,' Km/h')
+}
+
+Car.prototype.brake = function(){
+    this.speed -= 5;
+    console.log('brake ',this.speed,' Km/h')
+}
+
+const EV = function(make,speed,charge){
+    Car.call(this,make,speed)
+    this.charge = charge
+}
+
+EV.prototype = Object.create(Car.prototype)
+
+EV.prototype.chargeBattery = function (chargeTo) {
+    this.charge = chargeTo
+}
+
+EV.prototype.accelerate = function () {
+    this.speed += 20
+    this.charge -=1
+    console.log(`Tesla going at ${this.speed} km/h, with a charge of ${this.charge}%`)
+}
+
+const tesla = new EV('Tesla',120,23);
+```
+
+#### 10.8 Class类继承
+
+继承原理与构造函数继承方式相同，代码端相比更加简洁
+
+说明：
+
+1. `extends` 关键字 实现向上继承
+
+2. `super` 关键字 实现数据向上传递
+
+继承示例如下：
+
+```js
+class StudentCl extends PersonCl {
+    constructor(fullName, birthYear, course) {
+        super(fullName, birthYear);
+        this.course = course
+    }
+
+    introduce() {
+        console.log(`My name is ${this.fullName} and I study ${this.course}`)
+    }
+
+    calcAge() {
+        console.log(`I'm ${this._age} years old, but as a student I feel more like ${this._age - 8}`)
+    }
+}
+
+const martha = new StudentCl('Martha Jones', 2012, 'Computer')
+console.log(martha)
+martha.introduce()
+martha.calcAge()
+```
+
+#### 10.9 Object.create()继承
+
+说明：
+
+1. 由`student = Object.create(person)`的形式，实现向上继承
+
+2. 数据继承，`person.init.call(this,a,b)`初始化函数使用`call`传递参数
+
+继承示例如下：
+
+```js
+const PersonProto = {
+    calcAge(){
+        console.log(2037 - this.birthYear)
+    },
+    init(firstName,birthYear){
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+}
+
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function(firstName,birthYear,course){
+    PersonProto.init.call(this,firstName,birthYear);
+    this.course = course
+}
+StudentProto.introduce = function(){
+    console.log(`My name is ${this.firstName} and I study ${this.course}`)
+}
+const jay = Object.create(StudentProto)
+jay.init('Jay',2010,'Computer Science');
+console.log(jay);
+jay.introduce();
+jay.calcAge()
+```
+
+#### 10.10 私有与公有
+
+私有：私有领域、私有方法，属性会存在于实例对象身上，无法被类外作用域访问
+
+公有：公有领域、公有方法，属于存在于原型对象身上，类外可以被访问
+
+示例如下：
+
+```js
+class Account{
+    // public
+    locale = navigator.language;
+
+    // private
+    #movements = [];
+    #pin;
+
+    constructor(owner,currency,pin) {
+        this.owner = owner
+        this.currency = currency
+        this.#pin = pin
+
+        console.log(`Welcome to create a account, ${this.owner}!`)
+    }
+
+    getMovements(){
+        return this.#movements
+    }
+
+    deposit(val){
+        this.#movements.push(val)
+    }
+    withdraw(val){
+        this.#movements.push(-val)
+    }
+
+    #verify(val){
+        return true
+    }
+
+    loan(val){
+        if(this.#verify(val)) this.deposit(val)
+    }
+
+}
+
+const bob = new Account('Bob','CHN',1221)
+console.log(bob)
+bob.deposit(200)
+bob.withdraw(100)
+bob.loan(1000)
+console.log(bob)
+```

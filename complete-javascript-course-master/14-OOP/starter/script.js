@@ -204,6 +204,7 @@ ford.speedUs = 90
 console.log(ford.speedUs);
 */
 
+/* 构造函数继承
 const Person = function(firstName,birthYear){
     this.firstName = firstName;
     this.birthYear = birthYear;
@@ -231,37 +232,225 @@ mike.calcAge();
 console.log(mike)
 console.log(mike.__proto__ === Student.prototype)
 console.log(mike.__proto__.__proto__ === Person.prototype)
+*/
 
+/* 挑战三 构造函数继承
+///////////////////////////////////////
+// Coding Challenge #3
 
+/!*
+1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car. Besides a make and current speed, the EV also has the current battery charge in % ('charge' property);
+2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo';
+3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
+4. Create an electric car object and experiment with calling 'accelerate', 'brake' and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'! HINT: Review the definiton of polymorphism 😉
 
+DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
 
+GOOD LUCK 😀
+*!/
+const Car = function(make,speed){
+    this.make = make
+    this.speed = speed
+}
 
+Car.prototype.accelerate = function(){
+    this.speed += 10;
+    console.log('accelerate ',this.speed,' Km/h')
+}
 
+Car.prototype.brake = function(){
+    this.speed -= 5;
+    console.log('brake ',this.speed,' Km/h')
+}
 
+const EV = function(make,speed,charge){
+    Car.call(this,make,speed)
+    this.charge = charge
+}
 
+EV.prototype = Object.create(Car.prototype)
 
+EV.prototype.chargeBattery = function (chargeTo) {
+    this.charge = chargeTo
+}
 
+EV.prototype.accelerate = function () {
+    this.speed += 20
+    this.charge -=1
+    console.log(`Tesla going at ${this.speed} km/h, with a charge of ${this.charge}%`)
+}
 
+const tesla = new EV('Tesla',120,23);
+console.log(tesla)
+console.log(tesla.__proto__)
+console.log(tesla.__proto__.__proto__)
+tesla.accelerate()
+tesla.accelerate()
+tesla.accelerate()
+tesla.brake()
+tesla.brake()
+tesla.chargeBattery(40)
+tesla.accelerate()
+tesla.brake()
+tesla.brake()
+tesla.brake()
+tesla.accelerate()
+*/
 
+/* class对象继承
+class PersonCl {
+    constructor(firstName, birthYear) {
+        this.fullName = firstName
+        this.birthYear = birthYear
+    }
 
+    calcAge() {
+        console.log(2037 - this.birthYear)
+    }
 
+    greet() {
+        console.log(`Hey ${this.fullName}`)
+    }
 
+    get age() {
+        return 10
+    }
 
+    set fullName(fullName) {
+        if (fullName.includes(' ')) this._fullName = fullName;
+        else alert(`That's not a fullName`);
+    }
 
+    get fullName() {
+        return this._fullName
+    }
 
+    set birthYear(age) {
+        this._age = 2037 - age
+    }
 
+    get birthYear() {
+        return this._age
+    }
+}
 
+class StudentCl extends PersonCl {
+    constructor(fullName, birthYear, course) {
+        super(fullName, birthYear);
+        this.course = course
+    }
 
+    introduce() {
+        console.log(`My name is ${this.fullName} and I study ${this.course}`)
+    }
 
+    calcAge() {
+        console.log(`I'm ${this._age} years old, but as a student I feel more like ${this._age - 8}`)
+    }
+}
 
+const martha = new StudentCl('Martha Jones', 2012, 'Computer')
+console.log(martha)
+martha.introduce()
+martha.calcAge()
+*/
 
+/* Object.create 继承
+const PersonProto = {
+    calcAge(){
+        console.log(2037 - this.birthYear)
+    },
+    init(firstName,birthYear){
+        this.firstName = firstName;
+        this.birthYear = birthYear;
+    }
+}
 
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function(firstName,birthYear,course){
+    PersonProto.init.call(this,firstName,birthYear);
+    this.course = course
+}
+StudentProto.introduce = function(){
+    console.log(`My name is ${this.firstName} and I study ${this.course}`)
+}
+const jay = Object.create(StudentProto)
+jay.init('Jay',2010,'Computer Science');
+console.log(jay);
+jay.introduce();
+jay.calcAge()
+*/
 
+/* 冗余
+const PersonProto = {
+    calcAge(){
+        console.log(2037 - this.birthYear)
+    },
+    init(firstName,birthYear){
+        this.firstName = firstName;
+        this.birthYear = birthYear
+    }
+}
 
+const StudentProto = Object.create(PersonProto);
+StudentProto.init = function(firstName,birthYear,course){
+    PersonProto.init.call(this,firstName,birthYear);
+    this.course = course
+}
+StudentProto.introduce = function(){
+    console.log(`My name is ${this.firstName} and I study ${this.course}`)
+}
+const jay = Object.create(StudentProto);
+jay.init('Jay',2010,'Computer Science');
+console.log(jay)
+jay.introduce()
+*/
 
+/* 私有领域、方法，公有领域、方法
+class Account{
+    // public
+    locale = navigator.language;
 
+    // private
+    #movements = [];
+    #pin;
 
+    constructor(owner,currency,pin) {
+        this.owner = owner
+        this.currency = currency
+        this.#pin = pin
 
+        console.log(`Welcome to create a account, ${this.owner}!`)
+    }
+
+    getMovements(){
+        return this.#movements
+    }
+
+    deposit(val){
+        this.#movements.push(val)
+    }
+    withdraw(val){
+        this.#movements.push(-val)
+    }
+
+    #verify(val){
+        return true
+    }
+
+    loan(val){
+        if(this.#verify(val)) this.deposit(val)
+    }
+
+}
+
+const bob = new Account('Bob','CHN',1221)
+console.log(bob)
+bob.deposit(200)
+bob.withdraw(100)
+bob.loan(1000)
+console.log(bob)
+*/
 
 
 
