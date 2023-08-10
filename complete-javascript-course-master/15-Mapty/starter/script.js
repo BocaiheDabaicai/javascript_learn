@@ -139,9 +139,17 @@ class App {
 
         this.#workouts.push(workout)
 
-        console.log(this.#mapEvent)
+        // console.log(this.#mapEvent)
+        this._renderWorkoutMarker(workout)
 
-        L.marker([lat, lng])
+        this._renderWorkout(workout)
+
+
+//        inputDistance.value =
+    }
+
+    _renderWorkoutMarker(workout) {
+        L.marker(workout.coords)
             .addTo(this.#map)
             .bindPopup(
                 L.popup({
@@ -149,11 +157,15 @@ class App {
                     minWidth: 100,
                     autoClose: false,
                     closeOnClick: false,
-                    className: `${workout.type}-popup`
+                    className: `${workout.type}-popup`,
                 })
             )
             .setPopupContent('Workout')
             .openPopup();
+    }
+
+    _renderWorkout(workout){
+
     }
 
 }
