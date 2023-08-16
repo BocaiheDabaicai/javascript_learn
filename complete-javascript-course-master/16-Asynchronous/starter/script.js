@@ -6,7 +6,7 @@ const countriesContainer = document.querySelector('.countries');
 ///////////////////////////////////////
 
 
-const renderCountry = function (data,className='') {
+const renderCountry = function (data, className = '') {
     const html = `
         <article class="country ${className}">
           <img class="country__img" src="${data.flags.png}" />
@@ -25,11 +25,11 @@ const renderCountry = function (data,className='') {
 }
 
 const renderError = function (msq) {
-    countriesContainer.insertAdjacentText('beforeend',msq)
+    countriesContainer.insertAdjacentText('beforeend', msq)
     countriesContainer.style.opacity = 1
 }
 
-const getCountryAndNeighbourData = function(country) {
+const getCountryAndNeighbourData = function (country) {
     const request = new XMLHttpRequest();
     request.open('GET', `https://restcountries.com/v3.1/name/${country}`)
     request.send()
@@ -89,6 +89,7 @@ const getCountryDataS = function(country){
 getCountryDataS('china')
 */
 
+/* 链式Promise
 const getJSON = function(url,errorMsg = 'Something went wrong'){
     return fetch(url)
         .then(response => {
@@ -126,8 +127,78 @@ btn.addEventListener('click',function(){
 })
 
 getCountryData('asdasdas')
+*/
+
+/*
+// 冗余写法
+const getCountryData = function(country){
+    fetch(`https://restcountries.com/v3.1/name/${country}`)
+        .then(response => {
+            console.log(response)
+
+            if (!response.ok)
+                throw new Error(`Country not found (${response.status})`)
+
+            return  response.json()
+        })
+        .then(data => {
+            renderCountry(data[0])
+            const neighbour = data[0].borders[0]
+
+            if (!neighbour) return;
+
+            return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
+        })
+        .then(response => response.json())
+        .then(data => renderCountry(data[0], 'neighbour'))
+        .catch(error => {
+            console.error(`${error} 💥💥💥`)
+            renderError(`Something went wrong 💥💥 ${error.message}. Try again!`);
+        })
+        .finally(() => {
+            countriesContainer.style.opacity = 1
+        })
+}
+*/
+
+/* 函数重构
+const getJSON = function (url, errorMsg = 'Something went wrong') {
+    return fetch(url)
+        .then(response => {
+            if (!response.ok)
+                throw new Error(`${errorMsg} (${response.status})`)
+
+            return response.json()
+        })
+}
+
+const getCountryData = function (country) {
+    getJSON(`https://restcountries.com/v3.1/name/${country}`,'Country not found')
+        .then(data => {
+            renderCountry(data[0])
+            const neighbour = data[0].borders[0]
+
+            if (!neighbour) return;
+
+            return getJSON(`https://restcountries.com/v3.1/name/${neighbour}`,`neighbour not found`)
+        })
+        .then(data => renderCountry(data[0], 'neighbour'))
+        .catch(error => {
+            console.error(`${error} 💥💥💥`)
+            renderError(`Something went wrong 💥💥 ${error.message}. Try again!`);
+        })
+        .finally(() => {
+            countriesContainer.style.opacity = 1
+        })
+}
 
 
+btn.addEventListener('click', function () {
+    getCountryData('france')
+})
+
+getCountryData('asdasdas')
+*/
 
 
 
