@@ -60,4 +60,42 @@ Fetch是一个函数，用于请求资源，并最终返回一个`Promise`对象
 
 #### 12.5 Promise
 
-// 等待总结
+产生`Promise`对象：
+
+- 通过`fetch`函数生成`Promise`回应
+
+- 在使用`then`方法获取`Promse`的结果
+
+链式传递参数：
+
+- 在`then`方法内使用`return`再次返回一个`Promise`对象
+
+特别地，
+
+1. `catch`方法也会传递一个`Promise`对象
+
+2. `finally`方法会默认执行
+
+示例如下：
+
+```js
+fetch(`https://restcountries.com/v3.1/name/${country}`)
+        .then(response => response.json())
+        .then(data => {
+            renderCountry(data[0])
+            const neighbour = data[0].borders[0]
+
+            if (!neighbour) return;
+
+            return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
+        })
+        .then(response => response.json())
+        .then(data => renderCountry(data[0], 'neighbour'))
+        .catch(error => {
+            console.error(`${error} 💥💥💥`)
+            renderError(`Something went wrong 💥💥 ${error.message}. Try again!`);
+        })
+        .finally(() => {
+            countriesContainer.style.opacity = 1
+        })
+```

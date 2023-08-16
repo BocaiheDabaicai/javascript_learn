@@ -6,9 +6,9 @@ const countriesContainer = document.querySelector('.countries');
 ///////////////////////////////////////
 
 
-const renderCountry = function (data) {
+const renderCountry = function (data,className='') {
     const html = `
-        <article class="country">
+        <article class="country ${className}">
           <img class="country__img" src="${data.flags.png}" />
           <div class="country__data">
             <h3 class="country__name">${data.name.common}</h3>
@@ -21,6 +21,11 @@ const renderCountry = function (data) {
     `
 
     countriesContainer.insertAdjacentHTML('beforeend', html);
+    countriesContainer.style.opacity = 1
+}
+
+const renderError = function (msq) {
+    countriesContainer.insertAdjacentText('beforeend',msq)
     countriesContainer.style.opacity = 1
 }
 
@@ -64,6 +69,7 @@ const data = fetch(`https://restcountries.com/v3.1/name/china`)
 console.log(data)
 */
 
+/* Promise 实现
 const getCountryData = function(country){
     fetch(`https://restcountries.com/v3.1/name/${country}`)
         .then(function(response){
@@ -81,11 +87,45 @@ const getCountryDataS = function(country){
 }
 // getCountryData('china')
 getCountryDataS('china')
+*/
+
+const getJSON = function(url,errorMsg = 'Something went wrong'){
+    return fetch(url)
+        .then(response => {
+            if(!response.ok)
+                throw new Error(`${errorMsg} (${response.status})`);
+            return response.json()
+        })
+}
+
+const getCountryData = function(country){
+    fetch(`https://restcountries.com/v3.1/name/${country}`)
+        .then(response => response.json())
+        .then(data => {
+            renderCountry(data[0])
+            const neighbour = data[0].borders[0]
+
+            if (!neighbour) return;
+
+            return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
+        })
+        .then(response => response.json())
+        .then(data => renderCountry(data[0], 'neighbour'))
+        .catch(error => {
+            console.error(`${error} 💥💥💥`)
+            renderError(`Something went wrong 💥💥 ${error.message}. Try again!`);
+        })
+        .finally(() => {
+            countriesContainer.style.opacity = 1
+        })
+}
 
 
+btn.addEventListener('click',function(){
+    getCountryData('france')
+})
 
-
-
+getCountryData('asdasdas')
 
 
 
