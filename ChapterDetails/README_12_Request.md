@@ -1,116 +1,79 @@
-'use strict';
+## 第12章 JS异步
 
-const btn = document.querySelector('.btn-country');
-const countriesContainer = document.querySelector('.countries');
-// const image = document.querySelector('.images')
-const imgContainer = document.querySelector('.images')
-///////////////////////////////////////
+#### 12.1 概念
 
+- 同步：代码按照顺序依次执行，如果处于阻塞状态，那么下面的代码不会被执行，直到阻塞被处理
 
-const renderCountry = function (data, className = '') {
-    const html = `
-        <article class="country ${className}">
-          <img class="country__img" src="${data.flags.png}" />
-          <div class="country__data">
-            <h3 class="country__name">${data.name.common}</h3>
-            <h4 class="country__region">${data.region}</h4>
-            <p class="country__row"><span>👫</span>${(+data.population / 100000000).toFixed(1)}</p>
-            <p class="country__row"><span>🗣️</span>${data.fifa}</p>
-            <p class="country__row"><span>💰</span>${data.capital[0]}</p>
-          </div>
-        </article>
-    `
+- 异步：代码会被延时执行，即同步代码会按照顺序执行，异步代码在一定条件被触发后，才会执行，**相比于同步而言，异步代码可能不会按顺序执行，而且不会被阻塞，回调函数不能编写异步代码**
 
-    countriesContainer.insertAdjacentHTML('beforeend', html);
-    countriesContainer.style.opacity = 1
-}
+说明：
 
-const renderError = function (msq) {
-    countriesContainer.insertAdjacentText('beforeend', msq)
-    countriesContainer.style.opacity = 1
-}
+1. 同步代码，一般的代码语句
 
-const getCountryAndNeighbourData = function (country) {
-    const request = new XMLHttpRequest();
-    request.open('GET', `https://restcountries.com/v3.1/name/${country}`)
-    request.send()
-    request.addEventListener('load', function () {
-        // console.log(this.responseText)
-        const [data] = JSON.parse(this.responseText)
-        console.log(data)
-        renderCountry(data)
+2. 异步代码，带有API请求、时间函数、AJAX等等
 
-    })
-}
+3. AJAX，即异步JS和XML，允许使用异步方式下的web服务器进行通讯，对于AJAX回调来说，可以实现动态请求web服务器下的数据
 
-const getJSON = function(url,errorMsg = 'Something went wrong'){
-    return fetch(url)
-        .then(response => {
-            if(!response.ok)
-                throw new Error(`${errorMsg} (${response.status})`);
-            return response.json()
-        })
-}
+4. API，应用编程接口，软件的部分功能可以被使用在另一个软件上，允许软件之间进行交互
 
-/* API请求
-getCountryAndNeighbourData('China')
-// getCountryData('America')
-// getCountryData('Canada')
-getCountryAndNeighbourData('Germany')
-*/
+#### 12.2 请求与响应
 
-/* 回调地狱
-setTimeout(()=>{
-    console.log('第1秒触发')
-    setTimeout(()=>{
-        console.log('第2秒触发')
-        setTimeout(()=>{
-            console.log('第3秒触发')
-            setTimeout(()=>{
-                console.log('第4秒触发')
-            },1000)
-        },1000)
-    },1000)
-},1000)
-*/
+URL的组成：
 
-/* Fetch函数
-const data = fetch(`https://restcountries.com/v3.1/name/china`)
-console.log(data)
-*/
+1. 通讯协议
 
-/* Promise 实现
-const getCountryData = function(country){
-    fetch(`https://restcountries.com/v3.1/name/${country}`)
-        .then(function(response){
-        console.log(response)
-        return response.json()
-    })
-        .then(function (data) {
-            console.log(data)
-        })
-}
-const getCountryDataS = function(country){
-    fetch(`https://restcountries.com/v3.1/name/${country}`)
-        .then((response)=> response.json())
-        .then( (data)=> renderCountry(data[0]))
-}
-// getCountryData('china')
-getCountryDataS('china')
-*/
+2. 域名
 
-/* 链式Promise
-const getJSON = function(url,errorMsg = 'Something went wrong'){
-    return fetch(url)
-        .then(response => {
-            if(!response.ok)
-                throw new Error(`${errorMsg} (${response.status})`);
-            return response.json()
-        })
-}
+3. 资源地址
 
-const getCountryData = function(country){
-    fetch(`https://restcountries.com/v3.1/name/${country}`)
+请求到响应的完整过程：
+
+1. 客户端发送URL到域名系统进行IP查询
+
+2. 查询成功后，将IP地址返回给客户端
+
+3. 服务器与客户端进行TCP/IP连接(Socket)
+
+4. 客户端发送HTTP请求
+
+5. 服务器发送HTTP响应
+
+> HTTP请求包括：请求头和请求体
+> 
+> HTTP响应包括：响应头和响应体
+> 
+> HTTPS请求，会使用TLS或SSL进行加密
+
+#### 12.3 回调地狱
+
+概念：异步代码当中，出现时间函数、请求API的代码块重复使用多次，使得代码难以维护、难以理解的情况。
+
+#### 12.4 Fetch
+
+Fetch是一个函数，用于请求资源，并最终返回一个`Promise`对象的`resolve`结果
+
+#### 12.5 Promise
+
+产生`Promise`对象：
+
+- 通过`fetch`函数生成`Promise`回应
+
+- 在使用`then`方法获取`Promse`的结果
+
+链式传递参数：
+
+- 在`then`方法内使用`return`再次返回一个`Promise`对象
+
+特别地，
+
+1. `catch`方法也会传递一个`Promise`对象
+
+2. `finally`方法会默认执行
+
+示例如下：
+
+```js
+fetch(`https://restcountries.com/v3.1/name/${country}`)
         .then(response => response.json())
         .then(data => {
             renderCountry(data[0])
@@ -129,92 +92,21 @@ const getCountryData = function(country){
         .finally(() => {
             countriesContainer.style.opacity = 1
         })
-}
+```
 
+#### 挑战一 地图API
 
-btn.addEventListener('click',function(){
-    getCountryData('france')
-})
+出现一些问题：
 
-getCountryData('asdasdas')
-*/
+1. 外网访问
 
-/*
-// 冗余写法
-const getCountryData = function(country){
-    fetch(`https://restcountries.com/v3.1/name/${country}`)
-        .then(response => {
-            console.log(response)
+2. 需要注册网址账号，并在请求时携带认证数据
 
-            if (!response.ok)
-                throw new Error(`Country not found (${response.status})`)
-
-            return  response.json()
-        })
-        .then(data => {
-            renderCountry(data[0])
-            const neighbour = data[0].borders[0]
-
-            if (!neighbour) return;
-
-            return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
-        })
-        .then(response => response.json())
-        .then(data => renderCountry(data[0], 'neighbour'))
-        .catch(error => {
-            console.error(`${error} 💥💥💥`)
-            renderError(`Something went wrong 💥💥 ${error.message}. Try again!`);
-        })
-        .finally(() => {
-            countriesContainer.style.opacity = 1
-        })
-}
-*/
-
-/* 函数重构
-const getJSON = function (url, errorMsg = 'Something went wrong') {
-    return fetch(url)
-        .then(response => {
-            if (!response.ok)
-                throw new Error(`${errorMsg} (${response.status})`)
-
-            return response.json()
-        })
-}
-
-const getCountryData = function (country) {
-    getJSON(`https://restcountries.com/v3.1/name/${country}`,'Country not found')
-        .then(data => {
-            renderCountry(data[0])
-            const neighbour = data[0].borders[0]
-
-            if (!neighbour) return;
-
-            return getJSON(`https://restcountries.com/v3.1/name/${neighbour}`,`neighbour not found`)
-        })
-        .then(data => renderCountry(data[0], 'neighbour'))
-        .catch(error => {
-            console.error(`${error} 💥💥💥`)
-            renderError(`Something went wrong 💥💥 ${error.message}. Try again!`);
-        })
-        .finally(() => {
-            countriesContainer.style.opacity = 1
-        })
-}
-
-
-btn.addEventListener('click', function () {
-    getCountryData('france')
-})
-
-getCountryData('asdasdas')
-*/
-
-/* 挑战一 地图API
+```js
 ///////////////////////////////////////
 // Coding Challenge #1
 
-/!*
+/*
 In this challenge you will build a function 'whereAmI' which renders a country ONLY based on GPS coordinates. For that, you will use a second API to geocode coordinates.
 
 Here are your tasks:
@@ -236,7 +128,7 @@ TEST COORDINATES 2: 19.037, 72.873
 TEST COORDINATES 2: -33.933, 18.474
 
 GOOD LUCK 😀
-*!/
+*/
 
 const whereAmI = function (lat,lng) {
     fetch(`https://geocode.xyz/${lat},${lng}?geoit=json`)
@@ -258,36 +150,51 @@ const whereAmI = function (lat,lng) {
 whereAmI(52.508, 13.381)
 whereAmI(19.037, 72.873)
 whereAmI(-33.933, 18.474)
-*/
+```
 
-/* 事件循环
-function getData(){
-    console.log('get data')
-}
+#### 12.6 异步JS背后的原理
 
+回调队列
 
-console.log('Test start');
+- 回调队列：用于接收代码中的常规函数、回调函数，并在JS引擎为空时，将任务推进引擎中进行执行。
 
-setTimeout(()=> console.log('0 sec timer'),0);
-Promise.resolve('Resolved promise 1').then(res=>console.log(res))
-Promise.resolve('Resolved promise 2').then(res=>{
-    for (let i = 0; i < 1000000000; i++) {}
-    console.log(res)
-})
-setTimeout(getData,0)
+- 微任务队列：用于接收`fetch`请求、`Promise`对象、DOM方法之类的回调函数，执行优先级高于回调队列，微任务队列未全部执行完毕之前，回调队列停止任务推进
 
-console.log('Test end');
-*/
+DOM监听事件的回调函数、`fetch`函数.then下的回调函数等等，会首先注册在WEPAPI中，当触发时，回调函数被调入回调队列中。
 
-/* 构造Promise对象
-const lotteryPromise = new Promise(function(resolve,reject){
-    if(Math.random() >= 0.5){
-        resolve('You Win 💗')
-    }else{
-        reject('You lost your money 💔')
-    }
-})
+事件循环
 
+- 将回调队列中的函数放入栈中进行执行，如果栈不为空，则阻塞回调队列中的其它代码进行执行，微任务队列拥有优先级，事件循环会首先保证微任务队列中的每一个回调函数被执行，并在微任务队列中的回调函数被执行之后，才开始执行回调队列中的代码
+
+事件执行顺序
+
+1. 按顺序执行外层函数
+
+2. 按顺序执行微任务（`Promise`）
+
+3. 剩余的回调函数按顺序执行，（时间函数）
+
+#### 12.7 构造Promise
+
+语法：`new Promise()`，构造一个`Promise`对象
+
+接收参数：
+
+1. `resolve`，接收正常录入的数据
+
+2. `reject`，接收错误信息，内部内容建议创建一个`new Error()`对象，并把错误信息放入内部
+
+直接使用参数
+
+1. `Promise.resolve()`，生成数据对象
+
+2. `Promise.reject()`，生成错误对象
+
+具体实例：
+
+```js
+// 写入一个回调函数
+// 回调函数内的内容属于微任务，会优先进行
 const lotteryPromiseAsy = new Promise(function(resolve,reject){
     console.log('Lotter draw is happening 💟')
 
@@ -300,48 +207,13 @@ const lotteryPromiseAsy = new Promise(function(resolve,reject){
     },2000)
 
 })
+```
 
-const wait = function (seconds) {
-    return new Promise(function (resolve) {
-        setTimeout(resolve,seconds * 1000)
-    })
-}
+#### 挑战二 异步读取图片
 
-// lotteryPromise
-//     .then(response => console.log(response))
-//     .catch(error => console.log(error))
+代码如下:
 
-// lotteryPromiseAsy
-//     .then(response => console.log(response))
-//     .catch(error => console.log(error))
-
-wait(1)
-    .then(()=>{
-        console.log('waited for 1 seconds');
-        return wait(1)
-    })
-    .then(()=>{
-        console.log('waited for 2 seconds');
-        return wait(1)
-    })
-    .then(()=>{
-        console.log('waited for 3 seconds');
-        return wait(1)
-    })
-    .then(()=>console.log('waited for 4 seconds'))
-*/
-
-/* 获取地理位置封装为Promise
-const getPosition = function () {
-    return new Promise(function (resolve, reject) {
-        navigator.geolocation.getCurrentPosition(resolve,reject)
-    })
-}
-
-getPosition().then(pos => console.log(pos))
-*/
-
-/* 挑战二 异步读取图片
+```js
 ///////////////////////////////////////
 // Coding Challenge #2
 
@@ -466,26 +338,38 @@ createImage('img/img-1.jpg')
         currentImg.style.display = 'none'
     })
     .catch(error => console.error(error))
-*/
+```
 
-/* 同步请求
-const whereAmI = async function (country) {
+#### 12.8 同步请求(async)
 
-    const textData = await new Promise(function (resolve, reject){
+针对于发起请求，并返回`Promise`对象的函数
+
+例如：`fetch`、`new Promise()`、`navigator`获取当前地理位置
+
+对外部声明`async fucntion(){}`，则函数被声明为同步函数
+
+对内部请求声明`await 请求`，则直接返回该请求的`resolve`结果，并在请求结果获得之前，阻塞下面的代码运行，**等同于在运行同步请求**
+
+示例代码：
+
+```js
+// 示例
+const textData = await new Promise(function (resolve, reject){
         resolve('abcdefg')
     })
-    console.log(textData)
 
-    const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
-    const data = await response.json()
-    console.log(data)
-    renderCountry(data[0])
-}
-whereAmI(`china`)
-console.log('FIRST')
-*/
+const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
 
-/* 捕获错误
+const data = await response.json()
+```
+
+#### 12.9 捕获错误(try catch)
+
+在使用`await`声明的情况下，将函数块包裹起来，能够监测函数作用域内的所有`await`请求，并把错误信息给予`catch`下的参数变量`error`
+
+示例：
+
+```js
 const whereAmI = async function (country) {
     try {
         const textData = await new Promise(function (resolve, reject) {
@@ -496,17 +380,26 @@ const whereAmI = async function (country) {
         const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
         const data = await response.json()
         console.log(data)
-        renderCountry(data[0])
+        renderCountry(data[0]) 
+
     } catch (error) {
         console.log(error)
         console.log(error.message)
     }
 }
-whereAmI(`china`)
-console.log('FIRST')
-*/
+```
 
-/* Promise综合、all,allSettled,race,any
+#### 12.10 Promise综合
+
+##### 1. 时间损耗
+
+请求时间消费，同步请求会阻塞，导致时间分配
+
+使用`Promise.all(Array)`，放入所有请求，使请求同时发生，产生时间优化
+
+案例
+
+```js
 const get3Countries = async function(c1,c2,c3){
     try{
         // 单线程运行，每个请求消耗0.5秒
@@ -531,28 +424,21 @@ const get3Countries = async function(c1,c2,c3){
 
 }
 
-// get3Countries('china','france','canada')
+get3Countries('china','france','canada')
+```
 
-async function getFirstResult () {
-    const response = await Promise.race([
-        getJSON(`https://restcountries.com/v3.1/name/china`),
-        getJSON(`https://restcountries.com/v3.1/name/france`),
-        getJSON(`https://restcountries.com/v3.1/name/canada`)
-    ]);
+##### 2. 请求结果
 
-    console.log(response[0].capital)
-}
+| 请求方式                     | 请求说明                         |
+| ------------------------ | ---------------------------- |
+| `Promise.race([])`       | 获取数组中请求最快完成的响应结果             |
+| `Promise.all([])`        | 同时运行所有请求，并返回最终的响应结果，遇到错误直接停止 |
+| `Promise.allSettled([])` | 同时运行所有请求，并返回最终的响应结果，无视错误     |
+| `Promise.any([])`        | 获取数组中请求响应第一个成功的结果            |
 
-// getFirstResult()
+示例：
 
-const timeout = function (sec) {
-    return new Promise(function (_, reject) {
-        setTimeout(function(){
-            reject(new Error('Request took too long!'))
-        },sec * 1000)
-    })
-}
-
+```js
 Promise.race([
     getJSON(`https://restcountries.com/v3.1/name/india`),
     timeout(0.4)
@@ -582,13 +468,17 @@ Promise.any([
 ])
     .then(response => console.log(response))
     .catch(error => console.error(error))
-*/
+```
 
-/* 挑战三 同步图片加载
+#### 挑战三 同步图片加载
+
+代码如下:
+
+```js
 ///////////////////////////////////////
 // Coding Challenge #3
 
-/!*
+/*
 PART 1
 Write an async function 'loadNPause' that recreates Coding Challenge #2, this time using async/await (only the part where the promise is consumed). Compare the two versions, think about the big differences, and see which one you like more.
 Don't forget to test the error handler, and to set the network speed to 'Fast 3G' in the dev tools Network tab.
@@ -603,7 +493,7 @@ PART 2
 TEST DATA: ['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']. To test, turn off the 'loadNPause' function.
 
 GOOD LUCK 😀
-*!/
+*/
 
 const wait = function (seconds) {
     return new Promise(function (resolve) {
@@ -669,15 +559,4 @@ const loadAll = async function(imgArr){
 }
 
 loadAll(imgArr)
-*/
-
-
-
-
-
-
-
-
-
-
-
+```
