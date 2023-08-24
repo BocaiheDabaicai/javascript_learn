@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2></h2>
+
+<script>
+    let person = {
+        level: '2',
+        name: '小丽',
+        registTime: '2021-11-01',
+    }
+    let h2 = document.querySelector('h2');
+    // 补全代码
+
+    let {level,name,registTime} = person
+    let personDate = new Date(registTime)
+    let resultDate = Math.floor((Date.now() - personDate.getTime())/(1000*60*60*24))
+    let resultTest = Math.floor((new Date() - new Date(registTime))/(1000*60*60*24))
+
+    h2.innerText = `尊贵的牛客网${level}级用户${name}您好，您已经注册牛客网${resultDate}天啦~`
+
+    console.log(h2.innerText.includes(resultDate))
+</script>
+</body>
+</html>

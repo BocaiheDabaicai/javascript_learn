@@ -55,3 +55,69 @@ import add from './shoppingCart.js';
 // 混合导出，一般不推荐使用
 import add,{cart} from './shoppingCart.js';
 ```
+
+#### 13.3 ES2022 顶级模块
+
+当在入口文件`index.html`中声明的模块标签带有`type="module"`
+
+```js
+<script defer type="module" src="script.js"></script>
+```
+
+则生成了顶级模块，那么在其余任何`.js`模块中可以绕过`async`声明，直接使用`await`语法，如果某个文件需要进行异步请求，则整个应用将陷入等待
+
+**不推荐使用，会导致全局代码阻塞**
+
+#### 13.4 模块模式
+
+通过使用IIFE、闭包，获取需要应用的作用域变量、函数
+
+示例如下
+
+```js
+const ShoppingCart2 = (function () {
+    const cart = [];
+    const shippingCost = 10;
+    const totalPrice = 237;
+    const totalQuantity = 23;
+
+    const addToCart = function (product, quantity) {
+        cart.push({product,quantity})
+        console.log(`${quantity} ${product} added to cart`);
+    }
+
+    const orderStock = function (product, quantity) {
+        console.log(`${quantity} ${product} ordered from supplier`)
+    }
+
+    return {
+        addToCart,
+        cart,
+        totalPrice,
+        totalQuantity
+    }
+})();
+
+ShoppingCart2.addToCart('apples', 2)
+ShoppingCart2.addToCart('pears', 3)
+ShoppingCart2.addToCart('watermelon', 2)
+console.log(ShoppingCart2)
+```
+
+#### 13.5 模块模式
+
+外部模块模式分为：`AMD`模块、`CommonJS`模块
+
+`CommonJs`的导入与导出
+
+```js
+// 导出
+export.addToCart = function (product, quantity) {
+    cart.push({product,quantity})
+    console.log(`${quantity} ${product} added to cart`);
+}
+
+// 导入
+const {addTocart} = require('./shoppingCart.js');
+
+```
