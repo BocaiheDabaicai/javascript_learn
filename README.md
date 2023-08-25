@@ -119,5 +119,52 @@ export.addToCart = function (product, quantity) {
 
 // 导入
 const {addTocart} = require('./shoppingCart.js');
-
 ```
+
+#### 13.6 npm
+
+指令:
+
+- `npm init`，生成`packge.json`文件，初始化包管理工具
+
+- `npm install/i 包名`，生成指定的依赖文件
+
+- `npm install/i`，生成`packge.json`下的所有依赖文件
+
+parcel:
+
+安装`npm i parcel --save-dev`
+
+它是一个模块捆绑器，用于捆绑当前使用的代码，将它们压缩成一个小体积
+
+主要指令:
+
+- `parcel index.html`，热捆绑模块
+
+- `parcel build index.html`，打包模块
+
+手动设置热更新，代码如下：
+
+```js
+if(module.hot){
+    module.hot.accept()
+}
+```
+
+开启热捆绑模式会识别该代码，在代码进行保存后，实时进行捆绑。
+
+npm的脚本实现方式：
+
+1. 使用`npx`指令，在命令窗口实现执行脚本，例如`npx parcel index.html`
+
+2. 设置`npm`指令，具体如下
+
+```js
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+```
+
+最后通过，`npm run 指令名称`执行对应的脚本

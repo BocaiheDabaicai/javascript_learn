@@ -1,10 +1,11 @@
+/*
 // 导入模块
 
 // addToCart('bread', 5)
 // console.log(price, quantity)
 // import {addToCart, totalPrice as price, quantity} from './shoppingCart.js';
 
-console.log('Importing module')
+// console.log('Importing module')
 
 // import * as ShoppingCart from "./shoppingCart.js";
 //
@@ -21,6 +22,7 @@ console.log('Importing module')
 // add('watermelon', 2)
 //
 // console.log(cart)
+*/
 
 /* 全局阻塞
 // let result = await fetch(`https://jsonplaceholder.typicode.com/posts`)
@@ -84,3 +86,46 @@ export.addToCart = function (product, quantity) {
 // 导入
 const {addTocart} = require('./shoppingCart.js');
 */
+
+
+import cloneDeep from "./node_modules/lodash-es/cloneDeep.js";
+import {cart} from "./shoppingCart.js";
+
+const state = {
+    cart: [
+        {product: 'bread', quantity: 5},
+        {product: 'pizza', quantity: 5},
+    ],
+    user: {loggedIn: true}
+}
+
+const stateClone = Object.assign({}, state);
+const stateDeepClone = cloneDeep(state);
+
+state.user.loggedIn = false
+
+console.log(stateClone)
+console.log(stateDeepClone)
+
+// if(module.hot){
+//     module.hot.accept()
+// }
+
+class Person {
+    #greeting = 'Hey'
+
+    constructor(name) {
+        this.name = name
+        console.log(`${this.#greeting}, ${this.name}`)
+    }
+}
+
+const jonas = new Person('Jonas')
+
+console.log('Jonas' ?? null)
+console.log(cart.find(el => el.quantity >= 2))
+Promise.resolve('TEST').then(x => console.log(x))
+
+import './node_modules/core-js/stable'
+
+import './node_modules/regenerator-runtime/runtime.js'
