@@ -46,7 +46,7 @@
             sourceUrl: recipe.source_url,
             title: recipe.title,
         }
-    
+
 
 // 2) 渲染页面 
 recipeContainer.insertAdjacentHTML('afterbegin', markup) 
@@ -64,3 +64,70 @@ const renderSpinner = function (parentEl) {
     parentEl.insertAdjacentHTML('afterbegin', markup)
 }
 ```
+
+#### 14.3 路由标签响应
+
+目的：点击路由后发生数据加载
+
+代码如下：
+
+```js
+// 读取多个事件
+const array = ['hashchange','load']
+array.forEach(event => window.addEventListener(event,showRecipe)) 
+
+// showRecipe代码优化
+const id = window.location.hash.slice(1);
+        console.log(id)
+
+        if (!id) return;
+        // 1）加载食谱
+        renderSpinner(recipeContainer)
+
+        const response = await fetch(
+            `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
+            // `https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604691c37cdc054bd0c0`
+        )
+```
+
+#### 14.4 软件结构
+
+考虑的重点：
+
+1. 组织代码，结构
+
+2. 不断优化，可维护性
+
+3. 添加新结构，可拓展性
+
+开发重点：
+
+1. 业务逻辑，解决实际问题、关联业务要做的和需要做的
+
+2. 状态，存储应用的所有数据、UI与状态同步、使用状态管理库
+
+3. 请求库，对AJAX请求进行响应
+
+4. 应用逻辑（路由），编码只关注应用接口、处理导航和UI事件
+
+5. UI层，编码只关心应用的可视化部分、展示应用状态
+
+**MVC架构**
+
+由模型、视图、控制器组成
+
+- 模型：业务逻辑、状态、请求
+
+- 控制器：应用逻辑
+
+- 视图：UI层
+
+**项目结构重构**
+
+主要文件夹`.js/`
+
+1. `model.js`：负责模型
+
+2. `controller.js`：负责控制器
+
+3. `views/`：负责视图
