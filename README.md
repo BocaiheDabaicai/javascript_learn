@@ -131,3 +131,15 @@ const id = window.location.hash.slice(1);
 2. `controller.js`：负责控制器
 
 3. `views/`：负责视图
+
+**项目重构**
+
+新生成的文件及文件夹:
+
+1. `views/`：用于存放视图
+
+2. `recipeView.js`：用于请求数据并渲染界面
+
+3. `helpers.js`：封装请求的数据
+
+4. `config.js`：定义全局变量
