@@ -1,5 +1,6 @@
 import * as model from './model.js'
 import recipeView from "./views/recipeView.js";
+import searchView from "./views/searchView";
 
 ///////////////////////////////////////
 
@@ -18,11 +19,24 @@ const controlRecipes = async function () {
         recipeView.render(model.state.recipe)
 
     } catch (error) {
-        alert(error.message)
+        recipeView.renderError(error)
+    }
+}
+
+const controlSearchResults = async function(){
+    try{
+        const query = searchView.getQuery();
+        if(!query) return;
+
+        await model.loadSearchResults(query)
+        console.log(model.state.search)
+    }catch (error) {
+        console.log(error)
     }
 }
 
 const init = function(){
     recipeView.addHandlerRender(controlRecipes)
+    searchView.addHandlerSearch(controlSearchResults)
 }
 init()

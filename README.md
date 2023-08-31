@@ -143,3 +143,11 @@ const id = window.location.hash.slice(1);
 3. `helpers.js`：封装请求的数据
 
 4. `config.js`：定义全局变量
+
+接入错误与成功提示信息
+
+查询功能：
+
+1. 新生成文件`searchView.js`
+
+2. 实现界面查询功能
