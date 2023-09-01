@@ -2,68 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
 </head>
+<style>
+    ul {
+        list-style: none;
+    }
+</style>
 <body>
-<ul id="ul">
-
+<ul>
+    <li>全选<input type='checkbox' id='all'></li>
+    <li>Java<input type='checkbox' class='item'></li>
+    <li>javaScript<input type='checkbox' class='item'></li>
+    <li>C++<input type='checkbox' class='item'></li>
+    <li>python<input type='checkbox' class='item'></li>
+    <li>.net<input type='checkbox' class='item'></li>
 </ul>
-<script type="text/javascript">
-    const furthestDistanceFromOrigin = function (moves) {
-        let array = moves.toLowerCase().split('')
-        let result = 0;
-        let index = [...moves.matchAll('R')].length > [...moves.matchAll('L')].length ? 'r' : 'l';
 
-        array.forEach(item => {
-            if (item === 'l') {
-                result -= 1
-            }
-            if (item === 'r') {
-                result += 1
-            }
-            if (item === '_') {
-                index === 'r' ? result += 1 : result -= 1;
+<script>
+    const _proxy = (object, ...prototypes) => {
+        // 补全代码
+        console.log(object)
+        console.log(prototypes)
+        return new Proxy(object, {
+            get(obj, prop) {
+                return prototypes.includes(prop) ? 'noright' : obj[prop]
             }
         })
+    }
 
-        console.log(Math.abs(result))
-        return Math.abs(result)
-    };
+    let object = {name: 'me', age: 1, from: 'china'}
 
-    // furthestDistanceFromOrigin("L_RL__R")
-    // furthestDistanceFromOrigin("_R__LL_")
-    // furthestDistanceFromOrigin("_______")
-
-    const minimumPossibleSum = function (n, target) {
-        // console.log(n, target)
-        const array = []
-        let result = 0
-        for (let i = 1; array.length < n; i++) {
-            array.push(i)
-            result += i
-            if (array.length > 1 && array[array.length - 1] < target) {
-                array.forEach((item, aIndex) => {
-                    if (item < target)
-                        if (array.find((data, index) => {
-                            if (aIndex === index) return undefined
-                            return data === target - item
-                        })) {
-                            array.pop();
-                            result -= i
-                        }
-                })
-            }
-        }
-
-        console.log(result)
-        return result
-
-    };
-
-    minimumPossibleSum(2, 3)
-    minimumPossibleSum(3, 3)
-    minimumPossibleSum(1, 1)
-    minimumPossibleSum(1600000, 6)
+    let result = _proxy(object, 'age', 'from')
+    console.log(result.name)
+    console.log(result.age)
+    console.log(result.from)
 </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 import * as model from './model.js'
 import recipeView from "./views/recipeView.js";
 import searchView from "./views/searchView";
+import resultsView from "./views/resultsView";
 
 ///////////////////////////////////////
 
@@ -28,8 +29,12 @@ const controlSearchResults = async function(){
         const query = searchView.getQuery();
         if(!query) return;
 
+        // 1) 加载查询结果
         await model.loadSearchResults(query)
-        console.log(model.state.search)
+
+        // 2) 渲染查询结果
+        resultsView.render(model.state.search)
+
     }catch (error) {
         console.log(error)
     }
