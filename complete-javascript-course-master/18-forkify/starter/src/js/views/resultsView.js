@@ -7,7 +7,8 @@ class ResultsView extends View{
     _message = '';
 
     _generateMarkup(){
-        return this._data.results.map(this._generateMarkupRender).join('')
+        if (this._data instanceof Array) return this._data.map(this._generateMarkupRender).join('')
+        else return this._data.results.map(this._generateMarkupRender).join('')
     }
 
     _generateMarkupRender(result){

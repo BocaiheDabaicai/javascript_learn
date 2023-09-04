@@ -2,6 +2,7 @@ import * as model from './model.js'
 import recipeView from "./views/recipeView.js";
 import searchView from "./views/searchView";
 import resultsView from "./views/resultsView";
+import paginationView from "./views/paginationView.js"
 
 ///////////////////////////////////////
 
@@ -33,15 +34,28 @@ const controlSearchResults = async function(){
         await model.loadSearchResults(query)
 
         // 2) 渲染查询结果
-        resultsView.render(model.state.search)
+        // resultsView.render(model.state.search)
+        resultsView.render(model.getSearchResultsPage(1))
+
+        // 3) 渲染分页按钮
+        paginationView.render(model.state.search)
 
     }catch (error) {
         console.log(error)
     }
 }
 
+const controlPagination = function(goToPage){
+    // 1) 渲染查询结果
+    resultsView.render(model.getSearchResultsPage(goToPage))
+
+    // 2) 渲染分页按钮
+    paginationView.render(model.state.search)
+}
+
 const init = function(){
     recipeView.addHandlerRender(controlRecipes)
     searchView.addHandlerSearch(controlSearchResults)
+    paginationView.addHandlerClick(controlPagination)
 }
 init()
