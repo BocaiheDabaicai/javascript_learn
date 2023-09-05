@@ -1,12 +1,12 @@
 import {API_URL, RES_PER_PAGE} from "./config.js";
-import {getJSON} from "./helpers";
+import {getJSON, getNumber} from "./helpers";
 
 export const state = {
     recipe: {},
     search: {
         query: '',
         results: [],
-        page:1,
+        page: 1,
         resultsPerPage: RES_PER_PAGE
     }
 };
@@ -23,7 +23,7 @@ export const loadRecipe = async function (id) {
             image: recipe.image_url,
             ingredients: recipe.ingredients,
             publisher: recipe.publisher,
-            servings: Math.ceil(recipe.social_rank),
+            servings: 8,
             sourceUrl: recipe.source_url,
             title: recipe.title,
             cookingTime: Math.ceil(Math.random() * 85 + 15)
@@ -64,3 +64,27 @@ export const getSearchResultsPage = function (page = state.search.page) {
 
     return state.search.results.slice(start, end)
 }
+
+export const updateServings = function (newServings) {
+    state.recipe.ingredients = state.recipe.ingredients.map(item => {
+        let value = item.split(' ')[0]
+        if (value.includes('-')) {
+            let [first, second] = value.split('-')
+            item = item.replace(value, (first * newServings / state.recipe.servings).toFixed(2) + '-' + (getNumber(second) * newServings / state.recipe.servings).toFixed(2))
+            return item
+        }
+        if (value.includes('/') && !value.includes('-')) {
+            item = item.replace(value, (getNumber(value) * newServings / state.recipe.servings).toFixed(2))
+            return item
+
+        }
+        if (+value) {
+            item = item.replace(value, (value * newServings / state.recipe.servings).toFixed(2))
+            return item
+        }
+        return item
+    })
+
+    state.recipe.servings = newServings
+}
+

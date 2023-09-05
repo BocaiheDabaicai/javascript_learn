@@ -39,7 +39,6 @@ const controlSearchResults = async function(){
 
         // 3) 渲染分页按钮
         paginationView.render(model.state.search)
-
     }catch (error) {
         console.log(error)
     }
@@ -53,8 +52,16 @@ const controlPagination = function(goToPage){
     paginationView.render(model.state.search)
 }
 
+const controlServings = async function (newRecipes) {
+    // 1) 更新菜谱份数
+    await model.updateServings(newRecipes)
+    // 2) 更新食谱视图
+    await recipeView.render(model.state.recipe)
+}
+
 const init = function(){
     recipeView.addHandlerRender(controlRecipes)
+    recipeView.addHandlerUpdateServings(controlServings)
     searchView.addHandlerSearch(controlSearchResults)
     paginationView.addHandlerClick(controlPagination)
 }

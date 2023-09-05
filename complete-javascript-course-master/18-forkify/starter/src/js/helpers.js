@@ -21,3 +21,10 @@ export const getJSON = async function (url) {
         throw error
     }
 }
+
+export const getNumber = function(number){
+    if(+number) return number
+    let [num,denom] = number.split('/')
+
+    return num/denom
+}
