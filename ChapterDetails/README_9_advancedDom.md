@@ -372,3 +372,20 @@ dotContainer.addEventListener('click',function (e) {
     }
 })
 ```
+
+#### 9.8 细节补充
+
+##### 1. `textContent`,`innerText`以及`innerHtml`三者的区别
+
+| 属性           | 描述                             | 补充  |
+| ------------ | ------------------------------ | --- |
+| .textContent | 获取当前元素下实现标签效果的文本以及设置在元素下的CSS代码 |     |
+| .innerText   | 获取当前元素下所有的文本内容                 |     |
+| .innerHtml   | 主要用于给元素设置子元素                   |     |
+
+##### 2. `.createElement`,`.createTextNode`的使用
+
+| 属性              | 描述          | 补充  |
+| --------------- | ----------- | --- |
+| .createElement  | 创建一个DOM元素   |     |
+| .createTextNode | 创建一个纯文本的DOM |     |

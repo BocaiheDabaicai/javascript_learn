@@ -3,39 +3,66 @@
 <head>
     <meta charset="UTF-8">
 </head>
-<style>
-    ul {
-        list-style: none;
-    }
-</style>
 <body>
-<ul>
-    <li>全选<input type='checkbox' id='all'></li>
-    <li>Java<input type='checkbox' class='item'></li>
-    <li>javaScript<input type='checkbox' class='item'></li>
-    <li>C++<input type='checkbox' class='item'></li>
-    <li>python<input type='checkbox' class='item'></li>
-    <li>.net<input type='checkbox' class='item'></li>
-</ul>
 
 <script>
-    const _proxy = (object, ...prototypes) => {
-        // 补全代码
-        console.log(object)
-        console.log(prototypes)
-        return new Proxy(object, {
-            get(obj, prop) {
-                return prototypes.includes(prop) ? 'noright' : obj[prop]
+    var vnode = {
+        tag: 'ul',
+        props: {
+            class: 'list'
+        },
+        text: '',
+        children: [
+            {
+                tag: "li",
+                props: {
+                    class: "item"
+                },
+                text: '',
+                children: [
+                    {
+                        tag: undefined,
+                        props: {},
+                        text: '牛客网',
+                        children: []
+                    }
+                ]
+            },
+            {
+                tag: "li",
+                props: {},
+                text: '',
+                children: [
+                    {
+                        tag: undefined,
+                        props: {},
+                        text: 'nowcoder',
+                        children: []
+                    }
+                ]
             }
-        })
+        ]
+    }
+    const _createElm = vnode => {
+        // 补全代码
+        const {tag, props, text, children} = vnode
+        if(tag) {
+            let dom = document.createElement(tag)
+            props.class && dom.classList.add(props.class)
+            dom.innerText = text
+            children.length && children.forEach(item => dom.append(_createElm(item)))
+            console.log(dom)
+            return dom
+        }else{
+            return document.createTextNode(text)
+        }
     }
 
-    let object = {name: 'me', age: 1, from: 'china'}
+    var dom = _createElm(vnode)
+    var result = dom.className
+    console.log(result)
 
-    let result = _proxy(object, 'age', 'from')
-    console.log(result.name)
-    console.log(result.age)
-    console.log(result.from)
+    // document.querySelector('body').innerHTML = _createElm(vnode).innerHTML
 </script>
 </body>
 </html>
