@@ -7,14 +7,16 @@ class ResultsView extends View{
     _message = '';
 
     _generateMarkup(){
-        if (this._data instanceof Array) return this._data.map(this._generateMarkupRender).join('')
-        else return this._data.results.map(this._generateMarkupRender).join('')
+        if (this._data instanceof Array) return this._data.map(this._generateMarkupPreview).join('')
+        else return this._data.results.map(this._generateMarkupPreview).join('')
     }
 
-    _generateMarkupRender(result){
+    _generateMarkupPreview(result){
+        const id = window.location.hash.slice(1);
+
         return `
             <li class="preview">
-            <a class="preview__link preview__link--active" href="#${result.id}">
+            <a class="preview__link ${result.id === id ? 'preview__link--active' : ''}" href="#${result.id}">
               <figure class="preview__fig">
                 <img src="${result.image}" alt="${result.title}" />
               </figure>

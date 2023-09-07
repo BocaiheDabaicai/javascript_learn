@@ -14,6 +14,9 @@ const controlRecipes = async function () {
         if (!id) return;
         recipeView.renderSpinner()
 
+        // 0) 更新结果视图，标记选择菜品
+        resultsView.render(model.getSearchResultsPage())
+
         // 1）加载食谱
         await model.loadRecipe(id)
 
@@ -56,7 +59,8 @@ const controlServings = async function (newRecipes) {
     // 1) 更新菜谱份数
     await model.updateServings(newRecipes)
     // 2) 更新食谱视图
-    await recipeView.render(model.state.recipe)
+    // await recipeView.render(model.state.recipe)
+    await recipeView.update(model.state.recipe)
 }
 
 const init = function(){
