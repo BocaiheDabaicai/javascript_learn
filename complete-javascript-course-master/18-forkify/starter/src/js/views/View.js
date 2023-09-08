@@ -20,10 +20,11 @@ export default class View {
         const newElements = Array.from(newDOM.querySelectorAll('*'))
         const curElements = Array.from(this._parentElement.querySelectorAll('*'))
 
+
         newElements.forEach((newEl,i)=>{
             const curEl = curElements[i]
 
-            if(!newEl.isEqualNode(curEl) && newEl.firstChild.nodeValue.trim() !== ''){
+            if(!newEl.isEqualNode(curEl) && newEl.firstChild?.nodeValue.trim() !== ''){
                 console.log(curEl)
                 curEl.textContent = newEl.textContent
             }

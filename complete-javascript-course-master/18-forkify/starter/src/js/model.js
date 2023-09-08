@@ -8,14 +8,13 @@ export const state = {
         results: [],
         page: 1,
         resultsPerPage: RES_PER_PAGE
-    }
+    },
+    bookmarks: []
 };
 
 export const loadRecipe = async function (id) {
     try {
         const data = await getJSON(`${API_URL}get?rId=${id}`)
-
-        console.log(data)
 
         let {recipe} = data
         state.recipe = {
@@ -28,6 +27,8 @@ export const loadRecipe = async function (id) {
             title: recipe.title,
             cookingTime: Math.ceil(Math.random() * 85 + 15)
         }
+
+        state.recipe.bookmarked = state.bookmarks.some(bookmark => bookmark.id === id);
 
         console.log(state.recipe)
     } catch (error) {
@@ -88,3 +89,15 @@ export const updateServings = function (newServings) {
     state.recipe.servings = newServings
 }
 
+export const addBookmark = function (recipe) {
+    state.bookmarks.push(recipe)
+
+    if (recipe.id === state.recipe.id) state.recipe.bookmarked = true
+}
+
+export const deleteBookmark = function (id) {
+    const index = state.bookmarks.findIndex(element => element.id === id)
+    state.bookmarks.splice(index, 1)
+
+    if (id === state.recipe.id) state.recipe.bookmarked = false
+}
