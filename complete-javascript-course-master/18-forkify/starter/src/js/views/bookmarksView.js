@@ -6,6 +6,10 @@ class BookmarksView extends View{
     _errorMessage = `No bookmarks yet. Find a nice recipe and bookmark it :)`
     _message = '';
 
+    addHandlerRender(handler){
+        window.addEventListener('load',handler)
+    }
+
     _generateMarkup(){
         if (this._data instanceof Array) return this._data.map(this._generateMarkupPreview).join('')
         else return this._data.results.map(this._generateMarkupPreview).join('')

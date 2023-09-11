@@ -1,68 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
+    <style>
+        /* 填写样式 */
+    </style>
 </head>
+
 <body>
-
-<script>
-    var vnode = {
-        tag: 'ul',
-        props: {
-            class: 'list'
-        },
-        text: '',
-        children: [
-            {
-                tag: "li",
-                props: {
-                    class: "item"
-                },
-                text: '',
-                children: [
-                    {
-                        tag: undefined,
-                        props: {},
-                        text: '牛客网',
-                        children: []
-                    }
-                ]
-            },
-            {
-                tag: "li",
-                props: {},
-                text: '',
-                children: [
-                    {
-                        tag: undefined,
-                        props: {},
-                        text: 'nowcoder',
-                        children: []
-                    }
-                ]
-            }
-        ]
-    }
-    const _createElm = vnode => {
-        // 补全代码
-        const {tag, props, text, children} = vnode
-        if(tag) {
-            let dom = document.createElement(tag)
-            props.class && dom.classList.add(props.class)
-            dom.innerText = text
-            children.length && children.forEach(item => dom.append(_createElm(item)))
-            console.log(dom)
-            return dom
-        }else{
-            return document.createTextNode(text)
-        }
+<!-- 填写标签 -->
+<script type="text/javascript">
+    // 填写JavaScript
+    function namespace(oNamespace, sPackage) {
+        let result = {}
+        sPackage.split('.').forEach(item => {
+            console.log(item,oNamespace[item])
+        })
     }
 
-    var dom = _createElm(vnode)
-    var result = dom.className
-    console.log(result)
+    // {a: {test: 1, b: {c: {d: {}}}}}
+    namespace({a:{test:1,b:2}},'a.b.c.d')
 
-    // document.querySelector('body').innerHTML = _createElm(vnode).innerHTML
 </script>
 </body>
+
 </html>
