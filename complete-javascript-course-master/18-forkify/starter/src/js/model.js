@@ -1,5 +1,5 @@
-import {API_URL, RES_PER_PAGE} from "./config.js";
-import {getJSON, getNumber} from "./helpers";
+import {API_URL, KEY, RES_PER_PAGE} from "./config.js";
+import {getJSON, getNumber, sendJSON} from "./helpers";
 import bookmarksView from "./views/bookmarksView";
 
 export const state = {
@@ -119,4 +119,35 @@ init()
 
 const clearBookmarks = function(){
     localStorage.clear('bookmarks')
+}
+
+export const uploadRecipe = async function(newRecipe){
+    try {
+        console.log(newRecipe)
+        const ingredients = Object
+            .entries(newRecipe)
+            .filter(item => item[0].startsWith('ingredient') && item[1] !== '')
+            .map(item => {
+                // if (!item[1].split(',').some(item => item === '')) throw new Error('Wrong ingredient fromat! Please use the correct format :)')
+                const [quantity, unit, description] = item[[1]].split(',')
+
+                return {quantity:quantity ? +quantity : null, unit, description}
+            })
+
+        console.log(ingredients)
+        const recipe = {
+            image_url: newRecipe.image,
+            ingredients: ingredients,
+            publisher: newRecipe.publisher,
+            servings: newRecipe.servings,
+            source_url: newRecipe.sourceUrl,
+            title: newRecipe.title,
+            cooking_time: newRecipe.cookingTime
+        }
+
+        let result = await sendJSON(`${API_URL}v2/recipes?key=${KEY}`,recipe)
+        console.log(result)
+    }catch (error) {
+        throw error
+    }
 }

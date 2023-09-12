@@ -12,15 +12,20 @@
 <!-- 填写标签 -->
 <script type="text/javascript">
     // 填写JavaScript
-    function namespace(oNamespace, sPackage) {
-        let result = {}
-        sPackage.split('.').forEach(item => {
-            console.log(item,oNamespace[item])
-        })
+    function curryIt(fn,...args) {
+        console.log(fn)
+        console.log(args)
+        return function(){
+
+        }
     }
 
-    // {a: {test: 1, b: {c: {d: {}}}}}
-    namespace({a:{test:1,b:2}},'a.b.c.d')
+    const fn = function (a, b, c) {
+        return a + b + c
+    };
+
+    curryIt(fn)(1)(2)(3);
+
 
 </script>
 </body>
