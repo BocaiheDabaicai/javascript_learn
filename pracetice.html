@@ -12,19 +12,19 @@
 <!-- 填写标签 -->
 <script type="text/javascript">
     // 填写JavaScript
-    function curryIt(fn,...args) {
-        console.log(fn)
-        console.log(args)
-        return function(){
+/*
+    const base10 = (str) => str
+        .split('')
+        .reverse()
+        .reduce((acc, cur, index) => acc += cur * 2 ** index, 0)
+*/
 
-        }
+
+    function base10(str) {
+        return  parseInt(str,2)
     }
 
-    const fn = function (a, b, c) {
-        return a + b + c
-    };
-
-    curryIt(fn)(1)(2)(3);
+    console.log(base10('11000000'))
 
 
 </script>
