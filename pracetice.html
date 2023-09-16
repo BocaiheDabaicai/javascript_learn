@@ -12,21 +12,16 @@
 <!-- 填写标签 -->
 <script type="text/javascript">
     // 填写JavaScript
-/*
-    const base10 = (str) => str
-        .split('')
-        .reverse()
-        .reduce((acc, cur, index) => acc += cur * 2 ** index, 0)
-*/
-
-
-    function base10(str) {
-        return  parseInt(str,2)
+    function isUSD(str) {
+        console.log([...'nay, an no asd n'.matchAll(/.n/g)])
+        if (str[0] !== '$') return false
+        if (str.slice(str.indexOf('.') + 1).length !== 2) return false
+        let data = +(str.slice(1).replaceAll(',', ''))
+        return '$' + data.toLocaleString() === str
     }
 
-    console.log(base10('11000000'))
-
-
+    console.log(isUSD('$34,344.3'))
+    console.log(isUSD('$132.03'))
 </script>
 </body>
 
