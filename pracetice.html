@@ -5,28 +5,34 @@
     <meta charset="UTF-8">
     <style>
         /* 填写样式 */
+        a {
+            color: #00bc9b;
+        }
     </style>
 </head>
 
 <body>
 <!-- 填写标签 -->
+<div id="jsContainer">
+    这里会给出一段随机文本，可能包含一些链接，比如https://www.baidu.com，或者
+    www.baidu.com?from=onlineExam，如果出现链接文本，请给该链接文本加上链接标签，用户点击后能直接在新窗口中打开该链接。
+</div>
 <script type="text/javascript">
     // 填写JavaScript
-/*
-    const base10 = (str) => str
-        .split('')
-        .reverse()
-        .reduce((acc, cur, index) => acc += cur * 2 ** index, 0)
-*/
+    function link() {
+        let div = document.querySelector('#jsContainer')
+        let inspectArray = ['http', 'https', 'www']
 
-
-    function base10(str) {
-        return  parseInt(str,2)
+        let result = div.innerHTML
+        result = encodeURI(result).replaceAll(/[0-9]|[A-Z]/g, '').replaceAll('%', '')
+        console.log(result)
+        console.log(result.split('.com'))
+        result.split('.com').map(item => {
+            if (item[0] !== '?') return item + '.com'
+        })
     }
 
-    console.log(base10('11000000'))
-
-
+    link()
 </script>
 </body>
 
