@@ -4,24 +4,284 @@
 <head>
     <meta charset="UTF-8">
     <style>
-        /* 填写样式 */
+        .main .balls {
+            width: 450px;
+            padding: 30px 10px 10px;
+            margin-bottom: 20px;
+            position: relative;
+            border-radius: 4px;
+        }
+
+        .main .balls:after {
+            content: '\20';
+            clear: both;
+            display: block;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .main .balls span {
+            position: absolute;
+            left: 12px;
+            top: 5px;
+            font-size: 13px;
+        }
+
+        .main b {
+            float: left;
+            width: 30px;
+            height: 30px;
+            font-size: 15px;
+            background: #FFF;
+            border: 1px solid;
+            border-radius: 50%;
+            line-height: 30px;
+            text-align: center;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .main .red .active {
+            background: #f56c6c;
+            color: #FFF;
+        }
+
+        .main .blue .active {
+            background: #3a8ee6;
+            color: #FFF;
+        }
+
+        .main .red {
+            background: #feeff0;
+        }
+
+        .main .red b {
+            border-color: #f56c6c;
+        }
+
+        .main .blue {
+            background: #ecf8ff;
+        }
+
+        .main .blue b {
+            border-color: #3a8ee6;
+        }
     </style>
 </head>
 
 <body>
 <!-- 填写标签 -->
+<div class="main">
+    <div class="balls red">
+        <span>红球</span>
+        <div class="balls-wp">
+            <b>01</b>
+            <b>02</b>
+            <b>03</b>
+            <b>04</b>
+            <b>05</b>
+            <b>06</b>
+            <b>07</b>
+            <b>08</b>
+            <b>09</b>
+            <b>10</b>
+            <b>11</b>
+            <b>12</b>
+            <b>13</b>
+            <b>14</b>
+            <b>15</b>
+            <b>16</b>
+            <b>17</b>
+            <b>18</b>
+            <b>19</b>
+            <b>20</b>
+            <b>21</b>
+            <b>22</b>
+            <b>23</b>
+            <b>24</b>
+            <b>25</b>
+            <b>26</b>
+            <b>27</b>
+            <b>28</b>
+            <b>29</b>
+            <b>30</b>
+            <b>31</b>
+            <b>32</b>
+            <b>33</b>
+        </div>
+    </div>
+    <div class="balls blue">
+        <span>蓝球</span>
+        <div class="balls-wp">
+            <b>01</b>
+            <b>02</b>
+            <b>03</b>
+            <b>04</b>
+            <b>05</b>
+            <b>06</b>
+            <b>07</b>
+            <b>08</b>
+            <b>09</b>
+            <b>10</b>
+            <b>11</b>
+            <b>12</b>
+            <b>13</b>
+            <b>14</b>
+            <b>15</b>
+            <b>16</b>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     // 填写JavaScript
-    function isUSD(str) {
-        console.log([...'nay, an no asd n'.matchAll(/.n/g)])
-        if (str[0] !== '$') return false
-        if (str.slice(str.indexOf('.') + 1).length !== 2) return false
-        let data = +(str.slice(1).replaceAll(',', ''))
-        return '$' + data.toLocaleString() === str
+    randomFn();
+    // randomFn();
+    // randomFn();
+    // randomFn();
+    // randomFn();
+    // randomFn();
+    // randomFn();
+
+    /*function randomFn() {
+        let redArray = createRedNumber()
+        let blue = Math.floor(Math.random() * 16 + 1)
+
+        let redList = []
+        let blueList = []
+
+        let domRedP = document.querySelector('.red > .balls-wp')
+        let domBlueP = document.querySelector('.blue > .balls-wp')
+
+        let domRed = document.querySelectorAll('.red > .balls-wp > b')
+        let domBlue = document.querySelectorAll('.blue > .balls-wp > b')
+
+        domRed.forEach(element => {
+            element.classList.remove('active')
+            redList.push({number: +element.innerText, dom: element})
+        })
+        domBlue.forEach(element => {
+            element.classList.remove('active')
+            blueList.push({number: +element.innerText, dom: element})
+        })
+
+        let redResult = []
+        let blueResult = []
+        redList = redList.filter(element => {
+            if (redArray.includes(element.number)) redResult.push(element)
+            return !redArray.includes(element.number)
+        })
+
+        blueList = blueList.filter(element => {
+            if (blue === element.number) blueResult.push(element)
+            return blue !== element.number
+        })
+
+        redResult = redResult.sort((min,max)=>min.number - max.number)
+
+        redResult = redResult.concat(redList)
+        blueResult = blueResult.concat(blueList)
+
+
+        domRedP.innerHTML = ''
+        domBlueP.innerHTML = ''
+        redResult.forEach((element, index) => {
+            if (index < 6) element.dom.classList.add('active')
+            domRedP.appendChild(element.dom)
+        })
+        blueResult.forEach((element, index) => {
+            if (index < 1) element.dom.classList.add('active')
+            domBlueP.appendChild(element.dom)
+        })
+
+        let output = redArray.sort((min, max) => min - max).map(item => item.toString().length === 1 ? '0'+item.toString():item.toString()).join(',') + '|' + (blue.toString().length === 1 ?'0'+blue.toString():blue.toString())
+        console.log(output)
+        return output
+
+    }*/
+
+    function randomFn() {
+        let redArray = createResult(document.querySelector('.red > .balls-wp'), 6)
+
+        return redArray + '|' + createResult(document.querySelector('.blue > .balls-wp'), 1)
     }
 
-    console.log(isUSD('$34,344.3'))
-    console.log(isUSD('$132.03'))
+    function createResult(dom, count) {
+        let ballArray = Array.from(dom.children)
+
+        let randomArray = []
+        while (randomArray.length < count) {
+            let data = Math.floor(Math.random() * ballArray.length)
+            randomArray = randomArray.concat(ballArray.splice(data, 1))
+        }
+        randomArray.sort((a, b) => a.innerText - b.innerText)
+
+        randomArray.forEach(item => {
+            item.classList.add('active')
+            dom.insertBefore(item, ballArray[0])
+        })
+        ballArray.forEach(item => {
+            item.classList.remove('active')
+        })
+
+        return randomArray.map(item=>item.innerText).join(',')
+    }
+
+    function add() {
+        var flag = false;
+        try {
+            var testArrSort = function (arr) {
+                var flag = false;
+                try {
+                    flag = arr.join(',') === arr.sort(function (a, b) {
+                        return a - b
+                    }).join(',');
+                } catch (e) {
+                }
+                return flag;
+            };
+            var testArrRange = function (arr, min, max) {
+                var flag = false;
+                try {
+                    var error = false;
+                    for (var i = 0; i < arr.length; i++) {
+                        var item = arr[i];
+                        error = error || !(item >= min && item <= max && (item >= 10 || /^0[1-9]$/.test(item)));
+                    }
+                    flag = !error;
+                } catch (e) {
+                }
+                return flag;
+            };
+            var testCaseOne = function () {
+                var error = true;
+                var result = randomFn();
+                if (typeof result === 'string') {
+                    var red = (result.split('|')[0] || '').split(',');
+                    var blue = (result.split('|')[1] || '').split(',');
+                    error = !(red.length === 6 && testArrSort(red) && testArrRange(red, 1, 33) && blue.length === 1 && testArrSort(blue) && testArrRange(blue, 1, 16));
+                }
+
+                return error;
+            };
+            var testCase = function (n) {
+                var error = false;
+                for (var i = 0; i < n; i++) {
+                    if (testCaseOne()) {
+                        error = true;
+                        break;
+                    }
+                }
+                return error;
+            };
+
+            flag = !testCase(1000);
+        } catch (e) {
+        }
+        return flag;
+    }
+
+    console.log(add())
 </script>
 </body>
 
